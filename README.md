@@ -1,1 +1,1 @@
-# programacion_avanzada
+# Proyecto para trabajos de programación avanzada
