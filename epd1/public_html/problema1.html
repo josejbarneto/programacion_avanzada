@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>HTML Comments</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/w3css/4/w3.css">
+        <link href='https://www.w3schools.com/https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'>
+        <style>
+            #main{
+                width: 85%;
+                float: left;
+                position: absolute;
+                margin-left: 300px;
+            }
+
+            #menu{
+                width: 15%;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                height: 100%;
+                float: left;
+                max-height: 100vh;
+                position: fixed;
+            }
+
+            #menu a{
+                font-family: "Segoe UI",Arial,sans-serif;
+                text-decoration: none;
+                display: block;
+                padding: 2px 1px 1px 16px;
+            }
+
+            #cabecera{
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cabecera">
+            <a href='https://www.w3schools.com///www.w3schools.com'>w3schools<span>.com</span></a>
+            <div>THE WORLD'S LARGEST WEB DEVELOPER SITE</div>
+        </div>
+        <div id='topnav'>
+            <div>
+                <div>
+                    <a href='https://www.w3schools.com/javascript:void(0);' title='Menu'></a>
+                    <a href='https://www.w3schools.com//default.asp' title='Home'></a>
+                    <a href='https://www.w3schools.com//html/default.asp' title='HTML Tutorial'>HTML</a>
+                    <a href='https://www.w3schools.com//css/default.asp' title='CSS Tutorial'>CSS</a>
+                    <a href='https://www.w3schools.com//js/default.asp' title='JavaScript Tutorial'>JAVASCRIPT</a>
+                    <a href='https://www.w3schools.com//sql/default.asp' title='SQL Tutorial'>SQL</a>
+                    <a href='https://www.w3schools.com//python/default.asp' title='Python Tutorial'>PYTHON</a>
+                    <a href='https://www.w3schools.com//php/default.asp' title='PHP Tutorial'>PHP</a>
+                    <a href='https://www.w3schools.com//bootstrap/bootstrap_ver.asp' title='Bootstrap Tutorial'>BOOTSTRAP</a>
+                    <a href='https://www.w3schools.com//howto/default.asp' title='How To'>HOW TO</a>
+                    <a href='https://www.w3schools.com//w3css/default.asp' title='W3.CSS Tutorial'>W3.CSS</a>
+                    <a href='https://www.w3schools.com//jquery/default.asp' title='jQuery Tutorial'>JQUERY</a>
+                    <a href='https://www.w3schools.com//xml/default.asp' title='XML Tutorial'>XML</a>
+                    <a href='https://www.w3schools.com/' title='Tutorials'>MORE <i class='fa fa-caret-down'></i><i class='fa fa-caret-up' style='display:none'></i></a>
+                    <a href='https://www.w3schools.com/' title='Search W3Schools'>&#xe802;</a>
+                    <a href='https://www.w3schools.com/' title='Translate W3Schools'>&#xe801;</a>
+                    <a target="_blank" href='https://www.w3schools.com//forum/default.asp'>FORUM</a>
+                    <a id='topnavbtn_exercises' href='https://www.w3schools.com/javascript:void(0);' onclick='w3_open_nav("exercises")' title='Exercises'>EXERCISES <i class='fa fa-caret-down'></i><i class='fa fa-caret-up' style='display:none'></i></a>
+                    <a id='topnavbtn_references' href='https://www.w3schools.com/javascript:void(0);' onclick='w3_open_nav("references")' title='References'>REFERENCES <i class='fa fa-caret-down'></i><i class='fa fa-caret-up' style='display:none'></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id='menu'>
+            <h2><span>HTML5</span> Tutorial</h2>
+            <a href="default.asp">HTML HOME</a>
+            <a href="html_intro.asp">HTML Introduction</a>
+            <a href="html_editors.asp">HTML Editors</a>
+            <a href="html_basic.asp">HTML Basic</a>
+            <a href="html_elements.asp">HTML Elements</a>
+            <a href="html_attributes.asp">HTML Attributes</a>
+            <a href="html_headings.asp">HTML Headings</a>
+            <a href="html_paragraphs.asp">HTML Paragraphs</a>
+            <a href="html_styles.asp">HTML Styles</a>
+            <a href="html_formatting.asp">HTML Formatting</a>
+            <a href="html_quotation_elements.asp">HTML Quotations</a>
+            <a href="html_comments.asp">HTML Comments</a>
+            <a href="html_colors.asp">HTML Colors</a>
+            <a href="html_css.asp">HTML CSS</a>
+            <a href="html_links.asp">HTML Links</a>
+            <a href="html_images.asp">HTML Images</a>
+            <div>
+                <a href="html_images.asp">Images</a>
+                <a href="html_images_imagemap.asp">Image Map</a>
+                <a href="html_images_background.asp">Background Images</a>
+                <a href="html_images_picture.asp">The Picture Element</a>
+            </div>
+            <a href="html_tables.asp">HTML Tables</a>
+            <a href="html_lists.asp">HTML Lists</a>
+            <a href="html_blocks.asp">HTML Blocks</a>
+            <a href="html_classes.asp">HTML Classes</a>
+            <a href="html_id.asp">HTML Id</a>
+            <a href="html_iframe.asp">HTML Iframes</a>
+            <a href="html_scripts.asp">HTML JavaScript</a>
+            <a href="html_filepaths.asp">HTML File Paths</a>
+            <a href="html_head.asp">HTML Head</a>
+            <a href="html_layout.asp">HTML Layout</a>
+            <a href="html_responsive.asp">HTML Responsive</a>
+            <a href="html_computercode_elements.asp">HTML Computercode</a>
+            <a href="html_entities.asp">HTML Entities</a>
+            <a href="html_symbols.asp">HTML Symbols</a>
+            <a href="html_charset.asp">HTML Charset</a>
+            <a href="html_urlencode.asp">HTML URL Encode</a>
+            <a href="html_xhtml.asp">HTML XHTML</a>
+            <br>
+            <h2><span>HTML</span> Forms</h2>
+            <a href="html_forms.asp">HTML Forms</a>
+            <a href="html_form_elements.asp">HTML Form Elements</a>
+            <a href="html_form_input_types.asp">HTML Input Types</a>
+            <a href="html_form_attributes.asp">HTML Input Attributes</a>
+            <br>
+            <h2><span>HTML5</span></h2>
+            <a href="html5_intro.asp">HTML5 Intro</a>
+            <a href="html5_browsers.asp">HTML5 Support</a>
+            <a href="html5_new_elements.asp">HTML5 New Elements</a>
+            <a href="html5_semantic_elements.asp">HTML5 Semantics</a>
+            <a href="html5_migration.asp">HTML5 Migration</a>
+            <a href="html5_syntax.asp">HTML5 Style Guide</a>
+            <br>
+            <h2><span>HTML</span> Graphics</h2>
+            <a href="html5_canvas.asp">HTML Canvas</a>
+            <a href="html5_svg.asp">HTML SVG</a>
+            <br>
+            <h2><span>HTML</span> Media</h2>
+            <a href="html_media.asp">HTML Media</a>
+            <a href="html5_video.asp">HTML Video</a>
+            <a href="html5_audio.asp">HTML Audio</a>
+            <a href="html_object.asp">HTML Plug-ins</a>
+            <a href="html_youtube.asp">HTML YouTube</a>
+            <br>
+            <h2><span>HTML</span> APIs</h2>
+            <a href="html5_geolocation.asp">HTML Geolocation</a>
+            <a href="html5_draganddrop.asp">HTML Drag/Drop</a>
+            <a href="html5_webstorage.asp">HTML Web Storage</a>
+            <a href="html5_webworkers.asp">HTML Web Workers</a>
+            <a href="html5_serversentevents.asp">HTML SSE</a>
+            <br>
+            <h2><span>HTML</span> Examples</h2>
+            <a href="html_examples.asp">HTML Examples</a>
+            <a href="html_quiz.asp">HTML Quiz</a>
+            <a href="html_exercises.asp">HTML Exercises</a>
+            <a href="html_exam.asp">HTML Certificate</a>
+            <a href="html_summary.asp">HTML Summary</a>
+            <a href="html_accessibility.asp">HTML Accessibility</a>
+            <br>
+            <h2><span>HTML</span> References</h2>
+            <a href="/tags/default.asp">HTML Tag List</a>
+            <a href="/tags/ref_attributes.asp">HTML Attributes</a>
+            <a href="/tags/ref_standardattributes.asp">HTML Global Attributes</a>
+            <a href="/tags/ref_eventattributes.asp">HTML Events</a>
+            <a href="/tags/ref_colornames.asp">HTML Colors</a>
+            <a href="/tags/ref_canvas.asp">HTML Canvas</a>
+            <a href="/tags/ref_av_dom.asp">HTML Audio/Video</a>
+            <a href="/tags/ref_html_dtd.asp">HTML Doctypes</a>
+            <a href="/tags/ref_charactersets.asp">HTML Character Sets</a>
+            <a href="/tags/ref_urlencode.asp">HTML URL Encode</a>
+            <a href="/tags/ref_language_codes.asp">HTML Lang Codes</a>
+            <a href="/tags/ref_httpmessages.asp">HTTP Messages</a>
+            <a href="/tags/ref_httpmethods.asp">HTTP Methods</a>
+            <a href="/tags/ref_pxtoemconversion.asp">PX to EM Converter</a>
+            <a href="/tags/ref_keyboardshortcuts.asp">Keyboard Shortcuts</a>
+            <br>
+            <br>
+        </div>
+        <div id="main">
+            <div>
+                <div>
+                    <div>
+                    </div>
+                    <h1>HTML <span>Comments</span></h1>
+                    <div>
+                        <a href="html_quotation_elements.asp">&#10094; Previous</a>
+                        <a href="html_colors.asp">Next &#10095;</a>
+                    </div>
+                    <hr>
+                    <p>Comment tags are used to insert comments in the HTML source code.</p>
+                    <hr>
+
+                    <h2>HTML Comment Tags</h2>
+                    <p>You can add comments to your HTML source by using the following syntax:</p>
+                    <div>
+                        <div>
+                            &lt;!-- Write your comments here --&gt;
+                        </div></div>
+                    <p>Notice that there is an exclamation point (!) in the opening tag, but not in the closing tag.</p>
+                    <div>
+                        <p><strong>Note:</strong> Comments are not displayed by the browser, but they can help document your HTML source code.</p>
+                    </div>
+
+                    <p>With comments you can place notifications and reminders in your HTML:</p>
+                    <div>
+                        <h3>Example</h3>
+                        <div>
+                            &lt;!-- This is a comment --&gt;<br><br>&lt;p&gt;This is a paragraph.&lt;/p&gt;<br>
+                            <br>&lt;!-- Remember to add more information here --&gt;</div>
+                        <a target="_blank" href="" class="">Try it Yourself &raquo;</a>
+                    </div>
+                    <p>Comments are also great for debugging HTML, because you can 
+                        comment out HTML lines of code, one at a time, to search for errors:</p>
+                    <div>
+                        <h3>Example</h3>
+                        <div>
+                            &lt;!-- Do not display this image at the moment<br>
+                            &lt;img border=&quot;0&quot; src=&quot;pic_trulli.jpg&quot; 
+                            alt=&quot;Trulli&quot;&gt;<br>
+                            --&gt;
+                        </div>
+                        <a href="tryit.asp?filename=tryhtml_comment_out" target="_blank">Try it Yourself &raquo;</a>
+                    </div>
+                    <hr>
+                    <h2>HTML Exercises</h2>
+                    <div class="form">
+                        <h2>Test Yourself With Exercises</h2>
+                        <div class="exercisewindow">
+                            <h2>Exercise:</h2>
+                            <p>Use the HTML comment tag to make a comment out of the "This is a comment" text.</p>
+                            <div class="">
+                                &lt;h1&gt;This is a heading&lt;/h1&gt;
+                                <br>
+                                <input> This is a comment <input>
+                                <br>
+                                &lt;p&gt;This is a paragraph.&lt;/p&gt;
+                            </div>
+                            <br>
+                            <button>Submit Answer &raquo;</button>
+                            <p><a target="_blank" href="exercise.asp?filename=exercise_html_comments1">Start the Exercise</a></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <br>
+                    <div>
+                        <a href="html_quotation_elements.asp">&#10094; Previous</a>
+                        <a href="html_colors.asp">Next &#10095;</a>
+                    </div>
+                </div>
+                <div id="rightSidebar">
+                    <div>
+                        <h4><a href="/colors/colors_picker.asp">COLOR PICKER</a></h4>
+                        <a href="/colors/colors_picker.asp">
+                            <img src="/images/colorpicker.gif" alt="colorpicker"></a>
+                    </div>
+                    <div>
+                        <div>
+                            <h4><a href="/howto/default.asp">HOW TO</a></h4>
+                        </div>
+                        <div>
+                            <a href="/howto/howto_js_tabs.asp">Tabs</a><br>
+                            <a href="/howto/howto_css_dropdown.asp">Dropdowns</a><br>
+                            <a href="/howto/howto_js_accordion.asp">Accordions</a><br>
+                            <a href="/howto/howto_js_sidenav.asp">Side Navigation</a><br>
+                            <a href="/howto/howto_js_topnav.asp">Top Navigation</a><br>
+                            <a href="/howto/howto_css_modals.asp">Modal Boxes</a><br>
+                            <a href="/howto/howto_js_progressbar.asp">Progress Bars</a><br>
+                            <a href="/howto/howto_css_parallax.asp">Parallax</a><br>
+                            <a href="/howto/howto_css_login_form.asp">Login Form</a><br>
+                            <a href="/howto/howto_html_include.asp">HTML Includes</a><br>
+                            <a href="/howto/howto_google_maps.asp">Google Maps</a><br>
+                            <a href="/howto/howto_js_rangeslider.asp">Range Sliders</a><br>
+                            <a href="/howto/howto_css_tooltip.asp">Tooltips</a><br>
+                            <a href="/howto/howto_js_slideshow.asp">Slideshow</a><br>
+                            <a href="/howto/howto_js_filter_lists.asp">Filter List</a><br>
+                            <a href="/howto/howto_js_sort_list.asp">Sort List</a><br>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>SHARE</h4>
+                        <div>
+                            <br><br>
+                            <span></span>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4><a target="_blank" href="//www.w3schools.com/cert/default.asp">CERTIFICATES</a></h4>
+                        <p>
+                            <a href="/cert/cert_html.asp">HTML</a><br>
+                            <a href="/cert/cert_css.asp">CSS</a><br>
+                            <a href="/cert/cert_javascript.asp">JavaScript</a><br>
+                            <a href="/cert/cert_sql.asp">SQL</a><br>
+                            <a href="/cert/cert_python.asp">Python</a><br>
+                            <a href="/cert/cert_php.asp">PHP</a><br>
+                            <a href="/cert/cert_jquery.asp">jQuery</a><br>
+                            <a href="/cert/cert_bootstrap.asp">Bootstrap</a><br>
+                            <a href="/cert/cert_xml.asp">XML</a></p>
+                        <a href="//www.w3schools.com/cert/default.asp" class="w3-button w3-dark-grey" style="text-decoration:none">
+                            Read More &raquo;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="footer">
+                <hr>
+                <hr>
+                <div style="margin:0 -16px">
+                    <div>
+                        <a>REPORT ERROR</a>
+                    </div>
+                    <div>
+                        <a target="_blank">PRINT PAGE</a>
+                    </div>
+                    <div>
+                        <a href="/forum/default.asp" target="_blank">FORUM</a>
+                    </div>
+                    <div>
+                        <a href="/about/default.asp">ABOUT</a>
+                    </div>
+                </div>
+                <hr>
+
+                <div>
+                    <div>
+                        <div>
+                            <h4>Top Tutorials</h4>
+                            <a href="/html/default.asp">HTML Tutorial</a><br>
+                            <a href="/css/default.asp">CSS Tutorial</a><br>
+                            <a href="/js/default.asp">JavaScript Tutorial</a><br>
+                            <a href="/howto/default.asp">How To Tutorial</a><br>
+                            <a href="/sql/default.asp">SQL Tutorial</a><br>
+                            <a href="/python/default.asp">Python Tutorial</a><br>
+                            <a href="/w3css/default.asp">W3.CSS Tutorial</a><br>
+                            <a href="/bootstrap/bootstrap_ver.asp">Bootstrap Tutorial</a><br>
+                            <a href="/php/default.asp">PHP Tutorial</a><br>
+                            <a href="/jquery/default.asp">jQuery Tutorial</a><br>
+                            <a href="/java/default.asp">Java Tutorial</a><br>
+                            <a href="/cpp/default.asp">C++ Tutorial</a><br>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4>Top References</h4>
+                            <a href="/tags/default.asp">HTML Reference</a><br>
+                            <a href="/cssref/default.asp">CSS Reference</a><br>
+                            <a href="/jsref/default.asp">JavaScript Reference</a><br>
+                            <a href="/sql/sql_ref_keywords.asp">SQL Reference</a><br>
+                            <a href="/python/python_reference.asp">Python Reference</a><br>
+                            <a href="/w3css/w3css_references.asp">W3.CSS Reference</a><br>
+                            <a href="/bootstrap/bootstrap_ref_all_classes.asp">Bootstrap Reference</a><br>
+                            <a href="/php/php_ref_overview.asp">PHP Reference</a><br>
+                            <a href="/colors/colors_names.asp">HTML Colors</a><br>
+                            <a href="/jquery/jquery_ref_overview.asp">jQuery Reference</a><br>
+                            <a href="/java/java_ref_keywords.asp">Java Reference</a><br>
+                            <a href="/angular/angular_ref_directives.asp">Angular Reference</a><br>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4>Top Examples</h4>
+                            <a href="/html/html_examples.asp">HTML Examples</a><br>
+                            <a href="/css/css_examples.asp">CSS Examples</a><br>
+                            <a href="/js/js_examples.asp">JavaScript Examples</a><br>
+                            <a href="/howto/default.asp">How To Examples</a><br>
+                            <a href="/sql/sql_examples.asp">SQL Examples</a><br>
+                            <a href="/python/python_examples.asp">Python Examples</a><br>
+                            <a href="/w3css/w3css_examples.asp">W3.CSS Examples</a><br>
+                            <a href="/bootstrap/bootstrap_examples.asp">Bootstrap Examples</a><br>
+                            <a href="/php/php_examples.asp">PHP Examples</a><br>
+                            <a href="/jquery/jquery_examples.asp">jQuery Examples</a><br>
+                            <a href="/java/java_examples.asp">Java Examples</a><br>
+                            <a href="/xml/xml_examples.asp">XML Examples</a><br>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h4>Web Certificates</h4>
+                            <a href="/cert/default.asp">HTML Certificate</a><br>
+                            <a href="/cert/default.asp">CSS Certificate</a><br>
+                            <a href="/cert/default.asp">JavaScript Certificate</a><br>
+                            <a href="/cert/default.asp">SQL Certificate</a><br>
+                            <a href="/cert/default.asp">Python Certificate</a><br>
+                            <a href="/cert/default.asp">jQuery Certificate</a><br>
+                            <a href="/cert/default.asp">PHP Certificate</a><br>
+                            <a href="/cert/default.asp">Bootstrap Certificate</a><br>
+                            <a href="/cert/default.asp">XML Certificate</a><br>
+                            <a href="//www.w3schools.com/cert/default.asp">
+                                Get Certified &raquo;
+                            </a>
+                        </div>
+                    </div>        
+                </div>        
+                <hr>
+                <div>
+                    W3Schools is optimized for learning, testing, and training. Examples might be simplified to improve reading and basic understanding.
+                    Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content.
+                    While using this site, you agree to have read and accepted our <a href="/about/about_copyright.asp">terms of use</a>,
+                    <a href="/about/about_privacy.asp">cookie and privacy policy</a>.
+                    <a href="/about/about_copyright.asp">Copyright 1999-2019</a> by Refsnes Data. All Rights Reserved.<br>
+                    <a href="//www.w3schools.com/w3css/">Powered by W3.CSS</a>.<br><br>
+                    <a href="//www.w3schools.com"><img style="width:150px;height:28px;border:0" src="/images/w3schoolscom_gray.gif" alt="W3Schools.com"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
