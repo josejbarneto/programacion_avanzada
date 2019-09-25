@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav>
+            <div class="menu">
+                <a href="../p3.html">MENÚ</a>
+
+                <img src="../imgs/logo.png" alt="logo" align="middle">
+
+                <a href="">GALERÍA</a>
+            </div>
+        </nav>
+            
+            
+            <h1>Campeonato EPD1</h1>            
+            
+            <details>
+                
+                <summary><strong>Campeonato organizado</strong></summary>
+
+                <p>
+                    <strong>¡Dentro de dos semanas comienza!</strong> Es el campeonato de la <em>EPD1.</em>
+                    Consistirá en varios partidos entre los equipos inscritos.
+                </p>
+            
+            </details>
+            
+            <br/>
+            
+            
+            
+            <form action=".">
+            <p>
+                Nombre: <input type="text" name="nombre" autofocus required />
+                <br />
+                Correo Electr&oacute;nico:
+                <input type="email" name="correo" required />
+                <br />
+                Color con el que le gustaría jugar:
+                <input type="color" name="color_equipacion" required/>
+                <br/>
+                Tel&eacute;fono: 
+                <input type="tel" name="telefono" required/>
+                <br />
+                Fecha de nacimiento:
+                <input type="date" name="dia" />
+                <br/>
+                Nivel de tenis:
+                <select name="nivel" required>
+                    <option value="1">Básico</option>
+                    <option value="2">Intermedio</option>
+                    <option value="3">Avanzado</option>
+                </select>
+                <br/>
+                DNI/NIF:
+                <input type=text name="dni"/>
+                <br/>
+                Números de torneos ganados:
+                <input type="number" name="torneos-ganados"/>
+                <br/>
+                Adjunta un pdf con tu foto:
+                <input type="file" name="archivo-foto" accept="application/pdf"/>
+                <br/>
+                He leido todo el reglamento
+                <input type="checkbox" name="acepta_terminos" required/>                
+                <br/>
+                <input type="submit" value="Enviar" />
+            </p>
+            </form>
+            
+            <section>
+                <table border="1">
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Primer apellido</td>
+                        <td>Segundo Apellido</td>
+                    </tr>
+                    <tr>
+                        <td>Pepito</td>
+                        <td>Pérez</td>
+                        <td>Rodriguez</td>
+                    </tr>
+                    <tr>
+                        <td>Rafael</td>
+                        <td>Nadal</td>
+                        <td>Canario</td>
+                    </tr>
+                    <tr>
+                        <td>Roger</td>
+                        <td>Federer</td>
+                        <td>Suizo</td>   
+                    </tr>
+                    <tr>
+                        <td>Novak</td>
+                        <td>Djokovic</td>
+                        <td><bdi>Ђоковић</bdi></td>
+                    </tr>
+                    
+                </table>
+                <br/>
+                Progreso de completar la inscripción: 
+                <progress value="22" max="100"></progress>
+            </section>
+    </body>
+</html>
