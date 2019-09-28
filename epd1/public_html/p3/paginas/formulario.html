@@ -6,9 +6,10 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>FORMULARIO</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
     </head>
     <body>
         <nav>
@@ -17,9 +18,9 @@ and open the template in the editor.
 
                 <img src="../imgs/logo.png" alt="logo" align="middle">
 
-                <a href="">GALERÍA</a>
+                <a href="galeria.html">GALERÍA</a>
             </div>
-        </nav>
+        
             
             
             <h1>Campeonato EPD1</h1>            
@@ -34,11 +35,11 @@ and open the template in the editor.
                 </p>
             
             </details>
-            
+            </nav>
             <br/>
             
             
-            
+            <h2>Rellena el siguiente formulario para inscribirte:</h2>
             <form action=".">
             <p>
                 Nombre: <input type="text" name="nombre" autofocus required />
@@ -74,10 +75,13 @@ and open the template in the editor.
                 He leido todo el reglamento
                 <input type="checkbox" name="acepta_terminos" required/>                
                 <br/>
+                <br/>
                 <input type="submit" value="Enviar" />
             </p>
             </form>
+            <br/>
             
+            <h2>Participantes ya inscritos</h2>
             <section>
                 <table border="1">
                     <tr>
@@ -103,13 +107,55 @@ and open the template in the editor.
                     <tr>
                         <td>Novak</td>
                         <td>Djokovic</td>
-                        <td><bdi>Ђоковић</bdi></td>
+                        <td>Ђоковић</td>
+                    </tr>
+                    <tr>
+                        <td>John</td>
+                        <td> <ruby>漢 <rt> ㄏㄢˋ </rt></ruby></td>
+                        <td><bdi>إيان</bdi></td>
                     </tr>
                     
                 </table>
-                <br/>
+            </section>
+            
+            <br/>
+            
+            <div>
                 Progreso de completar la inscripción: 
                 <progress value="22" max="100"></progress>
-            </section>
+            </div>
+            
+            <br/>
+            
+            <div>
+                <h3>Los teléfonos de contacto son los siguientes: </h3>
+                <ul>
+                    <li>
+                        <strong>Administración:</strong>
+                        <ol>
+                            <li>+34 643207394</li>
+                            <li>+34 601823853</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Gestión de entradas:</strong>
+                        <ol>
+                            <li>+34 629384628</li>
+                            <li>+34 627949274</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Mantenimiento:</strong>
+                        <ol>
+                            <li>+34 609823482</li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            
+            <br/>
+                
+            <footer>La inscripción del torneo terminará el día <time datetime="2019-10-14 20:00">14/10/2019 20:00</time></footer>
+                
     </body>
 </html>
