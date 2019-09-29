@@ -1,0 +1,66 @@
+Nota: Las etiquetas repetidas no las mostraré en la siguiente página.
+
+
+Página principal (p3.html):
+
+<nav>:
+Uso la etiqueta nav con el fin de definir el bloque de navegación de la página, que será usada en las demás páginas.
+
+<div>:
+Uso la etiqueta div para definir bloques genéricos en la página.
+
+<title>:
+Para el título de la página.
+
+<details>:
+Con el fin de enseñar información del campeonato a los interesados.
+
+<main>:
+Para definir el bloque peincipal de la página.
+
+<article>:
+Define un artículo dentro de la página.
+
+<figure>:
+La uso para las figuras, en este caso imágenes.
+
+<aside>:
+Define un bloque apartado de los demás elementos dentro del bloque.
+
+<section>:
+Define una sección dentro de la página.
+
+<time>:
+La uso para determinar una fecha.
+
+
+
+Formulario de inscripción (formulario.html):
+
+<form>:
+Define donde se contendrá el formulario.
+
+<input>:
+Para los elementos del formulario.
+
+<ruby>/<rt>:
+Para que el navegador muestre correctamente los caracteres chinos.
+
+<bdi>:
+Para aislar parte del texto que puede ser formateado en alguna dirección fuera de él.
+
+<progress>:
+Para una barra de progreso.
+
+
+
+Galería (galeria.html):
+
+<audio>:
+Uso la etiqueta audio para poner un audio en formato mp3.
+
+
+
+Videos (videos.html):
+<video>:
+Uso esta etiqueta para definir los videos en la página.

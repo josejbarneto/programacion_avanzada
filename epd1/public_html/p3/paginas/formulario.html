@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html lang="es">
     <head>
         <title>FORMULARIO</title>
         <meta charset="UTF-8">
@@ -16,7 +16,7 @@ and open the template in the editor.
             <div class="menu">
                 <a href="../p3.html">MENÚ</a>
 
-                <img src="../imgs/logo.png" alt="logo" align="middle">
+                <img src="../imgs/logo.png" alt="logo">
 
                 <a href="galeria.html">GALERÍA</a>
             </div>
@@ -48,19 +48,19 @@ and open the template in the editor.
                 <input type="email" name="correo" required />
                 <br />
                 Color con el que le gustaría jugar:
-                <input type="color" name="color_equipacion" required/>
+                <input type="color" name="color_equipacion"/>   <!--No soportado en todos los navegadores-->
                 <br/>
                 Tel&eacute;fono: 
                 <input type="tel" name="telefono" required/>
                 <br />
                 Fecha de nacimiento:
-                <input type="date" name="dia" />
+                <input type="date" name="dia" />    <!--No soportado en todos los navegadores-->
                 <br/>
                 Nivel de tenis:
-                <select name="nivel" required>
-                    <option value="1">Básico</option>
-                    <option value="2">Intermedio</option>
-                    <option value="3">Avanzado</option>
+                <select name="nivel">
+                    <option value="Basico">Básico</option>
+                    <option value="Intermedio">Intermedio</option>
+                    <option value="Avanzado">Avanzado</option>
                 </select>
                 <br/>
                 DNI/NIF:
@@ -81,9 +81,13 @@ and open the template in the editor.
             </form>
             <br/>
             
-            <h2>Participantes ya inscritos</h2>
+            
             <section>
-                <table border="1">
+                <h2>Participantes</h2>
+                <table>
+                    <tr>
+                        <td colspan="3"><strong>Participantes ya inscritos en el torneo</strong></td>
+                    </tr>
                     <tr>
                         <td>Nombre</td>
                         <td>Primer apellido</td>
@@ -112,7 +116,7 @@ and open the template in the editor.
                     <tr>
                         <td>John</td>
                         <td> <ruby>漢 <rt> ㄏㄢˋ </rt></ruby></td>
-                        <td><bdi>إيان</bdi></td>
+                        <td><bdi>إيان</bdi></td>    <!--No soportado en todos los navegadores-->
                     </tr>
                     
                 </table>
