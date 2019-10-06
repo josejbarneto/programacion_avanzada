@@ -1,0 +1,94 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 1 oct. 2019, 13:03:47
+    Author     : eugen
+*/
+.menu{
+    background: white;
+    position: fixed;
+    top:10px;
+    height: 70px;
+    width: 90%;
+    text-align: center;
+    font-family: fantasy;
+    border-radius: 30px;
+    margin-left: 5%;
+}
+
+.menu a{
+    text-decoration: none;
+    position: relative;
+    top:-17px;
+    color: #00703c;
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
+}
+
+.menu a:hover{
+    color: black;
+    background:aqua;
+    border-radius: 30px;
+}
+
+.menu img{
+    position: relative;
+    right:100px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#logo-menu{
+       left:0px;
+       height:60px;
+}
+
+.menu-font{
+    background-color:white;
+}
+
+.detalles{
+    font-family: serif;
+    color: #00703c;
+    font-size: 22px;
+}
+
+
+
+
+
+body{
+    margin-top: 90px;
+}
+
+main{
+    text-align: center;
+}
+
+h1,h2,h3{
+    color:#00703c;
+}
+
+h3{
+    font-size: 25px;
+}
+
+main img{
+    border-radius: 15%;
+    height: 200px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+}
+
+li{
+    list-style-type: none;
+}
+
+.galeria-lista{
+    width: 100%;
+    background-color: #cef3d6;
+}

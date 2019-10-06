@@ -46,9 +46,15 @@ and open the template in the editor.
                 <br />
                 Correo Electr&oacute;nico:
                 <input type="email" name="correo" required />
+                <br />
+                Color con el que le gustaría jugar:
+                <input type="color" name="color_equipacion"/>   <!--No soportado en todos los navegadores-->
                 <br/>
                 Tel&eacute;fono: 
                 <input type="tel" name="telefono" required/>
+                <br />
+                Fecha de nacimiento:
+                <input type="date" name="dia" />    <!--No soportado en todos los navegadores-->
                 <br/>
                 Nivel de tenis:
                 <select name="nivel">
@@ -110,7 +116,7 @@ and open the template in the editor.
                     <tr>
                         <td>John</td>
                         <td> <ruby>漢 <rt> ㄏㄢˋ </rt></ruby></td>
-                        <td>P&eacute;rez</td>    <!--No soportado en todos los navegadores-->
+                        <td><bdi>إيان</bdi></td>    <!--No soportado en todos los navegadores-->
                     </tr>
                     
                 </table>

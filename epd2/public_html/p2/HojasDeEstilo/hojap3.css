@@ -1,0 +1,168 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30 sept. 2019, 17:39:12
+    Author     : eugen
+*/
+.menu{
+    background: white;
+    position: fixed;
+    top:10px;
+    height: 70px;
+    width: 90%;
+    text-align: center;
+    font-family: fantasy;
+    border-radius: 30px;
+    margin-left: 5%;
+}
+
+.menu a{
+    text-decoration: none;
+    position: relative;
+    top:-17px;
+    color: #00703c;
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
+}
+
+.menu a:hover{
+    color: black;
+    background:aqua;
+    border-radius: 30px;
+}
+
+.menu img{
+    position: relative;
+    right:100px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#logo-menu{
+       left:0px;
+       height:60px;
+}
+
+.menu-font{
+    background-color:white;
+}
+
+.detalles{
+    font-family: serif;
+    color: #00703c;
+    font-size: 22px;
+}
+
+body{  
+    margin-top: 90px;
+    display: block;
+    color: black;
+    font-family: serif;
+    margin-right:0px;
+    margin-left: 0px;
+}
+
+body h2, body h3{
+    font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
+    color: #00703c;
+    text-align: center;
+    font-size: 40px;
+}
+
+body h1{
+    font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
+    color: #00703c;
+}
+
+.Index{
+    font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
+    width: 400px;
+    margin-bottom: 300px;
+    margin-top:100px;
+    padding-left: auto;
+    padding-right: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.Index, .detalles{
+    width:100%;
+}
+
+li{
+    list-style-type: none;
+}
+
+li a{
+    font-family: serif;
+    color: #00703c;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+li a:hover{
+    color: black;
+    background-color: aqua;
+    border-radius: 30px;
+}
+
+#Reglas, #Medidas, #Puntuacion, #Red, #Inscripcion{
+    height:100px;
+}
+
+.reglas-bloque{
+    margin-left: 0px;
+}
+
+article{
+    background-color: #cef3d6;
+    margin-bottom: 0px;
+}
+
+article p, article ol{
+    font-family: serif;
+    font-size: 20px;
+}
+
+article p{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#margen-Inscripcion{
+    margin-bottom: 0px;
+}
+
+section{
+    text-align: center;
+}
+
+section a{
+    font-size: 30px;
+    font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
+    text-decoration: none;
+    color: #00703c;
+}
+
+section a:hover{
+    color: black;
+    background-color: aqua;
+    border-radius: 30px;
+}
+
+.telefonos{
+    text-align: center;
+    font-family: serif;
+    font-size: 22px;
+}
+
+footer{
+    text-align: center;
+    font-family: serif;
+}
