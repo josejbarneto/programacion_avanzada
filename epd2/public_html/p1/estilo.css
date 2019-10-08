@@ -110,6 +110,10 @@ central
     text-decoration: none;
 }
 
+#objetivos, #conceptos{
+    width: 70%;
+}
+
 .bloqueexplicacion {
     padding: 20px 7.5px;
     background-color: #E0FFFF;
@@ -248,6 +252,7 @@ pagina en construccion
     border-color:#FF0000;
     border-width: 5px;
     padding: 40px 22%;
+    
 }
 
 .tituloaviso{
@@ -255,8 +260,6 @@ pagina en construccion
     background-image: url(imagenes/construccion.png), url(imagenes/construccion.png);
     background-position: right, left; /* Center the image */
     background-repeat: no-repeat, no-repeat; /* Do not repeat the image */
-}
-
-.tituloaviso{
-    display: block;
+    display: inline;
+    padding: 70px
 }
