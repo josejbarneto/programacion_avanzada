@@ -14,6 +14,18 @@ body{
 /*
 -
 -
+Fuentes
+-
+-
+*/
+
+h1, h2, h3, h4, .lateral, .areaLimpia{
+    font-family: sans-serif;
+}
+
+/*
+-
+-
 cabecera
 -
 -
@@ -124,14 +136,12 @@ central
 .bloqueexplicacion a{
     text-decoration: none;
     color: #FF0D0D;
-    padding-right: 50px;
-    padding-top: 20px;
-    margin-top: 20px;
-    margin-right: 50px;
-    background-image: url("imagenes/link.png");
     background-position:right; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
-    
+}
+
+.bloqueexplicacion a::after{
+    content: url("imagenes/link.png");
 }
 
 .bloqueexplicacion ol, .bloqueexplicacion ul{
@@ -204,12 +214,12 @@ h4{
 }
 
 .salidapantalla{
-    color: greenyellow;
+    color: #007900;
     background-color: black;
     border-style:double ;
     border-color: yellow;
     margin: 10px;
-    padding: 10px;
+    padding: 15px;
 }
 
 .ecuacion{
@@ -257,9 +267,8 @@ pagina en construccion
 
 .tituloaviso{
     font-size: 2.5em;
-    background-image: url(imagenes/construccion.png), url(imagenes/construccion.png);
-    background-position: right, left; /* Center the image */
-    background-repeat: no-repeat, no-repeat; /* Do not repeat the image */
-    display: inline;
-    padding: 70px
+}
+
+.tituloaviso::before, .tituloaviso::after{
+    content: url(imagenes/construccion.png);
 }
