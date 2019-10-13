@@ -156,6 +156,7 @@ aside#rigt{
 #left ul{
     list-style-type: disclosure-closed;
     padding-left: 25px;
+    opacity: 0.7;
 }
 
 #left ul ul{
@@ -174,11 +175,13 @@ section {
     -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     border-radius: 2px;
+    text-justify: distribute;
 }
 
 .breadcrumb{
     width: 100%;
-    display: inline-block
+    display: inline-block;
+    opacity: 0.75;
 }
 
 .breadcrumb ul{
@@ -192,6 +195,10 @@ section {
 .stars {
     unicode-bidi: bidi-override;
     direction: rtl;
+}
+
+.stars span:hover{
+    cursor: pointer;
 }
 
 .stars > span {
@@ -292,3 +299,24 @@ footer ul{
     float: right;
 }
 /* FIN FOOTER */
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    #right {
+        display: none;
+    }
+    footer{
+        width: 70vw;
+    }
+
+    .sticky .hide{
+        display: none;
+    }
+}
+
+@media (min-width: 1025px) {
+    .sticky .mas{
+        display: none;
+    }
+}
+/* FIN RESPONSIVE */
