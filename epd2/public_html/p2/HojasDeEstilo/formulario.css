@@ -1,0 +1,169 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7 oct. 2019, 18:45:47
+    Author     : eugen
+*/
+
+.menu{
+    background-color:white;
+    position: fixed;
+    top:10px;
+    height: 50px;
+    width: 90%;
+    text-align: center;
+    font-family: fantasy;
+    border-radius: 30px;
+    margin-left: 5%;
+}
+
+.menu a{
+    text-decoration: none;
+    position: relative;
+    top:-17px;
+    color: #00703c;
+    text-align: center;
+    padding: 10px;
+    font-size: 17px;
+}
+
+.menu a:hover{
+    color: black;
+    background:aqua;
+    border-radius: 30px;
+}
+
+.menu a:active{
+    background: #cef3d6;
+}
+
+.menu a:visited { 
+    color: purple; 
+}
+
+.menu a:link { 
+    color: #00703c; 
+}
+
+.menu img{
+    position: relative;
+    right:100px;
+}
+
+#logo-menu{
+       left:0px;
+       height:50px;
+}
+
+.menu-font{
+    background-color:white;
+}
+
+h1 ,h2,h3{
+    margin-left: 10px;
+    color:#00703c;
+    font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
+}
+
+.detalles{
+    font-family: serif;
+    color: #00703c;
+    font-size: 22px;
+    margin-left:10px;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    border: solid black;
+}
+
+td{
+    border: solid aquamarine;
+}
+
+body{
+    margin-top: 90px;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-family: serif;
+    
+}
+
+section{
+    background-color:#cef3d6;
+    text-align: center;
+    padding:10px;
+}
+
+.centra{
+    text-align: center;
+}
+
+.telefonos{
+    text-align: center;
+    font-family: serif;
+    font-size: 22px;
+}
+
+footer{
+    text-align: center;
+    font-family: serif;
+}
+
+tr:first-child{
+    color:#00703c;
+    font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
+}
+
+table:first-of-type{
+    color: black;
+}
+
+td:first-letter{
+    font-size: 24px;
+}
+
+table:first-line{
+    background: #ccc;
+}
+
+input:focus{
+  background-color: #ccc;
+}
+
+input:in-range {
+  border: 2px solid #00703c;
+}
+
+input:out-of-range {
+  border: 1px solid red;
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+table:nth-child(2){
+    color: teal;
+}
+
+input:optional {
+  border:1px solid coral;
+}
+
+ruby:lang(zh) {
+  quotes: "~" "~";
+}
+
+:root {
+  background: #ffffce;
+}
+
+input:valid {
+  border:1px solid #00703c;
+}
+
