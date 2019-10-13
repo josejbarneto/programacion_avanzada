@@ -8,10 +8,10 @@ and open the template in the editor.
     Author     : eugen
 */
 .menu{
-    background: white;
+    background-color: white;
     position: fixed;
     top:10px;
-    height: 70px;
+    height: 50px;
     width: 90%;
     text-align: center;
     font-family: fantasy;
@@ -25,8 +25,8 @@ and open the template in the editor.
     top:-17px;
     color: #00703c;
     text-align: center;
-    padding: 20px;
-    font-size: 25px;
+    padding: 10px;
+    font-size: 17px;
 }
 
 .menu a:hover{
@@ -35,31 +35,48 @@ and open the template in the editor.
     border-radius: 30px;
 }
 
+.menu a:active{
+    background: #cef3d6;
+}
+
+.menu a:visited { 
+    color: purple; 
+}
+
+.menu a:link { 
+    color: #00703c; 
+}
+
 .menu img{
     position: relative;
     right:100px;
-    margin-left: 5%;
-    margin-right: 5%;
 }
 
 #logo-menu{
        left:0px;
-       height:60px;
+       height:50px;
 }
 
 .menu-font{
     background-color:white;
 }
 
+h1{
+    margin-left: 10px;
+}
+
 .detalles{
     font-family: serif;
     color: #00703c;
     font-size: 22px;
+    margin-left: 10px;
 }
 
+
+
 body{  
+    background-color: #ffffce;
     margin-top: 90px;
-    display: block;
     color: black;
     font-family: serif;
     margin-right:0px;
@@ -70,12 +87,13 @@ body h2, body h3{
     font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
     color: #00703c;
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 body h1{
     font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
     color: #00703c;
+    font-size: 30px;
 }
 
 .Index{
@@ -122,7 +140,7 @@ li a:hover{
 
 article{
     background-color: #cef3d6;
-    margin-bottom: 0px;
+    padding-bottom:30px;
 }
 
 article p, article ol{

@@ -4,11 +4,12 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 1 oct. 2019, 13:03:47
+    Created on : 7 oct. 2019, 17:57:32
     Author     : eugen
 */
+
 .menu{
-    background-color: white;
+    background-color:white;
     position: fixed;
     top:10px;
     height: 50px;
@@ -47,8 +48,6 @@ and open the template in the editor.
     color: #00703c; 
 }
 
-
-
 .menu img{
     position: relative;
     right:100px;
@@ -63,10 +62,6 @@ and open the template in the editor.
     background-color:white;
 }
 
-h1{
-    margin-left: 10px;
-}
-
 .detalles{
     font-family: serif;
     color: #00703c;
@@ -74,68 +69,47 @@ h1{
     margin-left: 10px;
 }
 
-
-
+h1{
+    margin-left: 10px;
+}
 
 body{
     margin-top: 90px;
-    margin-right:0px;
+    font-family: serif;
     margin-left: 0px;
+    margin-right: 0px;
     background-color: #ffffce;
 }
 
-main{
-    text-align: center;
-}
-
-h1,h2,h3{
-    color:#00703c;
-    font-size: 30px;
+h1, h2{
+    font-size:30px;
+    color: #00703c;
     font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
 }
 
-
-main img{
-    border-radius: 15%;
-    height: 200px;
-    margin-right: 100px;
-    margin-bottom: 100px;
+h2{
+    text-align: center;
 }
 
 li{
     list-style-type: none;
 }
 
-.galeria-lista{
-    padding-top: 30px;
-    width: 100%;
+main{
     background-color: #cef3d6;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
-
-
-section{
-    text-align: left;
-    padding: auto;
-    margin-left: 15px;
-    font-size: 30px;
-    font-family: "Gotham 5r",Helvetica,Arial,sans-serif;
+main li{
+    margin-left: 30%;
 }
 
-section a{
-    margin: auto;
-    padding: auto;
-    color:#00703c;
-    text-decoration: none;
+videos{
+    position:relative;
+    right: 150px;
 }
-
- section a:hover{
-    color: black;
-    background-color: aqua;
-    border-radius: 30px;
-}
-
-
 
 .telefonos{
     text-align: center;
@@ -147,5 +121,3 @@ footer{
     text-align: center;
     font-family: serif;
 }
-
-
