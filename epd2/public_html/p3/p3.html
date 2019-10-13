@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Sube tu app a Play Console &nbsp;|&nbsp; Desarrolladores de Android</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/p3.css">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,700italic|Roboto+Mono:400,500,700|Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <body>
+        <nav>
+            <div class="sticky">
+                <ul>
+                    <li>    
+                        <img alt="logoAndroid" src="https://www.gstatic.com/devrel-devsite/v741200ba74cbd1989790411f8b27fb588884a771dac0e0472d95190dde1f7e2f/android/images/lockup.svg"/>
+                    </li>
+                    <li> Plataforma </li>
+                    <li class="selected"> Android Studio </li>
+                    <li> Google Play </li>
+                    <li> Jetpack </li>
+                    <li> Kotlin </li>
+                    <li> Documentos </li>
+                    <li> Noticias </li>
+                    <li class="right">
+                        <button id="acceder">
+                            Acceder
+                        </button>
+                    </li>
+                    <li class="right">
+                        <button id="idioma">Language</button>
+                    </li>
+                    <li class="right buscar">
+                        <div id="buscar">
+                            <i class="fa fa-search"></i>
+                            Buscar
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="noSticky">
+                <h4>
+                    Android Studio
+                </h4>
+                <ul>
+                    <li> Descarga </li>
+                    <li> Novedades </li>
+                    <li class="selected"> Gu&iacute;a del usuario </li>
+                    <li> Vista previa </li>
+                </ul>
+            </div>
+        </nav>
+        <aside id="left">
+            <ul>
+                <li>
+                    <div>Introducci&oacute;n a Android Studio</div>
+                </li>
+                <li>Conceptos b&aacute;sicos del flujo de trabajo</li>
+                <li>
+                    <div>C&oacute;mo administrar tu proyecto</div>
+                </li>
+                <li>
+                    <div>Escribe tu app</div>
+                </li>
+                <li>
+                    <div>C&oacute;mo crear y ejecutar tu app</div>
+                </li>
+                <li>
+                    <div>Configura tu compilaci&oacute;n</div>
+                </li>
+                <li>
+                    <div>Depura tu app</div>
+                </li>
+                <li>
+                    <div>C&oacute;mo probar tu app</div>
+                </li>
+                <li>
+                    <div>C&oacute;mo generar perfiles de tu app</div>
+                </li>
+                <li>
+                    <div>Publica tu app</div>
+                    <ul>
+                        <li>Presentaci&oacute;n</li>
+                        <li>C&oacute;mo preparar el lanzamiento</li>
+                        <li>C&oacute;mo establecer la versi&oacute;n de tu app</li>
+                        <li>C&oacute;mo firmar tu app</li>
+                        <li>C&oacute;mo subir tu app</li>
+                    </ul>
+                </li>
+                <li>
+                    <div>Herramientas de l&iacute;nea de comandos</div>
+                </li>
+                <li>Soluciona problemas</li>
+                <li>Problemas conocidos</li>
+                <li>Informa un error</li>
+            </ul>
+        </aside>
+
+
+        <section>
+            <div class="breadcrumb">
+                <ul >
+                    <li> Desarrolladores de Android </li>
+                    <li><span>&nbsp;></span> Android Studio </li>
+                    <li><span>&nbsp;></span> Gu&iacute;a del usuario </li>
+                </ul>
+                <div class="stars">
+                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                </div>
+            </div>
+            <h2>Sube tu app a Play Console</h2>
+            <div>
+                <article>
+                    <div>
+                        <p>Despu&eacute;s de compilar y firmar la versi&oacute;n de lanzamiento de tu app, el siguiente paso consiste en subirla a Google Play para inspeccionar, probar y publicar tu app. Antes de comenzar, aseg&uacute;rate de cumplir con las siguientes condiciones:</p>
+                        <ol>
+                            <li>Si todav&iacute;a no lo hiciste, inscr&iacute;bete en la firma de apps de Google Play, que es la manera recomendada de subir y firmar tu app. Si creas y subes un Android App Bundle, debes inscribirte en la firma de apps de Google Play.</li>
+                            <li>Google Play permite descargar apps comprimidas de solo 150 MB o menos. Para obtener m&aacute;s informaci&oacute;n, consulta Restricci&oacute;n de tama&ntilde;o de descarga comprimida.</li>
+                        </ol>
+                        <p>Si cumples los requisitos anteriores, sube la app a Play Console. En esta p&aacute;gina tambi&eacute;n se describe c&oacute;mo puedes probar y actualizar tu paquete de aplicaci&oacute;n una vez que lo hayas subido.</p>
+                        <h2>C&oacute;mo inspeccionar APK con Bundle Explorer</h2>
+                        <p>Si subes tu app como un Android App Bundle, Play Console genera autom&aacute;ticamente APK divididos y varios APK para todas las configuraciones del dispositivo que admite tu app. En Play Console, puedes usar App Bundle Explorer para ver todos los artefactos APK que genera Google Play, inspeccionar datos, como los dispositivos compatibles y los ahorros de tama&ntilde;o de APK, y descargar APK generados que puedes implementar y probar a nivel local.</p>
+                        <p>Para obtener m&aacute;s informaci&oacute;n, lee el tema de ayuda de Play Console acerca de C&oacute;mo revisar los detalles de tu paquete de aplicaci&oacute;n.</p>
+                        <h2>C&oacute;mo probar Dynamic Delivery con la pista de prueba interna</h2>
+                        <p>La forma m&aacute;s f&aacute;cil y r&aacute;pida de probar tu app despu&eacute;s de subir un paquete de aplicaci&oacute;n consiste en usar la pista de prueba interna de Play Console. Esta pista de prueba nueva tiene como objetivo compartir r&aacute;pidamente tu app mediante Dynamic Delivery con un n&uacute;mero limitado de verificadores internos. Adem&aacute;s, debido a que la &uacute;nica manera de probar la descarga e instalaci&oacute;n de m&oacute;dulos de funciones din&aacute;micas on demand es mediante Google Play, la pista de prueba interna es el lugar en el que te conviene subir tu paquete de aplicaci&oacute;n para ajustar este tipo de experiencia del usuario.</p>
+                        <p>Para obtener m&aacute;s informaci&oacute;n, lee C&oacute;mo configurar una pista de prueba abierta, cerrada o interna.</p>
+                        <h2>C&oacute;mo actualizar tu paquete de aplicaci&oacute;n</h2>
+                        <p>Despu&eacute;s de subir la app a Play Console, si deseas actualizarla, debes aumentar el c&oacute;digo de versi&oacute;n que incluiste en el m&oacute;dulo base, y crear y subir un paquete de aplicaci&oacute;n nuevo. A continuaci&oacute;n, Google Play genera APK actualizados con c&oacute;digos de versi&oacute;n nuevos y se los entrega a los usuarios seg&uacute;n sea necesario. Si deseas obtener m&aacute;s informaci&oacute;n, consulta C&oacute;mo administrar actualizaciones de apps.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <p class="copyright">Content and code samples on this page are subject to the licenses described in the Content License. Java is a registered trademark of Oracle and/or its affiliates.</p>
+        <aside id="right">
+            <ul>
+                <li>
+                    Contenido
+                </li>
+                <li>
+                    Cómo inspeccionar APK con Bundle&nbsp;Explorer
+                </li>
+                <li>
+                    Cómo probar Dynamic&nbsp;Delivery con la pista de prueba interna
+                </li>
+                <li>
+                    Cómo actualizar tu paquete de aplicación
+                </li>
+            </ul>
+        </aside>
+        <footer>
+
+            <div class="logos">
+                <div class="logo">
+                    <img alt="twitter" src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Twitter_bird_logo_2012.svg/100px-Twitter_bird_logo_2012.svg.png"/>
+                    <div><b>Twitter</b><br/>Seguir a @AndroidDev en Twitter</div>
+                </div>
+                <div class="logo"> 
+                    <img alt="youtube" src="//www.gstatic.com/images/icons/material/product/2x/youtube_48dp.png"/> 
+
+                    <div><b>YouTube</b><br/>Ver los v&iacute;deos de Android Developers en YouTube</div>
+                </div>
+            </div>
+            <div class="listas borderTop">
+                <div class="lista">
+                    <h3>M&aacute;s sobre Android</h3>
+                    <ul>
+                        <li> Android </li>
+                        <li> Android Enterprise </li>
+                        <li> Seguridad </li>
+                        <li> Android Open Source Project </li>
+                    </ul>
+                </div>
+                <div class="lista">
+                    <h3>Ayuda</h3>
+                    <ul>
+                        <li> Informar de un error de la plataforma </li>
+                        <li> Informar de un error de la documentaci&oacute;n </li>
+                        <li> Google Play support </li>
+                        <li> Participar en estudios de investigaci&oacute;n </li>
+                    </ul>
+                </div>
+                <div class="lista">
+                    <h3>Documentaci&oacute;n</h3>
+                    <ul>
+                        <li> Gu&iacute;as para desarrolladores </li>
+                        <li> Gu&iacute;as de dise&ntilde;o </li>
+                        <li> Referencia de la API </li>
+                        <li> Ejemplos </li>
+                        <li> Android Studio </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer borderTop">
+                <ul>
+                    <li> <img class="google" alt="google" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"/> </li>
+                    <li> Android </li>
+                    <li> Chrome </li>
+                    <li> Firebase </li>
+                    <li> Google Cloud Platform </li>
+                    <li> Todos los productos </li>
+                </ul>
+                <ul class="borderTop">
+                    <li> Privacidad </li>
+                    <li> Licencia </li>
+                    <li> Directrices de inclusi&oacute;n de marca </li>
+                    <li>Recibir noticias y consejos por correo electr&oacute;nico</li>
+                </ul>                
+            </div>
+        </footer>
+    </body>
+</html>
