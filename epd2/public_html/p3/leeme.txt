@@ -1,0 +1,64 @@
+LISTADO DE CARACTERISTICAS CSS3. 
+
+- Uso de flexbox
+.listas, .logos {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+}
+
+- Uso de la propiedad Opacity
+.breadcrumb{
+    width: 100%;
+    display: inline-block;
+    opacity: 0.75;
+}
+
+- Unidad de tamaño VW que son relativas al viewport
+footer {
+    float: left;
+    margin-left: 275px;
+    background-color: #fff;
+    margin-top: 25px;
+    width: 80vw;
+    padding: 30px;
+}
+
+
+Uso de sombras BOX-SHADOW
+nav div{
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 1);
+    -moz-box-shadow:    0px 1px 5px 0px rgba(50, 50, 50, 1);
+    box-shadow:         0px 1px 5px 0px rgba(50, 50, 50, 1);
+}
+
+Mejoras de los bordes como border-radius
+#buscar {
+    background: #f1f3f4;
+    border-radius: 2px;
+    text-align: left;
+    width: 170px;
+    z-index: 10;
+    padding: 10px;
+}
+
+Media Queries para trabajar el responsive de la pagina
+@media (max-width: 1024px) {
+    #right {
+        display: none;
+    }
+    footer{
+        width: 70vw;
+    }
+
+    .sticky .hide{
+        display: none;
+    }
+}
+
+Uso de selector de color rgba (red, green, blue, alpha)
+{
+    ..
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);   
+    ...
+}
