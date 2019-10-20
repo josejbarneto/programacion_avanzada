@@ -23,7 +23,7 @@ and open the template in the editor.
                     $array2[] = $num;
                     $num += 0.2;
                 }             
-                return $array + $array2;     
+                return array_merge(array_reverse($array),$array2);     
             }
 
             echo print_r(radio(100));
