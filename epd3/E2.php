@@ -1,6 +1,6 @@
 <style>
 
-	prim{
+	.prim{
 		color:red;
 	}
 
@@ -12,24 +12,27 @@
 <?php
 
 	function lista($numero, $primo){
-		if($primo==="PRIMO"){
+		if(strcmp($primo,"PRIMO")==0){
 			for($i=1; $i<$numero; $i++){
 				if(esprimo($i)==1){
-					echo('<prim>'.$i.' </prim>');
+					echo('<span class="prim">'.$i.' </span>');
 				}
 				else{
 					echo($i.' ');
 				}
 			}
-		}elseif($primo==="NOPRIMO"){
+		}elseif(strcmp($primo,"NOPRIMO")==0){
 			for($i=1; $i<$numero; $i++){
 				if(!esprimo($i)==1){
-					echo('<prim>'.$i.' </prim>');
+					echo('<span class="prim">'.$i.' </span>');
 				}
 				else{
 					echo($i.' ');
 				}
 			}
+		}
+		else{
+			echo("No es posible encontrar la cadena: ".$primo."</br> Prueba con: PRIMO / NOPRIMO");
 		}
 	}
 	
@@ -49,8 +52,8 @@
 	echo("(10,PRIMO)</br>");
 	lista(10, "PRIMO");
 	
-	echo("</br></br>(10,NOPRIMO)</br>");
-	lista(10, "NOPRIMO");
+	echo("</br></br>(10,NOPRIMo)</br>");
+	lista(10, "NOPRIMo");
 	
 	echo("</br></br>(20,PRIMO)</br>");
 	lista(20, "PRIMO");
