@@ -65,6 +65,7 @@ and open the template in the editor.
                 ['id'=>'Ipod', 'cantidad'=>2, 'precio'=>50]
             ];
             
+            #prueba
             presupuesto('Daniel', '77854678G', 21, $matriz);
         ?>
     </body>

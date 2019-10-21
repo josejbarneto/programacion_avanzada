@@ -26,7 +26,7 @@ and open the template in the editor.
                 return array_merge(array_reverse($array),$array2);     
             }
 
-            echo print_r(radio(100));
+            print_r(radio(100));
         ?>
     </body>
 </html>
