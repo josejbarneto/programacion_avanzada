@@ -1,0 +1,13 @@
+1;juan;2:33:55
+1;pepe;2:45:23
+2;juan;2:20:30
+2;pepe;3:0:45
+
+1;juan;renault;2:33:55
+1;pepe;renault;2:45:23
+1;fran;honda;2:45:34
+1;jose;honda;3:2:23
+2;fran;honda;2:35:56
+2;jose;honda;1:56:48
+2;juan;renault;2:20:30
+2;pepe;renault;3:0:45

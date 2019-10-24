@@ -43,8 +43,9 @@ and open the template in the editor.
                 
                 $aux['id']=$value[0];
                 $aux['nombre']=$value[1];
+                $aux['equipo']=$value[2];
                 
-                $tiempo = pasarATiempo($value[2]);
+                $tiempo = pasarATiempo($value[3]);
                 
                 if(!$tiempo){
                     $aux['retirado'] = 1;
@@ -77,6 +78,7 @@ and open the template in the editor.
             echo '<tr>';
             echo "<td>{$vuelta['id']}</td>"; #numero de vuelta
             echo "<td>{$vuelta['nombre']}</td>"; #nombre del piloto
+            echo "<td>{$vuelta['equipo']}</td>"; #nombre del equipo
             echo "<td>$tiempo</td>"; #tiempo
             echo '</tr>';
 
@@ -99,6 +101,28 @@ and open the template in the editor.
 
             echo '<tr>';
             echo "<td>{$vencedor['nombre']}</td>"; #nombre del piloto
+            echo "<td>{$vencedor['equipo']}</td>"; #nombre del equipo
+            echo "<td>$tiempo</td>"; #milisegundos
+            echo '</tr>';
+
+            echo '</table>';
+        }
+        
+        function imprimirEquipoVencedor($vencedor, $nombreCarrera, $fecha){
+            $tiempo = pasarATiempoFormato($vencedor['tiempo']);
+            
+            echo '<table>';
+
+            echo '<tr>';
+            echo "<td>$nombreCarrera</td>";
+            echo '</tr>';
+
+            echo '<tr>';
+            echo "<td>$fecha</td>";
+            echo '</tr>';
+
+            echo '<tr>';
+            echo "<td>{$vencedor['equipo']}</td>"; #nombre del equipo
             echo "<td>$tiempo</td>"; #milisegundos
             echo '</tr>';
 
@@ -119,6 +143,7 @@ and open the template in the editor.
             return $matrizContenido[0];
         }
 
+        
         function vencedor($matrizContenido) {
 
             foreach ($matrizContenido as $vuelta) {
@@ -133,6 +158,26 @@ and open the template in the editor.
                     $arrayTiempos[$vuelta['nombre']]['tiempo']=$vuelta['tiempo'];
                     $arrayTiempos[$vuelta['nombre']]['retirado']=0;
                     $arrayTiempos[$vuelta['nombre']]['nombre']=$vuelta['nombre'];
+                }
+            }            
+            
+            usort($arrayTiempos, "sortPorTiempo");
+            return $arrayTiempos[0];
+        }
+        
+        function equipoVencedor($matrizContenido){
+                foreach ($matrizContenido as $vuelta) {
+                
+                if($vuelta['retirado']){
+                    $arrayTiempos[$vuelta['equipo']]['retirado']=1;
+                }
+                elseif(isset($arrayTiempos[$vuelta['equipo']]['tiempo'])){
+                    $arrayTiempos[$vuelta['equipo']]['tiempo']+=$vuelta['tiempo'];
+                }
+                else{ //inicializacion
+                    $arrayTiempos[$vuelta['equipo']]['tiempo']=$vuelta['tiempo'];
+                    $arrayTiempos[$vuelta['equipo']]['retirado']=0;
+                    $arrayTiempos[$vuelta['equipo']]['equipo']=$vuelta['equipo'];
                 }
             }            
             
@@ -168,11 +213,17 @@ and open the template in the editor.
                     imprimirVueltaRapida($vR, $_POST['nombre'], $_POST['fecha']);
                 }
 
-                #Se comprueba si se escoge la vencedor
+                #Se comprueba si se escoge al vencedor
                 elseif ($_POST['peticion'] == 'vencedor') {
                     $v = vencedor($matrizContenido);
-                    #print_r($v);
                     imprimirVencedor($v, $_POST['nombre'], $_POST['fecha']);
+                }
+                
+                #Se comprueba si se escoge al equipo vencedor
+                elseif($_POST['peticion'] == 'equipoVencedor'){
+                    $v = equipoVencedor($matrizContenido);
+                    print_r($v);
+                    imprimirEquipoVencedor($v, $_POST['nombre'], $_POST['fecha']);
                 }
             }
         }
@@ -195,7 +246,8 @@ and open the template in the editor.
                 Nombre de la carrera: <input name="nombre" type="text"/><br/>
                 Fecha: <input name="fecha" type="date"/><br/>                        
                 <input type="radio" name="peticion" value="vueltaRapida"/>Vuelta Rapida
-                <input type="radio" name="peticion" value="vencedor"/>Vencedor<br/>
+                <input type="radio" name="peticion" value="vencedor"/>Vencedor
+                <input type="radio" name="peticion" value="equipoVencedor"/>Equipo Vencedor<br/>
                 <textarea name="contenido"></textarea><br/>
                 <input name="envio" type="submit" value="Enviar"/>
             </form>
