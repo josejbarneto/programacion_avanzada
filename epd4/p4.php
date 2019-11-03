@@ -193,9 +193,10 @@
             echo '<h1>FORMULARIO DIMENSIONES MATRICES</h1>			
 		<form method="post" enctype="multipart/form-data">					
 			DIMENSIONES MATRIZ 1 : <br />
-			<input name="filas1" type="number" min="1"/> X <input name="col1" type="number" min="1"/> <br />
+			<input name="filas1" type="number" min="1" value="1"/> X <input name="col1" type="number" min="1" value="1"/> <br />
 			DIMENSIONES MATRIZ 2 : <br />
-			<input name="filas2" type="number" min="1"/> X <input name="col2" type="number" min="1"/> <br />
+			<input name="filas2" type="number" min="1" value="1"/> X <input name="col2" type="number" min="1" value="1"/> <br />
+                        <br />
 			<input type="submit" name="dimensiones" value="Enviar" />
 			<input type="reset" name="rest" value="Restaurar" />			
 		</form>';
