@@ -8,9 +8,11 @@
                 margin: 0 auto;
                 text-align: center;
             }
+
             table.matriz{
                 border: 1px solid darkcyan;
             }
+
             .matriz td{
                 border: 0.5px solid darkcyan;
                 padding: 5px;
@@ -19,9 +21,14 @@
             table{
                 border: 1px solid grey;
             }
+
             td{
                 border: 0.5px solid grey;
                 padding: 10px;
+            }
+
+            .error{
+                background-color: #f2a4a4;
             }
         </style>
     </head>
@@ -110,9 +117,10 @@
                 echo "<tr>";
                 for ($j = 0; $j < $col; $j++) {
                     if (!$matriz) {
-                        echo "<td><input type='number' name='matriz-$nmatriz-$i-$j' /></td>";
+                        echo "<td><input type='text' name='matriz-$nmatriz-$i-$j' /></td>";
                     } else {
-                        echo "<td><input type='number' " . (isset($errores['matriz-$nmatriz-$i-$j'])) ? " class='error' " : "" . " name='matriz-$nmatriz-$i-$j' /></td>";
+                        $valor = $matriz[$i][$j];
+                        echo "<td><input type='text' " . (isset($errores["$nmatriz-$i-$j"]) ? " class='error' " : "") . "value='$valor' name='matriz-$nmatriz-$i-$j' /></td>";
                     }
                 }
                 echo "</tr>";
@@ -125,11 +133,10 @@
             $errores = [];
             $matriz1 = [];
             $matriz2 = [];
-            $escalar = [];
+            $escalar = "";
 
             //matriz-nmatriz-fil-col
             foreach ($_POST as $key => $value) {
-
                 //Hago la construcción de la matriz a la vez que compruebo el formulario con is_numeric.
                 //Ya que si esta todo bien asi tengo ya las matrices construidas para hacer las operaciones
                 //Y si esta mal tengo que pintar igualmente las matrices rellenas con los campos erroneos rojos
@@ -140,34 +147,33 @@
                         $fila = $keyarray[2];
                         $col = $keyarray[3];
 
-                        if (is_numeric($value)) {
-                            if (!isset(${"matriz" . $matriz}[$fila])) {
-                                ${"matriz" . $matriz}[$fila] = [];
-                            }
-                            ${"matriz" . $matriz}[$fila][$col] = $value;
-                        } else {
+                        if (!isset(${"matriz" . $matriz}[$fila])) {
+                            ${"matriz" . $matriz}[$fila] = [];
+                        }
+                        ${"matriz" . $matriz}[$fila][$col] = $value;
+                        if (!is_numeric($value)) {
                             $errores["$matriz-$fila-$col"] = 1;
                         }
                     } else {
                         if (is_numeric($value)) {
-                            $errores["escalar"] = 1;
+                            $escalar = $value;
                         } else {
-                            $escalar = value;
+                            $errores["escalar"] = 1;
                         }
                     }
                 }
+            }
 
-                if (empty($errores)) {
-                    //HAGO OPERACIONES
-                    realizarCalculos($matriz1, $matriz2, $escalar);
-                } else {
-                    echo '<h1>FORMULARIO MATRICES</h1>';
-                    echo '<form method="post" enctype="multipart/form-data">';
-                    pintaMatrizForm("1", $_POST['filas1'], $_POST['col1'], $matriz1, $errores);
-                    pintaMatrizForm("2", $_POST['filas2'], $_POST['col2'], $matriz2, $errores);
-                    echo "ESCALAR: <input type='number' " . isset($errores["escalar"]) ? " class='error' " : "" . " name='escalar' value='$escalar'/></br></br>";
-                    echo '<input type="submit" name="matrices" value="Enviar" /><input type="reset" name="rest" value="Restaurar" />';
-                }
+            if (empty($errores)) {
+                //HAGO OPERACIONES
+                realizarCalculos($matriz1, $matriz2, $escalar);
+            } else {
+                echo '<h1>FORMULARIO MATRICES</h1>';
+                echo '<form method="post" enctype="multipart/form-data">';
+                pintaMatrizForm("1", count($matriz1), count($matriz1[0]), $matriz1, $errores);
+                pintaMatrizForm("2", count($matriz2), count($matriz2[0]), $matriz2, $errores);
+                echo "ESCALAR: <input type='number' " . (isset($errores["escalar"]) ? " class='error' " : "") . " name='escalar' value='$escalar'/></br></br>";
+                echo '<input type="submit" name="matrices" value="Enviar" /><input type="reset" name="rest" value="Restaurar" />';
             }
         }
 
