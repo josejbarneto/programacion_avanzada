@@ -15,9 +15,9 @@ and open the template in the editor.
         #Pasa de formato x:x:x a milisegundos
 
         function pasarATiempo($tiempo) {
-            if($tiempo == '::')
+            if ($tiempo == '::')
                 return FALSE;
-            else{
+            else {
                 $tiempo = preg_split("/[:]/", $tiempo);
                 $milisegundos = ((int) $tiempo[0]) * 3600 + ((int) $tiempo[1]) * 60 + ((int) $tiempo[2]);
                 return $milisegundos;
@@ -40,24 +40,67 @@ and open the template in the editor.
             $arrayContenido = preg_split("/[\n]/", $contenido);
             foreach ($arrayContenido as $value) {
                 $value = preg_split("/[;]/", $value);
-                
-                $aux['id']=$value[0];
-                $aux['nombre']=$value[1];
-                
+
+                $aux['id'] = $value[0];
+                $aux['nombre'] = $value[1];
+
                 $tiempo = pasarATiempo($value[2]);
-                
-                if(!$tiempo){
+
+                if (!$tiempo) {
                     $aux['retirado'] = 1;
-                    $aux['tiempo']= 0;
-                }else{
+                    $aux['tiempo'] = 0;
+                } else {
                     $aux['retirado'] = 0;
-                    $aux['tiempo']= $tiempo;
+                    $aux['tiempo'] = $tiempo;
                 }
-                
+
                 $matrizContenido[] = $aux;
             }
 
             return $matrizContenido;
+        }
+
+        function filtroNumeroVueltas($matrizContenido) {
+            $nombre1 = $matrizContenido[0]['nombre'];
+            $cont = 1;
+            $numeroVueltas = FALSE;
+            $retirado = 0;
+            $correcto = TRUE;
+
+            foreach ($matrizContenido as $v) {
+                if ($v['id'] == $cont) {
+                    $cont++;
+                } elseif ($v['id'] == 1 && !$retirado) {
+                    if (!$numeroVueltas) {
+                        $numeroVueltas = $cont - 1;
+                        if ($numeroVueltas < 3 || $numeroVueltas > 50) {
+                            $correcto = FALSE;
+                            break;
+                        }
+                    } elseif ($numeroVueltas != $cont - 1) {
+                        $correcto = FALSE;
+                        break;
+                    }
+                    $cont = 2;
+                } elseif ($v['id'] == 1 && $retirado) {
+                    $cont = 2;
+                } else {
+                    $correcto = FALSE;
+                    break;
+                }
+
+                $retirado = $v['retirado'];
+            }
+
+            if (!$numeroVueltas) {
+                if ($v['retirado']) {
+                    $correcto = FALSE;
+                }elseif($cont-1 < 1 || $cont-1>50){
+                    $correcto = FALSE;
+                }
+            }
+
+            return $correcto;
         }
 
         function imprimirVueltaRapida($vuelta, $nombreCarrera, $fecha) {
@@ -86,7 +129,7 @@ and open the template in the editor.
         function imprimirVencedor($vencedor, $nombreCarrera, $fecha) {
 
             $tiempo = pasarATiempoFormato($vencedor['tiempo']);
-            
+
             echo '<table>';
 
             echo '<tr>';
@@ -114,6 +157,15 @@ and open the template in the editor.
                 return $a['tiempo'] > $b['tiempo'];
         }
 
+        function sortPorNombre($a, $b) {
+            if ($a['nombre'] > $b['nombre'])
+                return 0;
+            elseif ($a['nombre'] < $b['nombre'])
+                return 1;
+            else
+                return $a['id'] > $b['id'];
+        }
+
         function vueltaRapida($matrizContenido) {
             usort($matrizContenido, "sortPorTiempo");
             return $matrizContenido[0];
@@ -122,20 +174,18 @@ and open the template in the editor.
         function vencedor($matrizContenido) {
 
             foreach ($matrizContenido as $vuelta) {
-                
-                if($vuelta['retirado']){
-                    $arrayTiempos[$vuelta['nombre']]['retirado']=1;
+
+                if ($vuelta['retirado']) {
+                    $arrayTiempos[$vuelta['nombre']]['retirado'] = 1;
+                } elseif (isset($arrayTiempos[$vuelta['nombre']]['tiempo'])) {
+                    $arrayTiempos[$vuelta['nombre']]['tiempo'] += $vuelta['tiempo'];
+                } else { //inicializacion
+                    $arrayTiempos[$vuelta['nombre']]['tiempo'] = $vuelta['tiempo'];
+                    $arrayTiempos[$vuelta['nombre']]['retirado'] = 0;
+                    $arrayTiempos[$vuelta['nombre']]['nombre'] = $vuelta['nombre'];
                 }
-                elseif(isset($arrayTiempos[$vuelta['nombre']]['tiempo'])){
-                    $arrayTiempos[$vuelta['nombre']]['tiempo']+=$vuelta['tiempo'];
-                }
-                else{ //inicializacion
-                    $arrayTiempos[$vuelta['nombre']]['tiempo']=$vuelta['tiempo'];
-                    $arrayTiempos[$vuelta['nombre']]['retirado']=0;
-                    $arrayTiempos[$vuelta['nombre']]['nombre']=$vuelta['nombre'];
-                }
-            }            
-            
+            }
+
             usort($arrayTiempos, "sortPorTiempo");
             return $arrayTiempos[0];
         }
@@ -157,11 +207,17 @@ and open the template in the editor.
                 $errores[] = 'Añada contenido';
             }
 
+            $matrizContenido = matrizContenido($_POST['contenido']);
+            usort($matrizContenido, "sortPorNombre");
+            
+            if(!filtroNumeroVueltas($matrizContenido)){
+                $errores[] = 'Información introducida incorrectamente';
+            }
 
             #PROCESAMIENTO DE DATOS
 
             if (empty($errores)) {
-                $matrizContenido = matrizContenido($_POST['contenido']);
+
                 #Se comprueba si se escoge la vuelta rapida
                 if ($_POST['peticion'] == 'vueltaRapida') {
                     $vR = vueltaRapida($matrizContenido);
@@ -171,7 +227,6 @@ and open the template in the editor.
                 #Se comprueba si se escoge la vencedor
                 elseif ($_POST['peticion'] == 'vencedor') {
                     $v = vencedor($matrizContenido);
-                    #print_r($v);
                     imprimirVencedor($v, $_POST['nombre'], $_POST['fecha']);
                 }
             }
@@ -199,8 +254,8 @@ and open the template in the editor.
                 <textarea name="contenido"></textarea><br/>
                 <input name="envio" type="submit" value="Enviar"/>
             </form>
-    <?php
-}
-?>
+            <?php
+        }
+        ?>
     </body>
 </html>
