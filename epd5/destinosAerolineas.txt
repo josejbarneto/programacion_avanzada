@@ -1,0 +1,8 @@
+1;Paris
+1;Roma
+1;Madrid
+1;Amsterdam
+2;Roma
+2;Londres
+3;Roma
+3;Amsterdam
