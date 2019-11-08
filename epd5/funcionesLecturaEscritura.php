@@ -116,3 +116,27 @@ function escribirDestinosAerolineas($id, $nombre) {
 
     fclose($f);
 }
+
+function leerConexiones(){
+    $ruta = '.txt'; #NO CREADA
+    $f = fopen($ruta, 'r');
+
+    flock($f, LOCK_SH);
+
+    $i =0;
+    while(!feof($f)){
+        $viaje = fgetcsv($f, ';');
+        
+        $tabla[$i]['id'] = $viaje[0];
+        $tabla[$i]['origen'] = $viaje[1];
+        $tabla[$i]['destino'] = $viaje[2];
+        $tabla[$i]['tiempo'] = $viaje[3];
+        
+        $i++;
+    }
+    flock($f, LOCK_UN);
+
+    fclose($f);
+
+    return $tabla;
+}

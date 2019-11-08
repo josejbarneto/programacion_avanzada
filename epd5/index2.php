@@ -12,26 +12,33 @@ and open the template in the editor.
     <body>
         <?php
         include 'funcionesLecturaEscritura.php';
+
+        if(isset($_POST['envio'])){
+            
+        }
         
+        
+        if (!isset($_POST['envio'])) {
             $aerolineas = leerAerolineas();
             $destinosAerolineas = leerDestinosAerolineas();
-            
+
             echo '<form action="" method="POST"/>';
-            
+
             foreach ($aerolineas as $aerolinea) {
                 echo "<p style='font-weight: bold;'>{$aerolinea['nombre']}</p>";
                 $id = $aerolinea['id'];
-                
+
                 foreach ($destinosAerolineas as $destino) {
-                    if($destino['id'] == $id){
-                        echo "{$destino['nombre']}<input type='radio' value='{$destino['nombre']}$id' name='{$aerolinea['nombre']}'/>";
+                    if ($destino['id'] == $id) {
+                        echo "{$destino['nombre']}<input type='radio' value='{$destino['nombre']}$id' name='selectVuelo'/>";
                     }
                 }
                 echo '<br/>';
             }
-            
+
             echo '</form><br/>';
             echo '<input type="submit" name="envio" value="Enviar"/>';
+        }
         ?>
     </body>
 </html>
