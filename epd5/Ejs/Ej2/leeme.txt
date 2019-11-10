@@ -1,0 +1,3 @@
+﻿Imprime el resumen cuando el formulario es correcto, en caso contrario no lo imprimirá.
+Guardo si las variables son correctas en un array llamado arr, que contendrá 1 en caso de que esa parte del formulario sea correcta, 0 en caso contrario.
+La parte de php donde pone <!--main--> es donde se realizará el tratamiento del formulario.
