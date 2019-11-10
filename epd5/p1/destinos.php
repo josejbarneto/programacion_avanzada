@@ -37,6 +37,9 @@ if (isset($_POST['envioDestinos'])) {
         if (!isset($_POST['selectDestino' . $i])) {
             $errores[$i][] = 'Debes marcar un destino';
         }
+        if(!in_array($_POST['selectDestino' . $i], $destinos)){
+            $errores[$i][] = 'Destino no existente';
+        }
     }
 
     #LEER FICHEROS Y COMPROBAR QUE NO EXISTE LA AEROLINEA    
@@ -69,6 +72,8 @@ if (isset($_POST['envioDestinos'])) {
         for ($i = 0; $i < $_SESSION['numeroDestinos']; $i++) {
             escribirDestinosAerolineas($idNuevaAerolinea, $_POST['selectDestino' . $i]);
         }
+        
+        session_destroy();
     }
 }
 

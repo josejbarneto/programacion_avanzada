@@ -31,13 +31,11 @@ function leerAerolineas() {
 
         $i = 0;
         while (!feof($f)) {
-            $aux = fgetcsv($f, ';');
+            $aux = fgetcsv($f, 0, ';');
             if (!empty($aux)) {
-                $aux = preg_split('/[;]/', $aux[0]);
+                $aerolineas[$i]['id'] = trim($aux[0]);
+                $aerolineas[$i]['nombre'] = trim($aux[1]);
 
-                $aerolineas[$i]['id'] = $aux[0];
-                $aerolineas[$i]['nombre'] = $aux[1];
-                
                 $i++;
             }
         }
@@ -51,30 +49,28 @@ function leerAerolineas() {
     }
 }
 
-function leerDestinosAerolineas(){
+function leerDestinosAerolineas() {
     $ruta = 'destinosAerolineas.txt';
-    
-    if(file_exists($ruta)){
+
+    if (file_exists($ruta)) {
         $f = fopen($ruta, 'r');
         flock($f, LOCK_SH);
-        
-        $i = 0;
-        while(!feof($f)){
-            $aux = fgetcsv($f, ';');
-            if (!empty($aux)) {
-                $aux = preg_split('/[;]/', $aux[0]);
 
-                $destinosAerolineas[$i]['id'] = $aux[0];
-                $destinosAerolineas[$i]['nombre'] = $aux[1];
-                
+        $i = 0;
+        while (!feof($f)) {
+            $aux = fgetcsv($f, 0, ';');
+            if (!empty($aux)) {
+                $destinosAerolineas[$i]['id'] = trim($aux[0]);
+                $destinosAerolineas[$i]['nombre'] = trim($aux[1]);
+
                 $i++;
             }
         }
-        
+
         flock($f, LOCK_UN);
         fclose($f);
         return $destinosAerolineas;
-    }else{
+    } else {
         return false;
     }
 }
@@ -117,26 +113,49 @@ function escribirDestinosAerolineas($id, $nombre) {
     fclose($f);
 }
 
-function leerConexiones(){
-    $ruta = '.txt'; #NO CREADA
+function leerConexiones() {
+    $ruta = 'conexiones.txt';
     $f = fopen($ruta, 'r');
 
     flock($f, LOCK_SH);
 
-    $i =0;
-    while(!feof($f)){
-        $viaje = fgetcsv($f, ';');
-        
-        $tabla[$i]['id'] = $viaje[0];
-        $tabla[$i]['origen'] = $viaje[1];
-        $tabla[$i]['destino'] = $viaje[2];
-        $tabla[$i]['tiempo'] = $viaje[3];
-        
+    $i = 0;
+    while (!feof($f)) {
+        $viaje = fgetcsv($f, 0, ';');
+
+        $tabla[$i]['id'] = trim($viaje[0]);
+        $tabla[$i]['origen'] = trim($viaje[1]);
+        $tabla[$i]['destino'] = trim($viaje[2]);
+        $tabla[$i]['tiempo'] = trim($viaje[3]);
+
         $i++;
     }
     flock($f, LOCK_UN);
 
     fclose($f);
 
-    return $tabla;
+    if (isset($tabla)) {
+        return $tabla;
+    } else {
+        return false; 
+    }
+}
+
+function escribirConexiones($id, $origen, $destino, $tiempo) {
+    $ruta = 'conexiones.txt';
+    if (file_exists($ruta)) {
+        $f = fopen($ruta, 'a+');
+    } else {
+        $f = fopen($ruta, 'w');
+    }
+
+    $cadena = "$id;$origen;$destino;$tiempo\n";
+
+    flock($f, LOCK_EX);
+
+    fwrite($f, $cadena);
+
+    flock($f, LOCK_UN);
+
+    fclose($f);
 }

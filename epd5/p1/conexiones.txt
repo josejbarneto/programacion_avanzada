@@ -1,0 +1,10 @@
+1;Amsterdam;Madrid;12:34
+1;Roma;Paris;01:02
+3;Amsterdam;Roma;04:09
+3;Roma;Amsterdam;08:00
+1;Paris;Roma;05:07
+1;Paris;Madrid;05:00
+1;Paris;Amsterdam;05:08
+1;Roma;Madrid;14:17
+5;Paris;Roma;14:55
+1;Roma;Amsterdam;05:00
