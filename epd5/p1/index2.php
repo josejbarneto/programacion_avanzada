@@ -11,6 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        include 'paginaPrincipal.php';
         include 'funcionesLecturaEscritura.php';
 
         function ajustarKeyArray($array) {
