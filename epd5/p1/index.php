@@ -27,7 +27,7 @@ and open the template in the editor.
                 $errores[] = 'Rellenar campo numero destinos';
             } else {
                 $numeroDestinos = filter_input(INPUT_POST,'numeroDestinos', FILTER_SANITIZE_NUMBER_INT);
-                if(!filter_var($numeroDestinos, FILTER_VALIDATE_INT) || $numeroDestinos > count(leerDestinos())){
+                if(!filter_var($numeroDestinos, FILTER_VALIDATE_INT) || $numeroDestinos > count(leerDestinos()) || $numeroDestinos < 1){
                     $errores[]='Introduzca un numero de destinos correcto';
                 }
             }
