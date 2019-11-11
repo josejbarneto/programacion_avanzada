@@ -61,7 +61,7 @@ and open the template in the editor.
         }
 
         function crearTabla($conexiones) {#MAL
-            uksort($conexiones, 'sortPorOrigen');
+            usort($conexiones, 'sortPorOrigen');
             $origen = $conexiones[0]['origen'];
             $sumatorioTiempo = 0;
             $numeroConx = 0;
