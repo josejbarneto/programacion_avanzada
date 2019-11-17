@@ -31,19 +31,7 @@ and open the template in the editor.
             }
         }
 
-        function mostrarInformacion($usuario) {
-            $conn = conectarBaseDatos();
-            $consulta = "select nombre, tiempo from usuarios where usuario='$usuario';";
-
-            $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-            
-            while ($columna = mysqli_fetch_array($resultado)) {
-                echo "Usuario: {$columna['nombre']} desde {$columna['tiempo']}";
-            }
-
-            mysqli_close($conn);
-            
-        }
+        
 
         if (isset($_POST['login'])) {
             #Filtros y control de errores
@@ -64,7 +52,9 @@ and open the template in the editor.
 
             #Procesamiento
             if (empty($errores)) {
-                mostrarInformacion($usuario);
+                session_start();
+                $_SESSION['usuario'] = $usuario;
+                header('Location: pagePrincipal.php');
             }
         }
 

@@ -64,7 +64,9 @@ and open the template in the editor.
 
             #Procesamiento
             if (empty($errores)) {
-                mostrarInformacion($usuario);
+                session_start();
+                $_SESSION['usuario'] = $usuario;
+                header('Location: pagePrincipal.php');
             }
         }
 
