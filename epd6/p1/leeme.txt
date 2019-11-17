@@ -1,0 +1,8 @@
+El menu se encuentra en la pagina index.php, el ej3 en la carpeta de login.
+Para implementar la base de datos, se importará el fichero sql de la base de datos que se incluye dentro.
+
+En la base de datos se incluye la tabla usuarios necesaria para el login, sin embargo, las tablas de partidos, equipos se crearan en caso de no estar creadas al dar de alta un partido o equipo.
+
+La pagina alta_equipo.php sera procesada por form_alta_equipo.php
+
+La pagina alta_partido.php sera procesada por form_alta_partido.php
