@@ -82,7 +82,8 @@ and open the template in the editor.
             ?>       
             <form action="#" method="POST">
                 Nombre: <input type="text" name="nombre"/><br/>
-                Usuario: <input type="text" name="usuario"/><br/>
+                Usuario: <input type="text" name="usuario"/><br/><br/>
+                La contraseña debe contener 8 caracteres una mayúscula una minúscula y un número mínimo.<br/>
                 Contraseña: <input type="password" name="contrasena"/><br/>
                 <input type="submit" name="registrar" value="Registrarse"/>
             </form>
