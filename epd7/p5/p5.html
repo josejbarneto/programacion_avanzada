@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Calificaciones PA</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #ta{
+                width: 50vw;
+            }
+
+            table tr, table td{
+                border: 1px solid black;
+            }
+
+            table td{
+                padding: 2px;
+            }
+
+            #error{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Calificaciones de Programación Avanzada</h1> 
+            <label>Nota Minima</label>
+            <input type="number" name="minimo" id="min" /><br>
+            <label>Nota Maxima</label>
+            <input type="number" name="maximo" id="max" /><br>
+            <label>Numero de Notas a Generar</label>
+            <input type="number" name="cantidad" id="cantidad" /><br>
+            <button id="calcular" onclick="realizarProcesado()">Calcular</button>&nbsp;<span id="error"></span><br>
+            <div id="resultado"></div>
+        </div>
+        <script>
+            var alumnos = [
+                "Raul Gonzalez",
+                "Jose Maria Gutierrez",
+                "Michel Salgado",
+                "Ivan Helguera",
+                "Iker Casillas",
+                "Fernando Hierro",
+                "Fernando Morientes",
+                "David Beckham",
+                "Luis Figo",
+                "Zinedine Zidane"
+            ];
+
+            function realizarProcesado() {
+                var resultado = document.getElementById("resultado");
+                //Resetear el DIV resultado.        
+                while (resultado.firstChild) {
+                    resultado.removeChild(resultado.firstChild);
+                }
+
+                var error = document.getElementById("error");
+                error.innerText = "";
+
+                var min = Number(document.getElementById("min").value);
+                var max = Number(document.getElementById("max").value);
+                var cantidad = Number(document.getElementById("cantidad").value);
+                var sigue = true;
+
+                if (isNaN(cantidad) || cantidad != alumnos.length) {
+                    error.innerText += "La cantidad de notas no corresponde al numero de alumnos (" + alumnos.length + ")";
+                    sigue = false;
+                }
+                if (isNaN(min) || isNaN(max) || min > max) {
+                    var concat = sigue ? "" : " | ";
+                    error.innerText += concat + "La nota minima debe ser menor o igual que la maxima.";
+                    sigue = false;
+                }
+
+                if (sigue) {
+                    var calificaciones = genererarCalificacionesAleatorias(min, max, cantidad);
+                    var tabla = construirTabla(alumnos, calificaciones);
+                    resultado.appendChild(tabla);
+
+                    var aprobado = Number(((min + max) / 2).toFixed(2));
+                    var notaAcumulada = 0;
+                    var numeroAprobados = 0;
+                    calificaciones.forEach(function (nota) {
+                        notaAcumulada += parseFloat(nota);
+                        if (nota >= aprobado) {
+                            numeroAprobados++;
+                        }
+                    });
+
+                    var p = document.createElement('p');
+                    p.appendChild(document.createTextNode("Nº de alumnos suspensos: " + (alumnos.length - numeroAprobados)));
+                    resultado.appendChild(p);
+                    var p = document.createElement('p');
+                    p.appendChild(document.createTextNode("Nº de alumnos aprobados: " + numeroAprobados));
+                    resultado.appendChild(p);
+                    var p = document.createElement('p');
+                    p.appendChild(document.createTextNode("Nota media alumnos: " + (parseFloat(notaAcumulada / alumnos.length)).toFixed(2)));
+                    resultado.appendChild(p);
+                }
+            }
+
+            function construirTabla(alumnos, calificaciones) {
+                var tabla = document.createElement('table');
+
+                for (var i = 0; i < alumnos.length; i++) {
+                    var tr = document.createElement('tr');
+                    var td = document.createElement('td');
+                    var text = document.createTextNode(alumnos[i]);
+                    td.appendChild(text);
+                    tr.appendChild(td);
+
+                    var td = document.createElement('td');
+                    var text = document.createTextNode(calificaciones[i]);
+                    td.appendChild(text);
+                    tr.appendChild(td);
+                    tabla.appendChild(tr);
+                }
+
+                return tabla;
+            }
+
+
+            function genererarCalificacionesAleatorias(minimo, maximo, valores) {
+                var calificaciones = [];
+                for (var i = 0; i < valores; i++) {
+                    var nota = parseFloat(Math.random() * (maximo - minimo + 1) + minimo);
+                    calificaciones.push(Number(nota.toFixed(2)));
+                }
+                return calificaciones;
+            }
+        </script>
+    </body>
+</html>
