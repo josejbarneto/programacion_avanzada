@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Procesador de Texto JS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #ta{
+                width: 50vw;
+            }
+
+            table tr, table td{
+                border: 1px solid black;
+            }
+            table td{
+                padding: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Procesador de texto:</h1> 
+            <p>de. TEXTO DE PRUEBA DEL PROCESADOR PARA COPIAR Y PEGAR Procesador de! dé de, de. dE de téxto procesado por procesador de texto! de jose</p>
+            <textarea id="ta"></textarea><br>
+            <button id="procesar" onclick="realizarProcesado()">Procesar</button><br>
+            <div id="resultado"></div>
+        </div>
+        <script>
+
+            function realizarProcesado() {
+                var resultado = document.getElementById("resultado");
+                //Resetear el DIV resultado.        
+                while (resultado.firstChild) {
+                    resultado.removeChild(resultado.firstChild);
+                }
+
+                var texto = document.getElementById("ta").value;
+                var palabras = texto.split(" ");
+
+                var wordEle = document.createElement('p');
+                wordEle.appendChild(document.createTextNode("Nº de palabras del texto: " + palabras.length));
+                resultado.appendChild(wordEle);
+
+                var wordEle = document.createElement('p');
+                wordEle.appendChild(document.createTextNode("Primera palabra del texto: " + limpiaPalabra(palabras[0])));
+                resultado.appendChild(wordEle);
+
+                var wordEle = document.createElement('p');
+                wordEle.appendChild(document.createTextNode("Ultima palabra del texto: " + limpiaPalabra(palabras[palabras.length - 1])));
+                resultado.appendChild(wordEle);
+
+                var arrayPalabras = []; //Al estar indexado realmente javascript lo considera un objeto, pero le llamamos array para saber a que nos referimos.
+                palabras.forEach(function (palabra, i, texto) {
+                    //var wordEle = document.createElement('p');
+                    //wordEle.appendChild(document.createTextNode(palabra));
+                    //resultado.appendChild(wordEle);
+                    var palabraArreglada = limpiaPalabra(palabra);
+                    if (typeof (arrayPalabras[palabraArreglada.toLowerCase()]) == 'undefined') {
+                        arrayPalabras[palabraArreglada.toLowerCase()] = 1;
+                    } else {
+                        arrayPalabras[palabraArreglada.toLowerCase()]++;
+                    }
+                });
+
+                var arrayOrdenado = ordenaArray(arrayPalabras);
+
+                var tabla = document.createElement('table');
+                tabla.appendChild(crearFilaPalabra('Palabra', 'Veces'));
+                for (var word in arrayOrdenado) {
+                    tabla.appendChild(crearFilaPalabra(word, arrayOrdenado[word]));
+                }
+
+                resultado.appendChild(tabla);
+            }
+
+            /**
+             * 
+             * @param Recibe el "array" (objeto) de palabras y con cada palabra
+             * @return Devuelve una copia de este "array" ordenado descendentemente por frecuencia de palabras
+             */
+            function ordenaArray(array) {
+                var fakeArray = [];
+                for (var ele in array) {
+                    fakeArray.push([ele, array[ele]]);
+                }
+
+                fakeArray.sort(function (a, b) {
+                    return b[1] - a[1];
+                });
+
+                var arrayIndexadoOrdenado = {};
+                fakeArray.forEach(function (item) {
+                    arrayIndexadoOrdenado[item[0]] = item[1];
+                });
+
+                return arrayIndexadoOrdenado;
+            }
+
+
+            function limpiaPalabra(palabraOriginal) {
+                var caracteres = 'öüóúéáàíÖÜÓŐÚÉÁÀÍçÇ!?,.:¡¿";';
+                var validos =    'ououeaaiOUOOUEAAIcC         ';
+                var charindex = -1;
+                var palabraDefinitiva = '';
+                var lentext = palabraOriginal.toString().length - 1;
+                
+                for (var i = 0; i <= lentext; i++) {
+                    charindex = caracteres.indexOf(palabraOriginal.charAt(i));
+                    if (charindex == -1) {
+                        palabraDefinitiva = palabraDefinitiva + palabraOriginal.charAt(i);
+                    } else {
+                        palabraDefinitiva = palabraDefinitiva + validos.charAt(charindex);
+                    }
+                }
+                return palabraDefinitiva.trim();
+            }
+
+            /**
+             * 
+             * @param Palabra
+             * @param Veces que se encuentra la palabra en el texto
+             * @return Devuelve el elemento TR con los TD correspondientes. "PALABRA" - "VECES"
+             */
+            function crearFilaPalabra(palabra, veces) {
+                var tr = document.createElement('tr');
+                var td = document.createElement('td');
+                var text = document.createTextNode(palabra);
+                td.appendChild(text);
+                tr.appendChild(td);
+
+                var td = document.createElement('td');
+                var text = document.createTextNode(veces);
+                td.appendChild(text);
+                tr.appendChild(td);
+                return tr;
+            }
+        </script>
+    </body>
+</html>
