@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+    <p>Introduce los números y presiona Introduce para añadir, número negativo acciona el formulario:</p>
+
+    
+        <input type="number" id="num">
+        <input type="button" onclick="myFunction()" value="Introduce">
+
+    
+    
+<script>
+    var numeros=[];
+    function myFunction() {
+        if(document.getElementById("num").value<0){
+            var h = Math.max.apply(null, numeros);
+            var nop=[];
+            
+            document.write("<h2>Pertenecen:</h2>");
+            
+            for (var i = 0; i < numeros.length; i++) {
+                if(fibo(numeros[i])){
+                    if(h==numeros[i]){
+                        document.write('<span style="border: 5px solid black;">'+numeros[i]+'</span>'+"<br/>");
+                    }else{
+                        document.write(numeros[i]+"<br/>");
+                    }
+                }else{
+                    nop.push(numeros[i]);
+                }
+            }
+
+            document.write("<h2>No Pertenecen:</h2>");
+            
+            for (var i = 0; i < nop.length; i++) {
+                    if(h==nop[i]){
+                        document.write('<span style="border: 5px solid black;">'+nop[i]+'</span>'+"<br/>");
+                    }else{
+                        document.write(nop[i]+"<br/>");
+                    }
+            }
+        }else{
+            numeros.push(document.getElementById("num").value);
+            document.getElementById("num").value="";
+        }
+        
+    }
+    
+    
+     function fibo(num) {
+         var ant=0;
+         if(num==0){
+             return true;
+         }
+         var act=1;
+         while(act<=num){
+             if(act==num){
+                 return true;
+             }
+             act=act+ant;
+             ant=act-ant;
+         }
+         return false;
+     }
+</script>
+
+</body>
+</html>

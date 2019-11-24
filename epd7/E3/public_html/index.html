@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <h2>Cálculos:</h2>
+        
+<script type="text/javascript">
+    <!--
+    function feliz(num){
+        var res;
+        
+        var vec=[];
+        vec.push(num);
+        document.write("<strong>"+num+"</strong><br/>-----------------------------------------------------------<br/>");
+        for(;;){
+            
+            res=0;
+            document.write("<br/>"+(num%10)+"<sup>2</sup>");
+            res+=Math.pow((num%10),2);
+            num=Math.floor(num/10);
+
+            while(num>=1){
+                document.write("+"+(num%10)+"<sup>2</sup>");
+                res+=Math.pow((num%10),2);
+                num=Math.floor(num/10);
+            }
+            document.write("= "+res+"<br/>");
+            num=res;
+            
+            if(num===1){
+                document.write("<br/>SOL: FELIZ<br/><br/>-----------------------------------------------------------<br/>");
+                return 1;
+            }
+            if(vec.includes(res)===true){
+                document.write("<br/>SOL: BUCLE NO FELIZ<br/><br/>-----------------------------------------------------------<br/>");
+                return 0;
+            }
+            vec.push(res);
+        }
+    }
+    var sols=[];
+    var i=1;
+    var cont=0;
+    
+    document.write("-----------------------------------------------------------<br/>");
+    while(cont<5){
+        var aux=cont;
+        cont+=feliz(i);
+        if(aux<cont){
+            sols.push(i);
+        }
+        i++;
+    }
+    var cadena="";
+    for(i=0;i<sols.length;i++){
+        cadena+="<li>"+sols[i]+"</li>";
+    }
+    document.write(("<h2>Soluciones:</h2>"+"<ul>"+cadena+"</ul>"));
+    //-->
+</script>
+
+    </body>
+</html>
