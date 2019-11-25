@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <style>
+            
+            .but{
+                border-radius: 30%;
+                font-size: 20px;
+                background-color: gold;
+            }
+            
+            .cajas{
+                display: flex;
+            }
+            
+            .cajas div{
+                background-color: black;
+                color: white;
+                width: 200px;
+                line-height: 100px;
+                margin: 10px;
+                text-align: center;
+                font-size: 30px;
+            }
+            
+        </style>
+        
+    </head>
+    <body>
+        
+        <input type="button" value="col" class="but" onclick="col()">
+        <br/>
+        <input type="button" value="fil" class="but" onclick="fil()">
+        <br/>
+        <br/>
+        
+        
+        
+        <div class="cajas">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>  
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>  
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+        </div>
+        
+        
+        <script>
+            function injectStyles(rule) {
+                var est = document.createElement('style');
+                est.innerHTML = rule;
+                document.body.appendChild(est);
+            }
+            
+            function col() {injectStyles('.cajas{flex-direction: column;}');}
+            
+            function fil() {injectStyles('.cajas{flex-direction: row;}');}
+           
+        </script>
+    </body>
+</html>
