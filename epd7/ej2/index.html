@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function toFixed(cadena, precision) {
+                var cont = 0;
+                var cadena1 = new String('');
+                while (cadena[cont] != '.') {
+                    cadena1 += String(cadena[cont]);
+                    cont++;
+                }
+
+                cadena1 += '.';
+                cont++;
+                for (var i = 0; i < precision - 1; i++) {
+                    if (cont >= cadena.length) {
+                        cadena1 += '0';
+                    } else {
+                        cadena1 += String(cadena[cont]);
+                    }
+                    cont++;
+                }
+
+                if (cont < cadena.length) {
+                    
+                    if(cadena[cont + 1] >= 5){
+                        var sum = Number(cadena[cont]) + 1;
+                    }else{
+                        var sum = cadena[cont];
+                    }       
+                    cadena1 += String(sum);
+                } else {
+                    cadena1 += '0';
+                }
+
+                
+                return cadena1;
+            }
+        </script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var cadena = prompt("Introduzca un numero: ");
+            var precision = prompt("Introduzca su precision");
+            document.write("Resultado: " + toFixed(cadena, precision));
+        </script>
+    </body>
+</html>

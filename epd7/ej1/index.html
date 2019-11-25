@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function areaTriangulo(lado1, lado2, angulo) {
+                return (1 / 2) * lado1 * lado2 * Math.sin(angulo);
+            }
+        </script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var lado1 = prompt('Introduzca el valor del lado 1');
+            var lado2 = prompt('Introduzca el valor del lado 2');
+            var angulo = prompt('Introduzca el valor del angulo entre el lado 1 y 2');
+            var r = areaTriangulo(lado1, lado2, angulo);
+            document.write("El resultado es " + r);
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+
+            function dominio(url) {
+
+                var dominios = new Array();
+                dominios['192.168.1.55'] = 'upo.es';
+
+                var expresion = /\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/;
+                var expresion1 = /\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}:[0-9]+\b/;
+
+                var ip = url.match(expresion);
+                url1 = url.replace(expresion1, dominios[ip]);
+                document.write(url1);
+            }
+
+            function params(url) {
+                var aux = url.split("?");
+                var par = aux[1].split("&");
+
+                // Obtener la referencia del elemento body
+                var body = document.getElementsByTagName("body")[0];
+
+                // Crea un elemento <table> y un elemento <tbody>
+                var tabla = document.createElement("table");
+                var tblBody = document.createElement("tbody");
+
+                var hilera = document.createElement("tr");
+
+                var celda = document.createElement("th");
+                var textoCelda = document.createTextNode('Nombre');
+                celda.appendChild(textoCelda);
+                hilera.appendChild(celda);
+
+                celda = document.createElement("th");
+                textoCelda = document.createTextNode('Valor');
+                celda.appendChild(textoCelda);
+                hilera.appendChild(celda);
+
+                tblBody.appendChild(hilera);
+
+                // Crea las celdas
+                for (var i = 0; i < 2; i++) {
+                    // Crea las hileras de la tabla
+                    hilera = document.createElement("tr");
+                    var parametro = par[i].split('=');
+
+
+                    // Crea un elemento <td> y un nodo de texto, haz que el nodo de
+                    // texto sea el contenido de <td>, ubica el elemento <td> al final
+                    // de la hilera de la tabla
+                    celda = document.createElement("td");
+                    textoCelda = document.createTextNode(parametro[0]);
+                    celda.appendChild(textoCelda);
+                    hilera.appendChild(celda);
+
+                    celda = document.createElement("td");
+                    textoCelda = document.createTextNode(parametro[1]);
+                    celda.appendChild(textoCelda);
+                    hilera.appendChild(celda);
+
+
+                    // agrega la hilera al final de la tabla (al final del elemento tblbody)
+                    tblBody.appendChild(hilera);
+                }
+
+                // posiciona el <tbody> debajo del elemento <table>
+                tabla.appendChild(tblBody);
+                // appends <table> into <body>
+                body.appendChild(tabla);
+                // modifica el atributo "border" de la tabla y lo fija a "2";
+                tabla.setAttribute("border", "2");
+            }
+
+            function add(url, paramsToAdd) {
+                var aux = paramsToAdd.slice(4, -1);
+                var params = aux.split(',');
+                url += '&' + params[0] + '=' + params[1];
+                dominio(url);
+            }
+
+        </script>
+    </head>
+    <body>
+        <script>
+            var url = prompt('Introduzca una url: ');
+            var aux = url.split(';');
+            var longitud = aux.length;
+
+            document.writeln(aux[0]);
+
+            for (var i = 1; i < longitud; i++) {
+                if (aux[i] == 'domain') {
+                    dominio(aux[0]);
+                } else if (aux[i] == 'params') {
+
+                    params(aux[0]);
+                } else {
+                    var x = aux[i].match('add');
+                    if (x.length == 1) {
+                        add(aux[0], aux[i]);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
