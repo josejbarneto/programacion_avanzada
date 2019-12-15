@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <head>
+        <title>Carrusel</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+        <div>
+            <img src="https://www.crystallakepub.com/wp-content/uploads/2017/02/blue-circle-number-1.png" id="uno" alt="Uno" height="300">
+            <h2 id="Titulo">Uno</h2>
+            <p id="Descripcion">Número uno</p>
+            
+            <div>
+                <img src="https://ihaveagift.org/wp-content/uploads/2017/09/blue-circle-number-2.png" alt="Dos" height="70" id="dos" onclick="swapImgs(document.getElementById('dos'),1);">
+                <img src="https://themarketingnutz.com/wp-content/uploads/2018/01/blue-circle-number-3.png" alt="Tres" height="70" id="tres" onclick="swapImgs(document.getElementById('tres'),2);">
+                <img src="https://themarketingnutz.com/wp-content/uploads/2018/01/blue-circle-number-4.png" alt="Cuatro" height="70" id="cuatro" onclick="swapImgs(document.getElementById('cuatro'),3);">
+                <img src="https://i0.wp.com/diginessgrowth.com/wp-content/uploads/2018/06/blue-circle-number-5.png" alt="Cinco" height="70" id="cinco" onclick="swapImgs(document.getElementById('cinco'),4);">
+            </div>
+            
+        </div>
+        
+    <script>
+        var titulos = ["Uno","Dos","Tres","Cuatro","Cinco"];
+        var descripciones = ["Número uno","Número dos","Número tres","Número cuatro","Número cinco"];
+        
+        
+        window.setInterval(function(){
+            
+            for(var i=0; i<(titulos.length-1); i++){
+                swap(titulos, i, (i+1));
+                swap(descripciones, i, (i+1));
+                if(i===0){
+                    var src=document.getElementById("uno").src;
+                    document.getElementById("uno").src = document.getElementById("dos").src;
+                    document.getElementById("dos").src = src;
+                }
+                if(i===1){
+                    var src=document.getElementById("dos").src;
+                    document.getElementById("dos").src = document.getElementById("tres").src;
+                    document.getElementById("tres").src = src;
+                }
+                if(i===2){
+                    var src=document.getElementById("tres").src;
+                    document.getElementById("tres").src = document.getElementById("cuatro").src;
+                    document.getElementById("cuatro").src = src;
+                }
+                if(i===3){
+                    var src=document.getElementById("cuatro").src;
+                    document.getElementById("cuatro").src = document.getElementById("cinco").src;
+                    document.getElementById("cinco").src = src;
+                }
+            }
+            swap(titulos, (titulos.length-1),0);
+            swap(descripciones, (descripciones.length-1),0);
+            var src=document.getElementById("cinco").src;
+            document.getElementById("cinco").src = document.getElementById("uno").src;
+            document.getElementById("uno").src = src;
+            
+        }, 10000);
+        
+        function swap(arr,i, j){
+            aux=arr[i];
+            arr[i]=arr[j];
+            arr[j]=aux;
+        }
+        
+        function swapImgs(img,num){
+            var src=document.getElementById("uno").src;
+            document.getElementById("uno").src = img.src;
+            img.src=src;
+            
+            document.getElementById("Titulo").innerHTML= titulos[num];
+            document.getElementById("Descripcion").innerHTML=descripciones[num];
+            
+            var aux=titulos[num];
+            
+            titulos[num]=titulos[0];
+            titulos[0]=aux;
+            
+            var aux2=descripciones[num];
+            
+            descripciones[num]=descripciones[0];
+            descripciones[0]=aux2;
+        }
+        
+    </script>
+    </body>
+</html>
