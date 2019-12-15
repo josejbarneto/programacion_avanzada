@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Habitos Saludables</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="form.css">
+        <style>
+            .ocultar{
+                display:none!important;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            var mostrar = function (elem) {
+                elem.classList.remove('ocultar');
+            };
+
+            var ocultar = function (elem) {
+                elem.classList.add('ocultar');
+            };
+
+            function validateForm() {
+                var correcto = true;
+                var errors = new Array();
+                var edad = document.forms["formulario"]["edad"].value;
+                if (!validarNumber(edad)) {
+                    correcto = false;
+                    errors.push("Introduzca una edad correcta");
+                }
+
+                var sexo = document.forms["formulario"]["sexo"].value;
+                if (!validarRadio(sexo)) {
+                    correcto = false;
+                    errors.push("Seleccione un sexo");
+                }
+
+                var peso = document.forms["formulario"]["peso"].value;
+                if (!validarRadio(peso)) {
+                    correcto = false;
+                    errors.push("Introduzca un peso valido, maximo 6 caracteres y utilice la coma (,) para separar decimales ");
+                }
+
+                var fumador = document.forms["formulario"]["fuma"].value;
+                if (!validarSelect(fumador)) {
+                    correcto = false;
+                    errors.push("Indique si es fumador o no");
+                } else if (fumador == "si") {
+                    var cigarros = document.forms["formulario"]["cigarros"].value;
+                    if (!validarNumber(cigarros)) {
+                        correcto = false;
+                        errors.push("Indique el numero de cigarros que fuma");
+                    }
+                }
+
+                var deporte = document.forms["formulario"]["deporte"].value;
+                if (!validarSelect(deporte)) {
+                    correcto = false;
+                    errors.push("Indique si realiza deporte o no");
+                } else {
+                    if (deporte == "si") {
+                        var dias = document.forms["formulario"]["dias"].value;
+                        if (!validarNumber(dias)) {
+                            correcto = false;
+                            errors.push("Indique cuantos dias realiza deporte");
+                        }
+
+                        var sport = document.forms["formulario"]["sport"].value;
+                        if (!validarTexto(sport)) {
+                            correcto = false;
+                            errors.push("Indique que deporte realiza");
+                        }
+
+                        var url = document.forms["formulario"]["web"].value;
+                        if (url != null && url.length > 0) {
+                            if (!validarUrl(url)) {
+                                correcto = false;
+                                errors.push("Introduzca una URL valida (www.nombrepagina.dominio) o ninguna.");
+                            }
+                        }
+                    }
+                }
+
+                var coche = document.forms["formulario"]["coche"].value;
+                if (!validarSelect(coche)) {
+                    correcto = false;
+                    errors.push("Indique si viaja en coche o no");
+                }
+
+                if (errors.length > 0) {
+                    document.getElementById("errors").innerHTML = "";
+                    document.getElementById("errors").classList.add("errores");
+                    errors.forEach(function (error) {
+                        document.getElementById("errors").innerHTML += error + "<br>";
+                    });
+                } else {
+                    document.getElementById("errors").classList.add("valido");
+                    document.getElementById("errors").classList.remove("errores");
+                }
+
+                return correcto;
+            }
+
+            function validarTexto(texto) {
+                return texto != null && texto.length > 0;
+            }
+
+            function validarNumber(numero) {
+                return numero != "" && !isNaN(numero);
+            }
+
+            function validarRadio(radio) {
+                return radio != null && radio != "";
+            }
+
+            function validatePeso(peso) {
+                return peso.length > 0 && peso.length <= 6 && /[0-9]*\,?[0-9]*/.test(peso);
+            }
+
+            function validarUrl(url) {
+                return /(www.)[a-zA-Z0-9]*\.[a-z]*/.test(url);
+            }
+
+            function validarSelect(select) {
+                return select != null && select != "";
+            }
+
+            function changeFumador(ele) {
+                if (ele.value == 'si') {
+                    mostrar(document.getElementById('fuma_si'));
+                } else {
+                    ocultar(document.getElementById('fuma_si'));
+                }
+            }
+
+            function changeDeporte(ele) {
+                if (ele.value == 'si') {
+                    mostrar(document.getElementById('deporte_si'));
+                } else {
+                    ocultar(document.getElementById('deporte_si'));
+                }
+            }
+
+            function changeCoche(ele) {
+                if (ele.value == 'si') {
+                    mostrar(document.getElementById('coche_si'));
+                    ocultar(document.getElementById('coche_no'));
+                } else if (ele.value == 'no') {
+                    mostrar(document.getElementById('coche_no'));
+                    ocultar(document.getElementById('coche_si'));
+                } else {
+                    ocultar(document.getElementById('coche_si'));
+                    ocultar(document.getElementById('coche_no'));
+                }
+            }
+
+            function changeMedio(ele) {
+                if (ele.value == 'otro') {
+                    mostrar(document.getElementById('select_otro'));
+                } else {
+                    ocultar(document.getElementById('select_otro'));
+                }
+            }
+        </script>
+        <form action="#" name="formulario" method="post" onsubmit="return validateForm()">
+            <h1>Habitos Saludables</h1>
+            <div id="errors">
+
+            </div>
+            <div class="column">
+                <label for="edad">Edad*</label>
+                <input type="number" id="edad" name="edad"/>
+
+                <fieldset>
+                    <legend>Sexo*</legend>
+                    <label>
+                        <input type="radio" name="sexo" value="h" />
+                        Hombre
+                    </label>
+                    <label>
+                        <input type="radio" name="sexo" value="m"/>
+                        Mujer
+                    </label>
+                </fieldset>
+
+                <label for="peso">Peso*</label>
+                <input type="text" id="peso" name="peso" />
+
+                <label for="fuma">¿Es fumador?*</label>
+                <select id="fuma" name="fuma" onchange="changeFumador(this)">
+                    <option value="">-</option>
+                    <option value="si">Si</option>
+                    <option value="no">No</option>
+                </select>
+
+                <div id="fuma_si" class="ocultar">
+                    <label for="cigarros">¿Cuantos cigarros fuma a la semana?*</label>
+                    <input type="number" id="cigarros" name="cigarros" />
+                </div>
+            </div>
+
+            <div class="column">
+                <label for="deporte">¿Realiza algun deporte?*</label>
+                <select id="deporte" name="deporte" onchange="changeDeporte(this)">
+                    <option value="">-</option>
+                    <option value="si">Si</option>
+                    <option value="no">No</option>
+                </select>
+
+
+                <div id="deporte_si" class="ocultar">
+                    <label for="dias">¿Cuantos dias a la semana realiza deporte?*</label>
+                    <input type="number" id="dias" name="dias"/>
+
+                    <label for="sport">¿Que deporte realiza?*</label>
+                    <input type="text" id="sport" name="sport" />
+
+                    <label for="web">¿Sigue alguna web de habitos saludables?</label>
+                    <input type="text" id="web" name="web" />
+                </div>
+            </div>
+
+            <div class="column">
+                <label for="coche">¿Vas en coche a la universidad/trabajo?*</label>
+                <select id="coche" name="coche" onchange="changeCoche(this)">
+                    <option value="">-</option>
+                    <option value="si">Si</option>
+                    <option value="no">No</option>
+                </select>
+
+                <div id="coche_si" class="ocultar">
+                    <label for="tpublico">¿Por qué no utiliza transporte público?</label>
+                    <textarea id="tpublico" name="tpublico"></textarea>
+                </div>
+
+                <div id="coche_no" class="ocultar">
+                    <label for="transporte">¿En medio se desplaza?</label>
+                    <select id="transporte" name="transporte" onchange="changeMedio(this)">
+                        <option value="">-</option>
+                        <option value="tp">Transporte publico</option>
+                        <option value="walk">Andando</option>
+                        <option value="bici">Bicicleta</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                    <div id="select_otro" class="ocultar">
+                        <label for="otro">¿Cual?</label>
+                        <textarea id="otro" name="otro"></textarea>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Enviar" />
+        </form>
+    </body>
+</html>
