@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            function edad(fechaNacimiento) {
+                fechaNacimiento = fechaNacimiento.split('/');
+                var hoy = new Date();
+                var anyos = hoy.getFullYear() - parseInt(fechaNacimiento[2]);
+                if (hoy.getMonth() + 1 < parseInt(fechaNacimiento[1])) {
+                    anyos--;
+                } else if (hoy.getMonth() + 1 == parseInt(fechaNacimiento[1])) {
+                    if (hoy.getDate() < parseInt(fechaNacimiento[0])) {
+                        anyos--;
+                    }
+                }
+                return anyos;
+            }
+
+            function edadCorrecta(fechaNacimiento){
+                var anyo = edad(fechaNacimiento);
+                if(anyo >= 18 && anyo <= 40){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            function validacion() {
+                var salida='';
+                var expr = new RegExp(/^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$/, 'i');
+                if (expr.test(document.getElementById('fecha').textContent)){
+                    salida += 'Formato de fecha incorrecto\n';
+                }else if(!edadCorrecta(document.getElementById('fecha').value)){
+                    salida+='Edad incorrecta';
+                }
+                if (salida != '') {
+                    document.getElementById('mensajeError').textContent = salida;
+                    document.getElementById('fecha').style.borderColor = 'red';
+                    return false;
+                } else
+                    return true;
+            }
+
+            function comprobar(event){
+                var keynum = event.which;
+
+                if (keynum >= 47 && keynum <= 57) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        </script>
+
+        <form action="#" method="post" onsubmit="return validacion()">
+            Fecha de nacimiento <input type="text" id="fecha" name="fecha" onkeypress="return comprobar(event)"/>
+            <p id='mensajeError' style='color: red;'></p>
+            <br/>
+            <input type="submit" value="Enviar"/>
+        </form>
+
+    </body>
+</html>

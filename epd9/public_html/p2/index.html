@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+        <p>dsf dfsf dsf dsf</p>
+        <p>dsf dfsf dsf</p>
+        <p>dsf dfsf dsf dsf</p>
+        <p>dsf dfsf dsf dsf rtrt yuug jh</p>
+        <a href="https://campusvirtual.upo.es/bbcswebdav/pid-2883383-dt-content-rid-4763825_1/courses/GIFS701021_L1_2019-20/epd09.pdf">Pincha aqui</a>
+
+        <script type="text/javascript">
+            function fun1() {
+                var media = 0;
+                var palabras = '';
+                var numPalabras = 0;
+                var parrafos = document.getElementsByTagName('p');
+                var i = 0;
+                for (i = 0; i < parrafos.length; i++) {
+                    palabras = parrafos[i].textContent.split(' ');
+                    numPalabras += palabras.length;
+                }
+
+                media = numPalabras / i;
+                alert(media);
+            }
+            
+            function fun2(){
+                var altsImages = document.getElementsByTagName('img');
+                for(var i = 0; i < altsImages.lenght; i++){
+                    document.write('<br>');
+                    documet.write(altsImages[i].alt);
+                }
+            }
+            
+            function fun3(){
+                var parrafos = document.getElementsByTagName('p');
+                parrafos[0].style.fontWeight = 'bold';
+                parrafos[1].style.fontWeight = 'bold';
+            }
+            
+            function fun4(){
+                var enlaces = document.getElementsByTagName('a');
+                var url = enlaces[0].href;
+                document.write('<br>');
+                document.write(url);
+                
+            }
+            fun1();
+            fun2();
+            fun3();
+            fun4();
+        </script>
+        
+    </body>
+</html>
