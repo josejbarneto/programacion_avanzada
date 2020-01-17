@@ -1,9 +1,9 @@
 <?php
 /* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
 /*
-$usuario = getUsuario(); // O esto quiza lo hagamos con cookies
-$posts = getTodosLosPost();
-*/
+  $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
+  $posts = getTodosLosPost();
+ */
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,22 +16,11 @@ $posts = getTodosLosPost();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
     </head>
     <body>
-        <nav class="ui grid cabecera">
-            <div class=""></div>
-            <nav class="ui sticky fluid menu">
-                <div class="item">
-                    <img src="../recursos/img/logo.png">
-                </div>
-                <a class="item">Features</a>
-                <a class="item">Testimonials</a>
-                <a class="item">Sign-in</a>
-                <div class="right menu">
-                    <a class="ui item">
-                        Logout
-                    </a>
-                </div>
-            </nav>
-        </nav>
+        <?php
+        //AÑADIMOS EL HEADER DE LA PAGINA. 
+        //Antes de incluirlo si añadimos variables al header las tocamos aqui
+        include_once("header.php")
+        ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
             <section class="ui grid">
@@ -39,8 +28,8 @@ $posts = getTodosLosPost();
                     <div class="ui segment">
                         <div class="ui middle aligned divided relaxed list">
                             <?php
-                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-                            
+                            //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
+
                             /*
                              * for (post in post){
                              * echo <div classitem> post[titulo]</div>
@@ -96,5 +85,11 @@ $posts = getTodosLosPost();
                 </div>
             </section>
         </article>
+
+        <?php
+        //AÑADIMOS EL FOOTER DE LA PAGINA. 
+        //Antes de incluirlo si añadimos variables al footer las tocamos aqui
+        include_once("footer.php")
+        ?>
     </body>
 </html>
