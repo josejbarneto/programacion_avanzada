@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-01-2020 a las 20:59:09
+-- Tiempo de generación: 25-01-2020 a las 17:54:14
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `programacionavanzada`
+-- Base de datos: `pa`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categoria` (
-  `id` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(32) NOT NULL,
   `nombre` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -41,9 +41,9 @@ CREATE TABLE `categoria` (
 --
 
 CREATE TABLE `comentario` (
-  `id` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `id_usuario` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `id_post` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(32) NOT NULL,
+  `id_usuario` int(32) NOT NULL,
+  `id_post` int(32) NOT NULL,
   `texto` text COLLATE latin1_spanish_ci NOT NULL,
   `fecha_creacion` date NOT NULL,
   `fecha_actualizacion` date NOT NULL
@@ -56,9 +56,9 @@ CREATE TABLE `comentario` (
 --
 
 CREATE TABLE `galeria` (
-  `id` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `id_usuario` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `id_post` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(32) NOT NULL,
+  `id_usuario` int(32) NOT NULL,
+  `id_post` int(32) NOT NULL,
   `nombre_fichero` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `url` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `tipo` varchar(32) COLLATE latin1_spanish_ci NOT NULL
@@ -71,12 +71,10 @@ CREATE TABLE `galeria` (
 --
 
 CREATE TABLE `mensaje` (
-  `id` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `id_emisor` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `id_receptor` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `fecha_enviado` date NOT NULL,
-  `fecha_recibido` date NOT NULL,
-  `fecha_leido` date NOT NULL,
+  `id` int(32) NOT NULL,
+  `id_emisor` int(32) NOT NULL,
+  `id_receptor` int(32) NOT NULL,
+  `fecha_envio` date NOT NULL,
   `texto` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -87,11 +85,10 @@ CREATE TABLE `mensaje` (
 --
 
 CREATE TABLE `post` (
-  `id` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `id_categoria` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(32) NOT NULL,
+  `id_categoria` int(32) NOT NULL,
   `texto` text COLLATE latin1_spanish_ci NOT NULL,
-  `fecha_creacion` date NOT NULL,
-  `fecha_actualizacion` date NOT NULL
+  `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
@@ -101,12 +98,13 @@ CREATE TABLE `post` (
 --
 
 CREATE TABLE `preferecias` (
-  `id_usuario` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(32) NOT NULL,
+  `id_usuario` int(32) NOT NULL,
   `vista` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `modo_nocturno` tinyint(1) NOT NULL,
-  `categoria_inicial` int(32) NOT NULL,
+  `categoria_inicial` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `lenguaje_obsceno` tinyint(1) NOT NULL,
-  `open_post_new_tab` tinyint(1) NOT NULL,
+  `opoen_post_new_tab` tinyint(1) NOT NULL,
   `orden` varchar(32) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -117,9 +115,9 @@ CREATE TABLE `preferecias` (
 --
 
 CREATE TABLE `reaccion` (
-  `id` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `id_usuario` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `id_post` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(32) NOT NULL,
+  `id_usuario` int(32) NOT NULL,
+  `id_post` int(32) NOT NULL,
   `tipo` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -131,7 +129,8 @@ CREATE TABLE `reaccion` (
 --
 
 CREATE TABLE `usuario` (
-  `nombre_usuario` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(32) NOT NULL,
+  `usuario` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `nombre` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `contrasenya` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `email` varchar(32) COLLATE latin1_spanish_ci NOT NULL
@@ -152,8 +151,8 @@ ALTER TABLE `categoria`
 --
 ALTER TABLE `comentario`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_post` (`id_post`),
-  ADD UNIQUE KEY `id_usuario` (`id_usuario`);
+  ADD UNIQUE KEY `id_usuario` (`id_usuario`),
+  ADD UNIQUE KEY `id_post` (`id_post`);
 
 --
 -- Indices de la tabla `galeria`
@@ -182,6 +181,7 @@ ALTER TABLE `post`
 -- Indices de la tabla `preferecias`
 --
 ALTER TABLE `preferecias`
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_usuario` (`id_usuario`);
 
 --
@@ -196,50 +196,103 @@ ALTER TABLE `reaccion`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`nombre_usuario`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `galeria`
+--
+ALTER TABLE `galeria`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `preferecias`
+--
+ALTER TABLE `preferecias`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `reaccion`
+--
+ALTER TABLE `reaccion`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`id`) REFERENCES `post` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombre_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `galeria`
 --
 ALTER TABLE `galeria`
-  ADD CONSTRAINT `galeria_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombre_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `galeria_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `galeria_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  ADD CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`id_emisor`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mensaje_ibfk_2` FOREIGN KEY (`id_receptor`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `preferecias`
 --
 ALTER TABLE `preferecias`
-  ADD CONSTRAINT `preferecias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombre_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `preferecias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reaccion`
 --
 ALTER TABLE `reaccion`
-  ADD CONSTRAINT `reaccion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombre_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reaccion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reaccion_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`nombre_usuario`) REFERENCES `mensaje` (`id_emisor`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
