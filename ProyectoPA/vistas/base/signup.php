@@ -1,9 +1,6 @@
 <?php
-    $con = mysqli_connect("localhost","root","");
-    if (!$con) {
-        die(' No puedo conectar: ' . mysqli_error());
-    }
-    $db = mysqli_select_db($con,"proyecto_pa");
+    include_once '../../BaseDeDatos/baseDatos.php';
+    $con = conectarBaseDatos();
     
     $result = mysqli_query($con,"SELECT count(*) FROM usuario");
     if (!$result) {
@@ -33,12 +30,11 @@
     $correo=$_POST['correo'];
     
     $result = mysqli_query($con,"SELECT count(*) FROM usuario WHERE Correo = '".$correo."';");
-    foreach ($result as $a){
-        if($a["count(*)"]!=0){
-            echo("El correo ya existe");
-            return false;
-        }
+    if($a["count(*)"]!=0){
+        echo("El correo ya existe");
+        return false;
     }
+    
     
     /*Inserta el usuario*/
     
@@ -47,4 +43,5 @@
     }
     
     mysqli_close($con);
+    header('principal.php');
 ?>

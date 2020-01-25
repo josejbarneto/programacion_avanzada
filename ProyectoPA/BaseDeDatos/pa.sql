@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-01-2020 a las 17:54:14
+-- Tiempo de generación: 25-01-2020 a las 20:43:52
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -86,6 +86,7 @@ CREATE TABLE `mensaje` (
 
 CREATE TABLE `post` (
   `id` int(32) NOT NULL,
+  `id_usuario` int(32) NOT NULL,
   `id_categoria` int(32) NOT NULL,
   `texto` text COLLATE latin1_spanish_ci NOT NULL,
   `fecha_creacion` date NOT NULL
@@ -175,7 +176,8 @@ ALTER TABLE `mensaje`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_categoria` (`id_categoria`);
+  ADD UNIQUE KEY `id_categoria` (`id_categoria`),
+  ADD UNIQUE KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `preferecias`
@@ -279,7 +281,8 @@ ALTER TABLE `mensaje`
 -- Filtros para la tabla `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `preferecias`

@@ -1,13 +1,13 @@
 <?php
+include_once 'BaseDeDatos/baseDatos.php';
 
-function crearMensaje($mensaje) {
-    $respuesta = [];
-    return $respuesta;
-}
+function crearMensaje($mensaje, $idEmisor, $idReceptor, $fechaEnvio) {
+    $conn = conectarBaseDatos();
 
-function editarMensaje($mensaje) {
-    $respuesta = [];
-    return $respuesta;
+    $consulta = "insert into mensaje (texto, id_emisor, id_receptor, fecha_enviado) VALUES ('$mensaje', '$idEmisor', '$idReceptor', '$fechaEnvio');";   
+    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+
+    mysqli_close($conn);
 }
 
 function mostrarMensaje($mensaje) {
@@ -16,18 +16,29 @@ function mostrarMensaje($mensaje) {
 }
 
 function borrarMensaje($mensaje) {
-    $respuesta = [];
-    return $respuesta;
+    $conn = conectarBaseDatos();
+
+    $consulta = "insert into mensaje (texto, id_emisor, id_receptor, fecha_enviado) VALUES ('$mensaje', '$idEmisor', '$idReceptor', '$fechaEnvio');";   
+    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+
+    mysqli_close($conn);
 }
 
-function listarMensajes($mensaje) {
-    $respuesta = [];
-    return $respuesta;
-}
+function listarMensajes($idUsuario, $idUsuario2) {
+    $conn = conectarBaseDatos();
 
-function listarMensajesPorUsuario($usuario) {
-    $respuesta = [];
-    return $respuesta;
+    $consulta =  "select texto from mensaje where (id_emisor='$idUsuario' and id_receptor='$idUsuario2') or (id_emisor='$idUsuario2' and id_receptor='$idUsuario') order by fechaEnviado DESC;";   
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+    
+    while ($columna = mysqli_fetch_array($resultado)) {
+        $mensaje['id'] = $columna['id'];
+        $mensaje['idEmisor'] = $columna['id_emisor'];
+        $mensaje['idReceptor'] = $columna['id_receptor'];
+        $mensaje['fechaEnviado'] = $columna['fecha_enviado'];
+        $mensaje['texto'] = $columna['texto'];   
+    }
+    
+    mysqli_close($conn);
 }
 
 ?>

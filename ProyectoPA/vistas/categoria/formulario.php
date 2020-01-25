@@ -19,7 +19,7 @@
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once("header.php")
+        include_once("../base/header.php")
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
@@ -89,7 +89,7 @@
         <?php
         //AÑADIMOS EL FOOTER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al footer las tocamos aqui
-        include_once("footer.php")
+        include_once("../base/footer.php")
         ?>
     </body>
 </html>
