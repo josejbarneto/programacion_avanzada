@@ -65,30 +65,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui four wide column">
-                    <div class="ui segment">
-                        <div class="ui middle aligned divided relaxed list">
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <a class="header">INFORMACION DE INTERES</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
-                                <div class="content">
-                                    <a class="header">PUBLICIDAD</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">OTRA COSA</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <aside class="ui four wide column">
+                    <?php
+                    //AÑADIMOS EL ASIDE DE LA DERECHA. 
+                    include_once("../../vistas/base/aside.php")
+                    ?>
+                </aside>
             </section>
         </article>
 

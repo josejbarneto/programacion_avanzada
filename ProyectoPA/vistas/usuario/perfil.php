@@ -2,7 +2,7 @@
 /* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
 /*
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
-  $posts = getTodosLosPost();
+  $post = getPost() coge el post que queremos editar, o si no hay ninguno crea uno nuevo;
  */
 ?>
 <!DOCTYPE html>
@@ -27,12 +27,12 @@
                 <div class="ui twelve wide column">
                     <div class="ui segment">
                         <h2 class="ui block header">
-                            <i class="tags icon"></i>
+                            <i class="pen alternate icon"></i>
                             <div class="content">
-                                Listado de Kategorías
+                                Nuevo Post 
                             </div>
                         </h2>
-                        <div class="ui middle aligned divided relaxed list">
+                        <form class="ui form" action="">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
 
@@ -44,25 +44,43 @@
                              * ETC.
                              */
                             ?>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de categoria 1</a>
+                            <div class="field">
+                                <label>Titulo</label>
+                                <input type="text" name="titulo" placeholder="Titulo del post" autocomplete="off">
+                            </div>
+                            <div class="field">
+                                <label>Categoria</label>
+                                <div class="ui selection dropdown">
+                                    <input type="hidden" name="categoria">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Seleccone categoría</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="1">Male</div>
+                                        <div class="item" data-value="0">Female</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de categoria 2</a>
+                            <h4 class="ui dividing header">Media</h4>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Imagen o Gif</label>
+                                    <label for="textupload" class="ui icon button">
+                                        <i class="file icon"></i>
+                                        Selecciona aquí para añadir archivo...
+                                    </label>
+                                    <input type="file" accept="image/*" id="textupload" class="ui file input">
+                                </div>
+                                <div class="field">
+                                    <label>Introduzca URL del vídeo o imagen</label>
+                                    <input type="text" name="url" placeholder="Enlace al video o imagen" autocomplete="off">
                                 </div>
                             </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de categoria 3</a>
-                                </div>
+                            <div class="field">
+                                <label>Texto</label>
+                                <textarea></textarea>
                             </div>
-                        </div>
+                            <button class="ui button" type="submit">Guardar</button>
+                        </form>
                     </div>
                 </div>
                 <aside class="ui four wide column">

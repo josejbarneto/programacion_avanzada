@@ -26,3 +26,7 @@ footer.footer.segment{
     margin: 5em 0em 0em;
     padding: 5em 0em;
 }
+
+.ui.file.input{
+    display: none;
+}

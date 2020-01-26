@@ -1,8 +1,8 @@
 <?php
-/* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
+/* LISTADO DE POST ES COMO PRINCIPAL PERO YA FILTRADO POR USUARIO O CATEGORIA */
 /*
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
-  $posts = getTodosLosPost();
+  $posts = ListarPostPOrcategoria() / listarPostPorUsuario() segun;
  */
 ?>
 <!DOCTYPE html>
@@ -19,19 +19,13 @@
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once("../../vistas/base/header.php")
+        include_once("header.php")
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
             <section class="ui grid">
                 <div class="ui twelve wide column">
                     <div class="ui segment">
-                        <h2 class="ui block header">
-                            <i class="tags icon"></i>
-                            <div class="content">
-                                Listado de Kategorías
-                            </div>
-                        </h2>
                         <div class="ui middle aligned divided relaxed list">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
@@ -47,19 +41,19 @@
                             <div class="item">
                                 <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
                                 <div class="content">
-                                    <a class="header">Ejemplo de categoria 1</a>
+                                    <a class="header">Ejemplo de Post 1</a>
                                 </div>
                             </div>
                             <div class="item">
                                 <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
                                 <div class="content">
-                                    <a class="header">Ejemplo de categoria 2</a>
+                                    <a class="header">Ejemplo de Post 2</a>
                                 </div>
                             </div>
                             <div class="item">
                                 <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
                                 <div class="content">
-                                    <a class="header">Ejemplo de categoria 3</a>
+                                    <a class="header">Ejemplo de Post 3</a>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +71,7 @@
         <?php
         //AÑADIMOS EL FOOTER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al footer las tocamos aqui
-        include_once("../../vistas/base/footer.php")
+        include_once("footer.php")
         ?>
     </body>
 </html>

@@ -1,4 +1,5 @@
 <?php ?>
+<div class="ui hidden divider"></div>
 <footer class="ui inverted vertical footer segment">
     <div class="ui center aligned container">
         <div class="ui stackable inverted divided grid">
