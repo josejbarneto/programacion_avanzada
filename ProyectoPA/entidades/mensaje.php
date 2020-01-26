@@ -1,5 +1,5 @@
 <?php
-include_once 'BaseDeDatos/baseDatos.php';
+include_once '../../basedatos/baseDatos.php';
 
 function crearMensaje($mensaje, $idEmisor, $idReceptor, $fechaEnvio) {
     $conn = conectarBaseDatos();

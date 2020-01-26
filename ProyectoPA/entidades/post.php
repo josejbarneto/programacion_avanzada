@@ -1,6 +1,6 @@
 <?php
 
-include_once 'BaseDeDatos/baseDatos.php';
+include_once '../../basedatos/baseDatos.php';
 
 function crearPost($idUsuario, $idCategoria, $texto) {
     $conn = conectarBaseDatos();
