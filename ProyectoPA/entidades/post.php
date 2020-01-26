@@ -15,8 +15,6 @@ function crearPost($idUsuario, $idCategoria, $texto) {
 
 function editarPost($idPost, $texto) {
     $conn = conectarBaseDatos();
-
-    $fechaEnvio = getdate();
     
     $consulta = "UPDATE post SET texto = '$texto' WHERE id = $idPost;";   
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
@@ -45,8 +43,8 @@ function borrarPost($post) {
 function listarPostsPorCategoria($categoria) {
     $conn = conectarBaseDatos();
     
-    $consulta = "select id, id_usuario, id_categoria, texto, fecha_creacion from post where id_categoria = (select id_categoria from categoria where nombre = '$categoria') order by fechaEnviado DESC;";   
-    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos"); 
+    $consulta = "select id, id_usuario, id_categoria, texto, fecha_creacion from post where id_categoria = (select id_categoria from categoria where nombre = '$categoria') order by fecha_creacion DESC;";   
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos"); 
 
     mysqli_close($conn);
     
@@ -66,8 +64,8 @@ function listarPostsPorCategoria($categoria) {
 function listarPostsPorUsuario($usuario) {
     $conn = conectarBaseDatos();
     
-    $consulta = "select id, id_usuario, id_categoria, texto, fecha_creacion from post where id_usuario = $usuario order by fechaEnviado DESC;";   
-    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos"); 
+    $consulta = "select id, id_usuario, id_categoria, texto, fecha_creacion from post where id_usuario = $usuario order by fecha_creacion DESC;";   
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos"); 
 
     mysqli_close($conn);
     

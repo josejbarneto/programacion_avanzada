@@ -3,9 +3,9 @@
 include_once '../../basedatos/baseDatos.php';
 include_once '../../entidades/preferencias.php';
 
-function crearUsuario($usuario, $contrasena, $email) {
+function crearUsuario($usuario, $contrasena, $email, $nombre) {
     $con = conectarBaseDatos();
-    mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email) VALUES ('$usuario', '$contrasena', '$email');");
+    mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email, nombre) VALUES ('$usuario', '$contrasena', '$email', '$nombre);");
     
     crearPreferencia($usuario);
     
@@ -38,20 +38,18 @@ function existUsuario($usuario) {
     $a = mysqli_fetch_array($result);
     mysqli_close($con);
     if ($a["count(*)"] != 0) {
-        echo("El usuario ya existe");
         return true;
     } else {
         return false;
     }
 }
 
-function existEmail($usuario, $email) {
+function existEmail($email) {
     $con = conectarBaseDatos();
     $result = mysqli_query($con, "SELECT count(*) FROM usuario WHERE email = '$email';");
     $a = mysqli_fetch_array($result);
     mysqli_close($con);
     if ($a["count(*)"] != 0) {
-        echo("El usuario ya existe");
         return true;
     } else {
         return false;

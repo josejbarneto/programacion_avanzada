@@ -11,6 +11,6 @@
         <!-- SI ESTA LOGADO Y ES USUARIO -->
         <a class="item" href="../../vistas/post/formulario.php"><i class="plus circle icon"></i>Nuevo Post</a>
         <a class="item" href="../../vistas/usuario/perfil.php"><i class="user circle icon"></i>Ver perfil</a>
-        <a class="ui item"><i class="sign in alternate icon"></i>Logout/Log-in</a>
+        <a class="ui item" href="../../vistas/base/logout.php">><i class="sign in alternate icon"></i>Logout</a>
     </div>
 </nav>

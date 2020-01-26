@@ -1,4 +1,4 @@
-<?php
+ <?php
 /* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
 /*
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies

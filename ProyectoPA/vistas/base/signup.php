@@ -4,21 +4,27 @@
     
     $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
     $correo = filter_input(INPUT_POST, 'correo', FILTER_SANITIZE_EMAIL);
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
        
-    /*Comprueba que el usuario es diferente a los que existen*/
-    if(!existUsuario($usuario)){
-        
-        /*Crea el hash para guardarlo*/
-        $contrasena=password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
-        
-         /*Comprueba que el email es diferente a los que existen*/
-        if(!existEmail($usuario, $correo)){
-            crearUsuario($usuario, $contrasena, $correo);
-            session_start();
-            $_SESSION['usuario']= getUsuario($usuario);
-            $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);
-            header('Location: principal.php');
-        }
+    if(existUsuario($usuario)){
+        $errores[] = 'El usuario ya existe';
     }
     
+    if(existEmail($correo)){
+        $errores[] = 'El correo ya existe';
+    }
+    
+    if(!empty($nombre) && empty($errores)){
+        $contrasena=password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
+        crearUsuario($usuario, $contrasena, $correo);
+        session_start();
+        $_SESSION['usuario']= getUsuario($usuario);
+        $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);
+        header('Location: principal.php');
+    }else{
+        session_start();
+        $_SESSION['intentoSignup']=TRUE;
+        $_SESSION['errores']=$errores; 
+        header('Location: principal.php');
+    }
     ?>
