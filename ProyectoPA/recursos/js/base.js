@@ -7,5 +7,5 @@
 
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
-    $('.ui.checkbox').dropdown();
+    $('.ui.checkbox').checkbox();
 });
