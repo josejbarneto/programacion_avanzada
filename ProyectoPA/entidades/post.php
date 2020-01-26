@@ -1,6 +1,6 @@
 <?php
 
-include_once 'BaseDeDatos/baseDatos.php';
+include_once '../../basedatos/baseDatos.php';
 
 function crearPost($idUsuario, $idCategoria, $texto) {
     $conn = conectarBaseDatos();
@@ -24,7 +24,7 @@ function editarPost($idPost, $texto) {
     mysqli_close($conn);
 }
 
-function mostrarPost($post) {
+function mostrarPost($post){
     echo '<div>';
     echo "<div>{$post['idUsuario']}</div><br/>";
     echo "<div>{$post['texto']}</div>";

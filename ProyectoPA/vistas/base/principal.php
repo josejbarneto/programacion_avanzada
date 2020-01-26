@@ -4,6 +4,9 @@
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
   $posts = getTodosLosPost();
  */
+    session_start();
+    $user = $_SESSION['usuario'];
+    $preferencias = $_SESSION['preferencias'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,11 +33,7 @@
                         <div class="ui middle aligned divided relaxed list">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-                            
-                            $user = $_SESSION['usuario'];
-                            $preferencias = $_SESSION['preferencias'];
-                            
-                            listarPostsPorUsuario($user['id']);
+
                             /*
                              * for (post in post){
                              * echo <div classitem> post[titulo]</div>

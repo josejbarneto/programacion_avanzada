@@ -1,9 +1,9 @@
 <?php
-    include_once '../../BaseDeDatos/baseDatos.php';
+    include_once '../../basedatos/baseDatos.php';
     $con = conectarBaseDatos();
     
-    $user = $_POST['lusuario'];
-    $pass = $_POST['lpass'];
+    $user = filter_input(INPUT_POST, 'lusuario', FILTER_SANITIZE_STRING);
+    $pass = filter_input(INPUT_POST, 'lpass', FILTER_SANITIZE_STRING);
     
     $result = mysqli_query($con, "SELECT contrasenya FROM usuario WHERE usuario='$user';");
     $dbPass = mysqli_fetch_array($result);
@@ -18,14 +18,11 @@
     
     mysqli_close($con);
     
-    echo "$pass</br>";
-    echo "{$dbPass['contrasenya']}";
-    
-    //if(password_verify($pass, $dbPass['contrasenya'])){
+    if(password_verify($pass, $dbPass['contrasenya'])){
         session_start();
-        $_SESSION["usuario"]= $usuarioCompleto;
+        $_SESSION['usuario']= $usuarioCompleto;
         $_SESSION['preferencias']=$preferencias;
         header('Location: principal.php');
-    //}
+    }
     
     

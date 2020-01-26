@@ -1,47 +1,24 @@
 <?php
-    include_once '../../BaseDeDatos/baseDatos.php';
-    $con = conectarBaseDatos();
+    include_once '../../entidades/usuario.php';
+    include_once '../../entidades/preferencias.php';
     
-    $result = mysqli_query($con,"SELECT count(*) FROM usuario");
-    if (!$result) {
-        die('Error al ejecutar la consulta: ' . mysqli_error($con));
-    }
-    
-    foreach ($result as $a){
-        $id = $a["count(*)"] + 1;   /*Genera el id del usuario*/
-    }
-    
-    $usuario=$_POST['usuario'];
-
-    /*Comprueba que el usuario se diferente a los que existen*/
-    
-    $result = mysqli_query($con,"SELECT count(*) FROM usuario WHERE usuario = '$usuario.';");
-    foreach ($result as $a){
-        if($a["count(*)"]!=0){
-            echo("El usuario ya existe");
-            return false;
+    $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
+    $correo = filter_input(INPUT_POST, 'correo', FILTER_SANITIZE_EMAIL);
+       
+    /*Comprueba que el usuario es diferente a los que existen*/
+    if(!existUsuario($usuario)){
+        
+        /*Crea el hash para guardarlo*/
+        $contrasena=password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
+        
+         /*Comprueba que el email es diferente a los que existen*/
+        if(!existEmail($usuario, $correo)){
+            crearUsuario($usuario, $contrasena, $correo);
+            session_start();
+            $_SESSION['usuario']= getUsuario($usuario);
+            $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);
+            header('Location: principal.php');
         }
     }
     
-    /*Crea el hash para guardarlo*/
-    
-    $contrasena=password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
-    
-    $correo=$_POST['correo'];
-    
-    $result = mysqli_query($con,"SELECT count(*) FROM usuario WHERE correo = '$correo';");
-    if($a["count(*)"]!=0){
-        echo("El correo ya existe");
-        return false;
-    }
-    
-    
-    /*Inserta el usuario*/
-    
-    if(mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email) VALUES ('$usuario', '$contrasena', '$correo');")){
-        echo("Usuario suscrito");
-    }
-    
-    mysqli_close($con);
-    header('Location: principal.php');
-?>
+    ?>
