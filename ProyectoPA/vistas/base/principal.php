@@ -19,7 +19,8 @@
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once("header.php")
+        include_once("header.php");
+        include_once '../../entidades/post.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
@@ -29,7 +30,11 @@
                         <div class="ui middle aligned divided relaxed list">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-
+                            
+                            $user = $_SESSION['usuario'];
+                            $preferencias = $_SESSION['preferencias'];
+                            
+                            listarPostsPorUsuario($user['id']);
                             /*
                              * for (post in post){
                              * echo <div classitem> post[titulo]</div>

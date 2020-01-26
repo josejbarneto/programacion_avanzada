@@ -15,7 +15,7 @@
 
     /*Comprueba que el usuario se diferente a los que existen*/
     
-    $result = mysqli_query($con,"SELECT count(*) FROM usuario WHERE Nombre = '".$usuario."';");
+    $result = mysqli_query($con,"SELECT count(*) FROM usuario WHERE usuario = '$usuario.';");
     foreach ($result as $a){
         if($a["count(*)"]!=0){
             echo("El usuario ya existe");
@@ -29,7 +29,7 @@
     
     $correo=$_POST['correo'];
     
-    $result = mysqli_query($con,"SELECT count(*) FROM usuario WHERE Correo = '".$correo."';");
+    $result = mysqli_query($con,"SELECT count(*) FROM usuario WHERE correo = '$correo';");
     if($a["count(*)"]!=0){
         echo("El correo ya existe");
         return false;
@@ -38,10 +38,10 @@
     
     /*Inserta el usuario*/
     
-    if(mysqli_query($con, "INSERT INTO `usuario` (`ID`, `Nombre`, `Contrasena`, `Descripcion`, `Correo`) VALUES ('".$id."', '".$usuario."', '".$contrasena."', '', '".$correo."');")){
+    if(mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email) VALUES ('$usuario', '$contrasena', '$correo');")){
         echo("Usuario suscrito");
     }
     
     mysqli_close($con);
-    header('principal.php');
+    header('Location: principal.php');
 ?>
