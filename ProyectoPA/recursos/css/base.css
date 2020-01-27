@@ -31,3 +31,10 @@ footer.footer.segment{
     display: none;
 }
 
+#ir-arriba {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+}

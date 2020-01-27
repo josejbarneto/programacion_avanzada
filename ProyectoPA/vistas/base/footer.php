@@ -1,4 +1,5 @@
 <?php ?>
+<button id="ir-arriba" class="ui icon blue big icon button"><i class="arrow up icon"></i></button>
 <div class="ui hidden divider"></div>
 <footer class="ui inverted vertical footer segment">
     <div class="ui center aligned container">

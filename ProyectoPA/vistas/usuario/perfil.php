@@ -14,7 +14,7 @@ session_start();
 $vistas = ["Clasica", "Compacta", "Ancha"];
 $ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
 $usuario = $_SESSION['usuario'];
-$preferencias = $_SESSION['preferencias'];
+$preferencias = isset($_SESSION['preferencias']) ? $_SESSION['preferencias'] : [];
 ?>
 <!DOCTYPE html>
 <html>
