@@ -51,17 +51,18 @@
 
                             foreach ($posts as $post) {
                                 ?>
-                                
+
                                 <div class = "ui segment">
                                     <h2 class = "ui block header">
                                         <i class = "pen alternate icon"></i>
-                                        <div class = "content">
-                                            <?php echo $post["titulo"];
-                                            ?>
+                                        <div class = "content"><a href="../../vistas/post/post.php">
+                                                <?php echo $post["titulo"];
+                                                ?>
+                                            </a>
                                             <div class="sub header">
-                                                <?php 
+                                                <?php
                                                 $usuario = getUsuario($post["idUsuario"]);
-                                                 echo "{$usuario["usuario"]}";
+                                                echo "{$usuario["usuario"]}";
                                                 ?>
                                             </div>
                                         </div>

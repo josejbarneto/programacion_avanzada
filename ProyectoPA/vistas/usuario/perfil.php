@@ -56,7 +56,7 @@ $preferencias = $_SESSION['preferencias'];
                                 </div>
                                 <div class="field">
                                     <label>Contraseña</label>
-                                    <input type="password" name="pass" autocomplete="off" value="<?php echo $usuario["contrasena"]; ?>">
+                                    <input type="password" name="pass" autocomplete="off" value="">
                                 </div>
                             </div>
                             <h4 class="ui dividing header">Preferencias</h4>

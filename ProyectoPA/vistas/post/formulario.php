@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $texto = filter_input(INPUT_POST, 'texto', FILTER_SANITIZE_STRING);
 
     if (empty($titulo) || empty($categoria) || empty($texto)) {
-        $errores[] = "$titulo, $categoria, $texto";
+        $errores[] = "Rellene los campos necesarios";
     } else {
         crearPost($_SESSION['usuario']['id'], $categoria,$titulo, $texto);
         header('Location: ../../vistas/base/principal.php');
@@ -42,9 +42,6 @@ if (isset($_POST['submit'])) {
     </head>
     <body>
         <?php
-        if (isset($_POST['submit'])) {
-            echo 'holaaaa';
-        }
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
         include_once("../../vistas/base/header.php");
