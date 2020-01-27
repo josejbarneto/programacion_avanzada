@@ -47,7 +47,7 @@
                                 <div class = "ui segment">
                                     <h2 class = "ui block header">
                                         <i class = "pen alternate icon"></i>
-                                        <div class = "content"><a href="../../vistas/post/post.php">
+                                        <div class = "content"><a href="../../vistas/post/post.php?id=<?php echo $post["id"];?>">
                                                 <?php echo $post["titulo"];
                                                 ?>
                                             </a>

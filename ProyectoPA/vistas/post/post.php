@@ -7,13 +7,21 @@
  * 
  */
 //Este post es de ejemplo
-$post = ["titulo" => "Post Ejemplo 1",
-    "id" => "1",
-    "texto" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    "categoria" => "Categoria 1",
-    "usuario" => "Autor",
-    "imagen" => "https://d33v4339jhl8k0.cloudfront.net/docs/assets/5c814e0d2c7d3a0cb9325d1f/images/5c8bc20d2c7d3a154460eb97/file-1CjQ85QAme.jpg",
-        ]
+
+include_once '../../entidades/post.php';
+include_once '../../entidades/comentario.php';
+$idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+$post = getPost($idPost);
+
+if(isset($_POST['comentar'])){
+    $postId = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
+    $comentario = filter_input(INPUT_POST, 'comentario', FILTER_SANITIZE_STRING);
+    session_start();
+    crearComentario($comentario, $_SESSION['usuario']['id'], $postId);
+}
+
+$comentarios = listarComentariosPorPost($idPost);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,87 +63,38 @@ $post = ["titulo" => "Post Ejemplo 1",
                     </div>
                     <div class="ui hidden divider"></div>
                     <div class="ui clearing top secondary attached segment">
-                        <form class="ui form">
+                        <form class="ui form" method="post" >
                             <div class="field">
                                 <label>Escribe tu comentario:</label>
                                 <textarea name="comentario"></textarea>
                             </div>
                             <input type="hidden" value="<?php echo $post["id"]; ?>" name="post_id">
-                                <button class="ui right floated blue button" type="submit"><i class="edit icon"></i>Publicar</button>
+                                <button class="ui right floated blue button" name='comentar' type="submit"><i class="edit icon"></i>Publicar</button>
                         </form>
                     </div>
                     <div class="ui bottom attached segment">
                         <div class="ui comments">
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="/images/avatar/small/matt.jpg">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Matt</a>
-                                    <div class="metadata">
-                                        <span class="date">Today at 5:42PM</span>
-                                    </div>
-                                    <div class="text">
-                                        How artistic!
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="/images/avatar/small/elliot.jpg">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Elliot Fu</a>
-                                    <div class="metadata">
-                                        <span class="date">Yesterday at 12:30AM</span>
-                                    </div>
-                                    <div class="text">
-                                        <p>This has been very useful for my research. Thanks as well!</p>
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
-                                    </div>
-                                </div>
-                                <div class="comments">
-                                    <div class="comment">
-                                        <a class="avatar">
-                                            <img src="/images/avatar/small/jenny.jpg">
-                                        </a>
-                                        <div class="content">
-                                            <a class="author">Jenny Hess</a>
-                                            <div class="metadata">
-                                                <span class="date">Just now</span>
-                                            </div>
-                                            <div class="text">
-                                                Elliot you are always so right :)
-                                            </div>
-                                            <div class="actions">
-                                                <a class="reply">Reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            <?php
+                            if($comentarios != false){
+                            foreach ($comentarios as $c) {
+                            ?>
                             <div class="comment">
                                 <a class="avatar">
                                     <img src="/images/avatar/small/joe.jpg">
                                 </a>
                                 <div class="content">
-                                    <a class="author">Joe Henderson</a>
+                                    <a class="author"><?php echo $c['nombreUsuario']?></a>
                                     <div class="metadata">
-                                        <span class="date">5 days ago</span>
+                                        <span class="date"><?php echo $c['fechaCreacion']?></span>
                                     </div>
                                     <div class="text">
-                                        Dude, this is awesome. Thanks so much
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
+                                        <?php echo $c['texto']?>
                                     </div>
                                 </div>
                             </div>
+                            <?php }}?>
+                            
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2020 a las 12:25:41
--- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Tiempo de generación: 27-01-2020 a las 18:08:03
+-- Versión del servidor: 10.4.8-MariaDB
+-- Versión de PHP: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `pa2`
+-- Base de datos: `pa`
 --
 
 -- --------------------------------------------------------
@@ -54,9 +54,23 @@ CREATE TABLE `comentario` (
   `id_usuario` int(32) NOT NULL,
   `id_post` int(32) NOT NULL,
   `texto` text COLLATE latin1_spanish_ci NOT NULL,
-  `fecha_creacion` date NOT NULL,
-  `fecha_actualizacion` date NOT NULL
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_actualizacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`id`, `id_usuario`, `id_post`, `texto`, `fecha_creacion`, `fecha_actualizacion`) VALUES
+(5, 2, 1, 'hola que pasa', '2020-01-27 00:00:00', '2020-01-27 00:00:00'),
+(6, 2, 1, 'sdsdsdvsdsd', '2020-01-27 00:00:00', '2020-01-27 00:00:00'),
+(7, 2, 1, 'sdfdsg', '2020-01-27 00:00:00', '2020-01-27 00:00:00'),
+(8, 3, 1, 'Buenaaaaas', '2020-01-27 18:02:26', '2020-01-27 18:02:26'),
+(9, 3, 1, 'Holaaa', '2020-01-27 18:02:37', '2020-01-27 18:02:37'),
+(10, 3, 1, 'Holaaaaa', '2020-01-27 18:03:25', '2020-01-27 18:03:25'),
+(11, 3, 1, '1234567', '2020-01-27 18:03:32', '2020-01-27 18:03:32'),
+(12, 3, 1, 'que pasaa', '2020-01-27 18:04:32', '2020-01-27 18:04:32');
 
 -- --------------------------------------------------------
 
@@ -110,7 +124,8 @@ INSERT INTO `post` (`id`, `id_usuario`, `id_categoria`, `titulo`, `texto`, `fech
 (1, 2, 1, 'asdfsdf', 'dsfsdfd', '2020-01-27'),
 (2, 3, 1, 'dfgdfg', 'dfgdfd', '2020-01-27'),
 (3, 2, 2, 'dfg', 'dfgdg', '2020-01-27'),
-(4, 2, 1, 'Deportes', 'uyyuytyut', '2020-01-27');
+(4, 2, 1, 'Deportes', 'uyyuytyut', '2020-01-27'),
+(5, 2, 1, 'Titulo', 'Texto de prueba', '2020-01-27');
 
 -- --------------------------------------------------------
 
@@ -242,7 +257,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
@@ -260,7 +275,7 @@ ALTER TABLE `mensaje`
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `preferencias`
