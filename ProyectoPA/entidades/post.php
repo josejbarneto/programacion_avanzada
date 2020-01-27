@@ -16,10 +16,10 @@ function crearPost($idUsuario, $idCategoria, $titulo, $texto) {
     mysqli_close($conn);
 }
 
-function editarPost($idPost, $texto) {
+function editarPost($idPost, $categoria, $titulo, $texto) {
     $conn = conectarBaseDatos();
 
-    $consulta = "UPDATE post SET texto = '$texto' WHERE id = $idPost;";
+    $consulta = "UPDATE post SET texto = '$texto', id_categoria = '$categoria', titulo='$titulo' WHERE id = $idPost;";
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     mysqli_close($conn);
@@ -32,10 +32,8 @@ function mostrarPost($post) {
     echo '<div>';
 }
 
-function borrarPost($post) {
+function borrarPost($idPost) {
     $conn = conectarBaseDatos();
-
-    $fechaEnvio = getdate();
 
     $consulta = "DELETE FROM post WHERE id = $idPost;";
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
@@ -60,8 +58,11 @@ function listarPostsPorCategoria($categoria) {
         $i++;
     }
     mysqli_close($conn);
-
-    return $posts;
+    if (isset($posts)) {
+        return $posts;
+    } else {
+        return false;
+    }
 }
 
 function listarPostsPorUsuario($usuario) {
@@ -88,7 +89,7 @@ function listarPostsPorUsuario($usuario) {
 function getPost($idPost) {
     $conn = conectarBaseDatos();
 
-    $consulta = "select post.id, post.id_usuario, post.id_categoria, post.titulo, post.texto, post.fecha_creacion, usuario.usuario, usuario.nombre from post inner join usuario on post.id_usuario = usuario.id  where post.id = $idPost;";
+    $consulta = "select post.id, post.id_usuario, post.id_categoria, post.titulo, post.texto, post.fecha_creacion, usuario.usuario, usuario.nombre, categoria.nombre as nombre_cat from post inner join usuario on post.id_usuario = usuario.id inner join categoria on post.id_categoria = categoria.id where post.id = $idPost;";
     $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     $columna = mysqli_fetch_array($resultado);
@@ -101,6 +102,7 @@ function getPost($idPost) {
     $post['fechaCreacion'] = $columna['fecha_creacion'];
     $post['nombreUsuario'] = $columna['nombre'];
     $post['usuario'] = $columna['usuario'];
+    $post['categoria'] = $columna['nombre_cat'];
 
     mysqli_close($conn);
     return $post;

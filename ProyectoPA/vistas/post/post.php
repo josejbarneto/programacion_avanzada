@@ -7,9 +7,9 @@
  * 
  */
 //Este post es de ejemplo
-
 include_once '../../entidades/post.php';
 include_once '../../entidades/comentario.php';
+
 $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
 $post = getPost($idPost);
 
@@ -54,6 +54,9 @@ $comentarios = listarComentariosPorPost($idPost);
                                     <?php echo $post["usuario"]; ?>
                                 </div>
                             </div>
+                            <?php if($_SESSION['usuario']['id'] == $post['idUsuario']){ ?>
+                            <a href="../../vistas/post/formulario.php?id_post=<?php echo $post["id"];?>">Editar</a>
+                            <?php } ?>
                         </h2>
                         <img class="ui centered medium rounded image" src="<?php echo $post["imagen"]; ?>">
                         <div class="ui hidden divider"></div>
@@ -61,6 +64,8 @@ $comentarios = listarComentariosPorPost($idPost);
                             <?php echo $post["texto"]; ?>
                         </div>
                     </div>
+                                        
+                    <?php if(isset($_SESSION['usuario'])){ ?>
                     <div class="ui hidden divider"></div>
                     <div class="ui clearing top secondary attached segment">
                         <form class="ui form" method="post" >
@@ -72,6 +77,8 @@ $comentarios = listarComentariosPorPost($idPost);
                                 <button class="ui right floated blue button" name='comentar' type="submit"><i class="edit icon"></i>Publicar</button>
                         </form>
                     </div>
+                    <?php } ?>
+                    
                     <div class="ui bottom attached segment">
                         <div class="ui comments">
                             

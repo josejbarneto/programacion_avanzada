@@ -4,6 +4,12 @@
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
   $posts = ListarPostPOrcategoria() / listarPostPorUsuario() segun;
  */
+include_once '../../entidades/post.php';
+$categoriaId = filter_input(INPUT_GET, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
+if(isset($categoriaId)){
+    $posts = listarPostsPorCategoria($categoriaId);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,6 +27,7 @@
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
         include_once '../../vistas/base/cabecera.php';
+        include_once '../../entidades/usuario.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
@@ -29,34 +36,33 @@
                     <div class="ui segment">
                         <div class="ui middle aligned divided relaxed list">
                             <?php
-                            //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
+                            if($posts!=false){
+                            foreach ($posts as $post) {
+                                ?>
 
-                            /*
-                             * for (post in post){
-                             * echo <div classitem> post[titulo]</div>
-                             * }
-                             * 
-                             * ETC.
-                             */
+                                <div class = "ui segment">
+                                    <h2 class = "ui block header">
+                                        <i class = "pen alternate icon"></i>
+                                        <div class = "content"><a href="../../vistas/post/post.php?id=<?php echo $post["id"];?>">
+                                                <?php echo $post["titulo"];
+                                                ?>
+                                            </a>
+                                            <div class="sub header">
+                                                <?php
+                                                $usuario = getUsuario($post["idUsuario"]);
+                                                echo "{$usuario["usuario"]}";
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </h2>
+                                    <div class="ui hidden divider"></div>
+                                    <div class="text">
+                                        <?php echo $post["texto"]; ?>
+                                    </div>
+                                </div>
+                                <?php
+                            }}
                             ?>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 1</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 2</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 3</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +78,7 @@
         <?php
         //AÑADIMOS EL FOOTER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al footer las tocamos aqui
-        include_once("footer.php")
+        include_once("../../vistas/base/footer.php")
         ?>
     </body>
 </html>
