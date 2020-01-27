@@ -4,7 +4,6 @@
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
   $posts = getTodosLosPost();
  */
-    
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,19 +15,20 @@
         <link rel="stylesheet" type="text/css" href="../../recursos/css/header2.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
-        
+
     </head>
     <body>
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        
+
         include_once '../../entidades/post.php';
+        include_once '../../entidades/usuario.php';
         session_start();
-        if(!isset($_SESSION['usuario'])){
+        if (!isset($_SESSION['usuario'])) {
             include_once("header2.php");
             session_destroy();
-        }else{
+        } else {
             include_once("header.php");
             $user = $_SESSION['usuario'];
             $preferencias = $_SESSION['preferencias'];
@@ -42,33 +42,38 @@
                         <div class="ui middle aligned divided relaxed list">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-                            
-                            /*
-                             * for (post in post){
-                             * echo <div classitem> post[titulo]</div>
-                             * }
-                             * 
-                             * ETC.
-                             */
+
+                            if (isset($_SESSION['usuario'])) {
+                                $posts = listarPostsPorCategoria(1);
+                            } else {
+                                $posts = listarPostsPorCategoria(1);
+                            }
+
+                            foreach ($posts as $post) {
+                                ?>
+                                
+                                <div class = "ui segment">
+                                    <h2 class = "ui block header">
+                                        <i class = "pen alternate icon"></i>
+                                        <div class = "content">
+                                            <?php echo $post["titulo"];
+                                            ?>
+                                            <div class="sub header">
+                                                <?php 
+                                                $usuario = getUsuario($post["idUsuario"]);
+                                                 echo "{$usuario["usuario"]}";
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </h2>
+                                    <div class="ui hidden divider"></div>
+                                    <div class="text">
+                                        <?php echo $post["texto"]; ?>
+                                    </div>
+                                </div>
+                                <?php
+                            }
                             ?>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 1</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 2</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 3</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

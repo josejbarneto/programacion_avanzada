@@ -1,4 +1,4 @@
- <?php
+<?php
 /* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
 /*
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
@@ -6,6 +6,28 @@
  * 
  * EN CASO DE QUE HAYA POST, EN CADA CAMPO RELLENAMOS EL VALOR QUE TENGA EN BASE DE DATOS
  */
+include_once("../../entidades/post.php");
+include_once("../../entidades/categoria.php");
+
+session_start();
+if (empty($_SESSION['usuario'])) {
+    header('location: principal.php');
+}
+
+$categorias = getCategorias();
+
+if (isset($_POST['submit'])) {
+    $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
+    $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
+    $texto = filter_input(INPUT_POST, 'texto', FILTER_SANITIZE_STRING);
+
+    if (empty($titulo) || empty($categoria) || empty($texto)) {
+        $errores[] = "$titulo, $categoria, $texto";
+    } else {
+        crearPost($_SESSION['usuario']['id'], $categoria,$titulo, $texto);
+        header('Location: ../../vistas/base/principal.php');
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,9 +42,12 @@
     </head>
     <body>
         <?php
+        if (isset($_POST['submit'])) {
+            echo 'holaaaa';
+        }
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once("../../vistas/base/header.php")
+        include_once("../../vistas/base/header.php");
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
@@ -35,10 +60,14 @@
                                 Nuevo Post 
                             </div>
                         </h2>
-                        <form class="ui form" action="">
+                        <form class="ui form" action="" method="post">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-
+                            if (!empty($errores)) {
+                                foreach ($errores as $e) {
+                                    echo "<span style='color:red;'>$e</span>";
+                                }
+                            }
                             /*
                              * for (post in post){
                              * echo <div classitem> post[titulo]</div>
@@ -58,11 +87,11 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Seleccone categoría</div>
                                     <div class="menu">
-                                        <div class="item" data-value="1">Categoria 1</div>
-                                        <div class="item" data-value="2">Categoria 2</div>
                                         <?php
                                         //AQUI HAY QUE IR PINTANDO SEGUN LAS CATEGORIAS QUE EXISTAN
-
+                                        foreach ($categorias as $categoria) {
+                                            echo "<div class='item' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>";
+                                        }
                                         /*
                                          * for (categoria in categorias){
                                          * echo <div class="item" data-value="categoria["id"]">categoria["nombre]</div>;
@@ -89,12 +118,12 @@
                             </div>
                             <div class="field">
                                 <label>Texto</label>
-                                <textarea></textarea>
+                                <textarea name="texto"></textarea>
                             </div>
                             <button class="ui button" type="reset">Resetear</button>
                             <!-- SI NO ES UN NUEVO POST, ESTAMOS VIENDO UNO HECHO ANTES, PODER BORRARLO AQUI -->
                             <button class="ui button negative" type="submit">Eliminar</button>
-                            <button class="ui right floated positive button" type="submit">Guardar</button>
+                            <button name="submit" class="ui right floated positive button" type="submit">Guardar</button>
                         </form>
                     </div>
                 </div>

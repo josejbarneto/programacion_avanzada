@@ -16,7 +16,7 @@
     
     if(!empty($nombre) && empty($errores)){
         $contrasena=password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
-        crearUsuario($usuario, $contrasena, $correo);
+        crearUsuario($usuario, $contrasena, $correo, $nombre);
         session_start();
         $_SESSION['usuario']= getUsuario($usuario);
         $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);

@@ -10,18 +10,11 @@
  * $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
  * 
  */
+session_start();
 $vistas = ["Clasica", "Compacta", "Ancha"];
 $ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
-$usuario = [
-    "nombre" => "Usuario de prueba",
-    "email" => "user@mail.com",
-    "pass" => "password",
-    "vista" => 2,
-    "orden" => 2,
-    "nocturno" => false,
-    "lenguaje" => false,
-    "newtab" => true,
-];
+$usuario = $_SESSION['usuario'];
+$preferencias = $_SESSION['preferencias'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,20 +56,20 @@ $usuario = [
                                 </div>
                                 <div class="field">
                                     <label>Contraseña</label>
-                                    <input type="password" name="pass" autocomplete="off" value="<?php echo $usuario["pass"]; ?>">
+                                    <input type="password" name="pass" autocomplete="off" value="<?php echo $usuario["contrasena"]; ?>">
                                 </div>
                             </div>
                             <h4 class="ui dividing header">Preferencias</h4>
                             <div class="field">
                                 <label>Vista predeterminada</label>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="vista" value="<?php echo $usuario["vista"]; ?>">
+                                    <input type="hidden" name="vista" value="<?php echo $preferencias["vista"]; ?>">
                                     <i class="dropdown icon"></i>
                                     <div class="text"><?php echo $vistas[$usuario["vista"]]; ?></div>
                                     <div class="menu">
-                                        <div class="item <?php echo ($usuario["vista"] == 1 ? "active" : ""); ?>" data-value="1">Clasica </div>
-                                        <div class="item <?php echo ($usuario["vista"] == 2 ? "active" : ""); ?>" data-value="2">Compacta</div>
-                                        <div class="item <?php echo ($usuario["vista"] == 3 ? "active" : ""); ?>" data-value="3">Ancha</div>
+                                        <div class="item <?php echo ($preferencias["vista"] == 1 ? "active" : ""); ?>" data-value="1">Clasica </div>
+                                        <div class="item <?php echo ($preferencias["vista"] == 2 ? "active" : ""); ?>" data-value="2">Compacta</div>
+                                        <div class="item <?php echo ($preferencias["vista"] == 3 ? "active" : ""); ?>" data-value="3">Ancha</div>
                                     </div>
                                 </div>
                             </div>

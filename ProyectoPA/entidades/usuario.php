@@ -5,7 +5,7 @@ include_once '../../entidades/preferencias.php';
 
 function crearUsuario($usuario, $contrasena, $email, $nombre) {
     $con = conectarBaseDatos();
-    mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email, nombre) VALUES ('$usuario', '$contrasena', '$email', '$nombre);");
+    mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email, nombre) VALUES ('$usuario', '$contrasena', '$email', '$nombre');");
     
     crearPreferencia($usuario);
     
@@ -58,10 +58,9 @@ function existEmail($email) {
 
 function getUsuario($usuario) {
     $con = conectarBaseDatos();
-    $result = mysqli_query($con, "SELECT id, usuario, contrasenya, email FROM usuario WHERE usuario = '$usuario';");
+    $result = mysqli_query($con, "SELECT id, usuario, contrasenya, email FROM usuario WHERE id = '$usuario';");
     
     $r = mysqli_fetch_all($result,1)[0];
-    print_r($r);
     
     $user['id'] = $r["id"];
     $user['usuario'] = $r["usuario"];

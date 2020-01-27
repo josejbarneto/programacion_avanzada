@@ -2,12 +2,15 @@
 
 include_once '../../basedatos/baseDatos.php';
 
-function crearPost($idUsuario, $idCategoria, $texto) {
+function crearPost($idUsuario, $idCategoria, $titulo, $texto) {
     $conn = conectarBaseDatos();
 
-    $fechaEnvio = getdate();
+    $fechaEnvio = date_create();
+    $fecha = date_format($fechaEnvio, 'Y-m-d H:i:s');
+
+    echo "$idUsuario, $idCategoria, $titulo, $texto, $fecha";
     
-    $consulta = "insert into post (id_usuario, id_categoria, texto, fecha_creacion) VALUES ('$idUsuario', '$idCategoria', '$texto', '$fechaEnvio');";   
+    $consulta = "insert into post (id_usuario, id_categoria, titulo, texto, fecha_creacion) VALUES ($idUsuario, $idCategoria, '$titulo', '$texto', '$fecha');";
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     mysqli_close($conn);
@@ -15,14 +18,14 @@ function crearPost($idUsuario, $idCategoria, $texto) {
 
 function editarPost($idPost, $texto) {
     $conn = conectarBaseDatos();
-    
-    $consulta = "UPDATE post SET texto = '$texto' WHERE id = $idPost;";   
+
+    $consulta = "UPDATE post SET texto = '$texto' WHERE id = $idPost;";
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     mysqli_close($conn);
 }
 
-function mostrarPost($post){
+function mostrarPost($post) {
     echo '<div>';
     echo "<div>{$post['idUsuario']}</div><br/>";
     echo "<div>{$post['texto']}</div>";
@@ -33,8 +36,8 @@ function borrarPost($post) {
     $conn = conectarBaseDatos();
 
     $fechaEnvio = getdate();
-    
-    $consulta = "DELETE FROM post WHERE id = $idPost;";   
+
+    $consulta = "DELETE FROM post WHERE id = $idPost;";
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     mysqli_close($conn);
@@ -43,43 +46,43 @@ function borrarPost($post) {
 function listarPostsPorCategoria($categoria) {
     $conn = conectarBaseDatos();
     
-    $consulta = "select id, id_usuario, id_categoria, texto, fecha_creacion from post where id_categoria = (select id_categoria from categoria where nombre = '$categoria') order by fecha_creacion DESC;";   
-    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos"); 
-
-    mysqli_close($conn);
+    $consulta = "select * from post where id_categoria = $categoria order by fecha_creacion DESC;";
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
     
+    $i=0;
     while ($columna = mysqli_fetch_array($resultado)) {
-        $posts['id'] = $columna['id'];
-        $posts['idUsuario'] = $columna['id_usuario'];
-        $posts['idCategoria'] = $columna['id_categoria'];
-        $posts['texto'] = $columna['texto'];
-        $posts['fechaCreacion'] = $columna['fecha_creacion'];   
+        $posts[$i]['id'] = $columna['id'];
+        $posts[$i]['idUsuario'] = $columna['id_usuario'];
+        $posts[$i]['idCategoria'] = $columna['id_categoria'];
+        $posts[$i]['titulo'] = $columna['titulo'];
+        $posts[$i]['texto'] = $columna['texto'];
+        $posts[$i]['fechaCreacion'] = $columna['fecha_creacion'];
+        $i++;
     }
-    
-    foreach($posts as $post){
-        mostrarPost($post);
-    }
+    mysqli_close($conn);
+
+    return $posts;
 }
 
 function listarPostsPorUsuario($usuario) {
     $conn = conectarBaseDatos();
-    
-    $consulta = "select id, id_usuario, id_categoria, texto, fecha_creacion from post where id_usuario = $usuario order by fecha_creacion DESC;";   
-    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos"); 
+
+    $consulta = "select * from post where id_usuario = $usuario order by fecha_creacion DESC;";
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+
+    $i = 0;
+    while ($columna = mysqli_fetch_array($resultado)) {
+        $posts[$i]['id'] = $columna['id'];
+        $posts[$i]['idUsuario'] = $columna['id_usuario'];
+        $posts[$i]['idCategoria'] = $columna['id_categoria'];
+        $posts[$i]['titulo'] = $columna['titulo'];
+        $posts[$i]['texto'] = $columna['texto'];
+        $posts[$i]['fechaCreacion'] = $columna['fecha_creacion'];
+        $i++;
+    }
 
     mysqli_close($conn);
-    
-    while ($columna = mysqli_fetch_array($resultado)) {
-        $posts['id'] = $columna['id'];
-        $posts['idUsuario'] = $columna['id_usuario'];
-        $posts['idCategoria'] = $columna['id_categoria'];
-        $posts['texto'] = $columna['texto'];
-        $posts['fechaCreacion'] = $columna['fecha_creacion'];   
-    }
-    
-    foreach($posts as $post){
-        mostrarPost($post);
-    }
+    return $posts;
 }
 
 ?>
