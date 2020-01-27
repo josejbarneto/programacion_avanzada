@@ -4,27 +4,28 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/estadistica.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/mensaje.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/post/listado.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/usuario/perfil.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/cabecera.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/login.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/categoria/listado.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/galeria.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/logout.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/util/cdns.html</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/post.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/basedatos/baseDatos.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/preferencias.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/signup.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/comentario.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/post/formulario.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/header.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/categoria/formulario.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/usuario.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/header2.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/post/post.php</file>
-            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/footer.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/aside.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/mensaje.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/post/listado.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/usuario/perfil.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/galeria.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/basedatos/baseDatos.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/post/formulario.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/header2.php</file>
+            <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/footer.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/vistas/base/principal.php</file>
             <file>file:/C:/xampp/htdocs/ProyectoPA/entidades/categoria.php</file>
         </group>

@@ -11,7 +11,16 @@ include_once("../../entidades/categoria.php");
 
 session_start();
 if (empty($_SESSION['usuario'])) {
-    header('location: principal.php');
+    header('location: ../../vistas/base/principal.php');
+}
+
+//ver si estamos editando o creando un post. Si se edita se pasa el id del post por get
+$idPost = filter_input(INPUT_GET, 'id_post', FILTER_SANITIZE_NUMBER_INT);
+if(isset($idPost)){
+    $post = getPost($idPost);
+    if($post['idUsuario'] != $_SESSION['usuario']['id']){  //Comprobar que corresponde el post al usuario
+        header('location: ../../vistas/base/principal.php');
+    }
 }
 
 $categorias = getCategorias();
@@ -28,6 +37,27 @@ if (isset($_POST['submit'])) {
         header('Location: ../../vistas/base/principal.php');
     }
 }
+
+//editar
+if (isset($_POST['edit'])) {
+    $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
+    $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
+    $texto = filter_input(INPUT_POST, 'texto', FILTER_SANITIZE_STRING);
+
+    if (empty($titulo) || empty($categoria) || empty($texto)) {
+        $errores[] = "Rellene los campos necesarios";
+    } else {
+        editarPost($idPost, $categoria, $titulo, $texto);
+        header('Location: ../../vistas/base/principal.php');
+    }
+}
+
+//borrar post
+if (isset($_POST['eliminar'])) {
+    borrarPost($idPost);
+    header('location: ../../vistas/base/principal.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,7 +85,7 @@ if (isset($_POST['submit'])) {
                         <h2 class="ui block header">
                             <i class="pen alternate icon"></i>
                             <div class="content">
-                                Nuevo Post 
+                                <?php echo (!isset($post) ? "Nuevo Post" : "Editar Post");?>
                             </div>
                         </h2>
                         <form class="ui form" action="" method="post">
@@ -66,29 +96,23 @@ if (isset($_POST['submit'])) {
                                     echo "<span style='color:red;'>$e</span>";
                                 }
                             }
-                            /*
-                             * for (post in post){
-                             * echo <div classitem> post[titulo]</div>
-                             * }
-                             * 
-                             * ETC.
-                             */
+
                             ?>
                             <div class="field">
                                 <label>Titulo</label>
-                                <input type="text" name="titulo" placeholder="Titulo del post" autocomplete="off">
+                                <input type="text" name="titulo" placeholder="Titulo del post" autocomplete="off" value="<?php echo (isset($post) ? $post['titulo'] : "");?>">
                             </div>
                             <div class="field">
                                 <label>Categoria</label>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="categoria">
+                                    <input type="hidden" name="categoria" value='<?php echo (isset($post) ? $post['idCategoria'] : "");?>'>
                                     <i class="dropdown icon"></i>
-                                    <div class="default text">Seleccone categoría</div>
+                                    <div class="<?php echo (!isset($post) ? 'default' : "");?> text"><?php echo (isset($post) ? $post['categoria'] : "Selecciona una categoria");?> </div>
                                     <div class="menu">
                                         <?php
                                         //AQUI HAY QUE IR PINTANDO SEGUN LAS CATEGORIAS QUE EXISTAN
                                         foreach ($categorias as $categoria) {
-                                            echo "<div class='item' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>";
+                                            echo (isset($post) && $categoria['id'] == $post['idCategoria']) ? "<div class='item active' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>" : "<div class='item' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>" ;
                                         }
                                         /*
                                          * for (categoria in categorias){
@@ -116,12 +140,16 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="field">
                                 <label>Texto</label>
-                                <textarea name="texto"></textarea>
+                                <textarea name="texto"><?php echo (isset($post) ? $post['texto'] : "");?></textarea>
                             </div>
                             <button class="ui button" type="reset">Resetear</button>
                             <!-- SI NO ES UN NUEVO POST, ESTAMOS VIENDO UNO HECHO ANTES, PODER BORRARLO AQUI -->
-                            <button class="ui button negative" type="submit">Eliminar</button>
-                            <button name="submit" class="ui right floated positive button" type="submit">Guardar</button>
+                            <?php if(isset($post)){?>
+                            <button name='eliminar' class="ui button negative" type="submit" >Eliminar</button>
+                            <?php } ?>
+                            
+                            
+                            <button name="<?php echo isset($post) ? 'edit' : 'submit'?>" class="ui right floated positive button" type="submit">Guardar</button>
                         </form>
                     </div>
                 </div>

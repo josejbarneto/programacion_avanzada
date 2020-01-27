@@ -19,7 +19,7 @@
         }
         ?>
         <span onclick="document.getElementById('login').style.display = 'none'" class="close" title="Close">&times;</span>
-        <form action="login.php" method="post" class="formulario" onsubmit="return valida2()">
+        <form action="../../vistas/base/login.php" method="post" class="formulario" onsubmit="return valida2()">
 
             <!--Errores-->
             <?php
@@ -51,7 +51,7 @@
     }
     ?>
     <span onclick="document.getElementById('signup').style.display = 'none'" class="close" title="Close">&times;</span>
-    <form action="signup.php" method="post" class="formulario" onsubmit="return valida()">
+    <form action="../../vistas/base/signup.php" method="post" class="formulario" onsubmit="return valida()">
 
         <!--Errores-->
         <?php
