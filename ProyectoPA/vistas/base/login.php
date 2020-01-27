@@ -24,13 +24,12 @@ if(!isset($errores)){
     session_start();
     $_SESSION['usuario'] = $usuarioCompleto;
     $_SESSION['preferencias'] = $preferencias;
-
-    header('Location: principal.php');
+    header('Location: ../../vistas/base/principal.php');
 }else{
     session_start();
     $_SESSION['intentoLogin']=TRUE;
     $_SESSION['errores']=$errores; 
-    header('Location: principal.php');
+    header('Location: ../../vistas/base/principal.php');
 }
 
     

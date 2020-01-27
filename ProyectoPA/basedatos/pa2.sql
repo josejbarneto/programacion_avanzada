@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2020 a las 11:31:17
+-- Tiempo de generación: 27-01-2020 a las 12:25:41
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -33,6 +33,15 @@ CREATE TABLE `categoria` (
   `nombre` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `descripcion` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`id`, `nombre`, `descripcion`) VALUES
+(1, 'Deportes', 'Todo sobre deportes'),
+(2, 'Informatica', 'Todo sobre Informatica'),
+(3, 'Videojuegos', 'Todo sobre videojuegos');
 
 -- --------------------------------------------------------
 
@@ -93,6 +102,16 @@ CREATE TABLE `post` (
   `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `post`
+--
+
+INSERT INTO `post` (`id`, `id_usuario`, `id_categoria`, `titulo`, `texto`, `fecha_creacion`) VALUES
+(1, 2, 1, 'asdfsdf', 'dsfsdfd', '2020-01-27'),
+(2, 3, 1, 'dfgdfg', 'dfgdfd', '2020-01-27'),
+(3, 2, 2, 'dfg', 'dfgdg', '2020-01-27'),
+(4, 2, 1, 'Deportes', 'uyyuytyut', '2020-01-27');
+
 -- --------------------------------------------------------
 
 --
@@ -143,7 +162,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `usuario`, `nombre`, `contrasenya`, `email`) VALUES
-(1, 'carlos', 'Carlos', '$2y$10$/naLdeEd8nftXh9lVv.8oOFAU', 'carlos@gmail.com');
+(2, 'carlos', 'Carlos', '$2y$10$CtCuzsCQ9Rz9xbcpfSfO6uKs.yEs1jMd96aQ3yMR1xHd/AQsOFgra', 'carlos@gmail.com'),
+(3, 'juanka', 'Juanca', '$2y$10$zTWhYDIcx6jL3e56hUKKteTDTCLkrEafQxZLTQPiqUVvDwE4/IpPO', 'juanca@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -216,7 +236,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `comentario`
@@ -240,7 +260,7 @@ ALTER TABLE `mensaje`
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `preferencias`
@@ -258,7 +278,7 @@ ALTER TABLE `reaccion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

@@ -4,6 +4,8 @@
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
   $posts = getTodosLosPost();
  */
+include_once '../../entidades/categoria.php';
+$categorias = getCategorias();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,7 @@
         <title>Kaheddit</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="../../recursos/css/base.css">
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/header2.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
     </head>
@@ -19,7 +22,7 @@
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once("../../vistas/base/header.php")
+        include_once '../../vistas/base/cabecera.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
@@ -36,32 +39,27 @@
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
 
-                            /*
-                             * for (post in post){
-                             * echo <div classitem> post[titulo]</div>
-                             * }
-                             * 
-                             * ETC.
-                             */
+                            foreach ($categorias as $c) {
+                                ?>
+
+                                <div class = "ui segment">
+                                    <h2 class = "ui block header">
+                                        <i class = "pen alternate icon"></i>
+                                        <div class = "content"><a href="../../vistas/post/post.php">
+                                                <?php echo $c["nombre"];
+                                                ?>
+                                            </a>
+                                        </div>
+                                    </h2>
+                                    <div class="ui hidden divider"></div>
+                                    <div class="text">
+                                        <?php echo $c["descripcion"]; ?>
+                                    </div>
+                                </div>
+                                <?php
+                            }
                             ?>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de categoria 1</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de categoria 2</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de categoria 3</a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

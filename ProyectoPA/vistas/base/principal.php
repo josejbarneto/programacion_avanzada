@@ -24,15 +24,7 @@
 
         include_once '../../entidades/post.php';
         include_once '../../entidades/usuario.php';
-        session_start();
-        if (!isset($_SESSION['usuario'])) {
-            include_once("header2.php");
-            session_destroy();
-        } else {
-            include_once("header.php");
-            $user = $_SESSION['usuario'];
-            $preferencias = $_SESSION['preferencias'];
-        }
+        include_once '../../vistas/base/cabecera.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>

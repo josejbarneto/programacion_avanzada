@@ -1,4 +1,6 @@
-<?php ?>
+<?php 
+    
+?>
 <nav class="ui fixed menu">
     <a href="../../vistas/base/principal.php" class="item">
         <img src="../../recursos/img/logo.png">
@@ -34,7 +36,7 @@
             <br/>Password:<br/>
             <input type="password"name='lpass' class="textbox">
             <br/>
-            <input type="submit" value="LOG IN">
+            <input type="submit" name='login' value="LOG IN">
             <br/>
         </form>
     </div>

@@ -22,6 +22,7 @@ $post = ["titulo" => "Post Ejemplo 1",
         <title>Kaheddit</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="../../recursos/css/base.css">
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/header2.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
         <script src="../../recursos/js/base.js"></script>
@@ -30,7 +31,7 @@ $post = ["titulo" => "Post Ejemplo 1",
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once("../../vistas/base/header.php")
+        include_once '../../vistas/base/cabecera.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
