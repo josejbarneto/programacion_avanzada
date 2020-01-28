@@ -25,6 +25,6 @@
         </div>
         <div class="ui inverted section divider"></div>
         <h4 class="ui inverted header">Copyright © 2020 Desarrollado por Grupo 14 Programaci&oacute;n Avanzada | Todos los derechos reservados.</h4>
-        <p>Barneto del R&iacute;o, Jose Joaquín | Menacho Rodriguez de Gongora, Eugenio | Pumar Jimenez, Carlos</p>
+        <p>Barneto del R&iacute;o, Jose Joaquín | Menacho de Gongora, Eugenio | Pumar Jimenez, Carlos</p>
     </div>
 </footer>
