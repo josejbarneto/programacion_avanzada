@@ -43,12 +43,12 @@ if (isset($categoriaId)) {
             <div class="ui hidden divider"></div>
             <section class="ui grid">
                 <div class="ui twelve wide column">
-                    <div class="ui top attached tabular menu menu-tab">
-                        <div class="active item" data-tab="posts">One</div>
-                        <div class="item" data-tab="usuarios">Two</div>
-                        <div class="item" data-tab="categorias">Three</div>
+                    <div class="ui pointing secondary menu menu-tab">
+                        <div class="active item" data-tab="posts">Posts</div>
+                        <div class="item" data-tab="usuarios">Usuarios</div>
+                        <div class="item" data-tab="categorias">Categorias</div>
                     </div>
-                    <div class="ui bottom attached tab active segment" data-tab="posts">
+                    <div class="ui tab active segment" data-tab="posts">
                         <table class="ui celled striped table">
                             <thead>
                                 <tr>
@@ -92,7 +92,7 @@ if (isset($categoriaId)) {
                             </tbody>
                         </table>
                     </div>
-                    <div class="ui bottom attached tab segment" data-tab="usuario">
+                    <div class="ui bottom attached tab segment" data-tab="usuarios">
                         <table class="ui celled striped table">
                             <thead>
                                 <tr>
