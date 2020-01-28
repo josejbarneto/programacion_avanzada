@@ -32,6 +32,38 @@ if (isset($_SESSION['usuario'])) {
         $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_NUMBER_INT);
         $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_NUMBER_INT);
         
+        if(!preg_match("/^[a-zA-Z0-9_-]{5,16}$/",$nombre)){
+            $errores[] = "Error en el nombre";
+        }
+        
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            $errores[] = "Error en el correo";
+        }
+        
+        if(!preg_match("/^[a-zA-Z0-9_-]{7,20}$/", $pass)){
+            $errores[] = "Error en la contraseña";
+        }
+        
+        if(!filter_var($orden, FILTER_VALIDATE_INT) || $orden<1 ||$orden>3 ){
+            $errores[] = "Error en tipo de ordenación";
+        }
+        
+        if(!filter_var($categoria, FILTER_VALIDATE_INT)){
+            $errores[] = "Error en categoría";
+        }
+        
+        if(!filter_var($nocturno, FILTER_VALIDATE_INT)){
+            $errores[] = "Error en nocturno";
+        }
+        
+        if(!filter_var($lenguaje, FILTER_VALIDATE_INT)){
+            $errores[] = "Error en lenguaje";
+        }
+        
+        if(!filter_var($newTab, FILTER_VALIDATE_INT)){
+            $errores[] = "Error en newTab";
+        }
+        
         editarUsuario($_SESSION['usuario']['id'],$nombre,$email,$pass);
         editarPreferencias($_SESSION['usuario']['id'],$nocturno,$categoria,$lenguaje, $newTab,$orden);
     }
@@ -138,7 +170,7 @@ if (isset($_SESSION['usuario'])) {
                                 </div>
                                 <div class="field">
                                     <div class="ui toggle checkbox <?php echo $usuario["newtab"] ? "checked" : ""; ?>">
-                                        <input tname='newTab' ype="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>>
+                                        <input tname='newTab' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>>
                                         <label>Abrir posts en nueva pestaña</label>
                                     </div>
                                 </div>
