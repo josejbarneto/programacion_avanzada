@@ -28,7 +28,7 @@ if (isset($_SESSION['usuario'])) {
         $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
         $orden = filter_input(INPUT_POST, 'orden', FILTER_SANITIZE_NUMBER_INT);
         $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
-        $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_NUMBER_INT);
+        $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_);
         $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_NUMBER_INT);
         $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_NUMBER_INT);
         
@@ -36,12 +36,16 @@ if (isset($_SESSION['usuario'])) {
             $errores[] = "Error en el nombre";
         }
         
-        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errores[] = "Error en el correo";
         }
         
-        if(!preg_match("/^[a-zA-Z0-9_-]{7,20}$/", $pass)){
+        if(empty($pass)){
+            $pass = $_SESSION['usuario']['contrasena'];
+        }else if(!preg_match("/^[a-zA-Z0-9_-]{7,20}$/", $pass)){
             $errores[] = "Error en la contraseña";
+        }else{
+            $pass = password_hash($pass, PASSWORD_DEFAULT);
         }
         
         if(!filter_var($orden, FILTER_VALIDATE_INT) || $orden<1 ||$orden>3 ){
@@ -52,7 +56,7 @@ if (isset($_SESSION['usuario'])) {
             $errores[] = "Error en categoría";
         }
         
-        if(!filter_var($nocturno, FILTER_VALIDATE_INT)){
+        if(!filter_var($_POST['nocturno'], FILTER_VALIDATE_BOOLEAN)){
             $errores[] = "Error en nocturno";
         }
         
@@ -65,7 +69,12 @@ if (isset($_SESSION['usuario'])) {
         }
         
         editarUsuario($_SESSION['usuario']['id'],$nombre,$email,$pass);
-        editarPreferencias($_SESSION['usuario']['id'],$nocturno,$categoria,$lenguaje, $newTab,$orden);
+        editarPreferencia($_SESSION['usuario']['id'],$nocturno,$categoria,$lenguaje, $newTab,$orden);
+        
+        $_SESSION['usuario']= getUsuario($usuario['usuario']);
+        $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);
+        
+        header('location: ../../vistas/base/principal.php');
     }
     
 } else {

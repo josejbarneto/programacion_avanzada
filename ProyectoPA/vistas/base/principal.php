@@ -34,14 +34,13 @@
                         <div class="ui middle aligned divided relaxed list">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-
-                            if (isset($_SESSION['usuario'])) {
+                            if (isset($_SESSION['preferencias'])) {
                                 $posts = listarPostsPorCategoria(1);
                             } else {
                                 $posts = listarPostsPorCategoria(1);
                             }
 
-                            if (isset($post)) {
+                            if (isset($posts)) {
                                 foreach ($posts as $post) {
                                     ?>
 

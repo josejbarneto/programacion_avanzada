@@ -12,9 +12,18 @@ function crearPreferencia($usuario) {
 function editarPreferencia($id,$nocturno,$categoria,$lenguaje, $newTab,$orden) {
     $conn = conectarBaseDatos();
     
-    $consulta = "UPDATE usuario SET nocturno = $nocturno, id_categoria_inicial = $categoria, lenguaje_obsceno=$lenguaje, open_post_new_tab = $newTab, orden=$orden WHERE id_usuario = $id;";   
-    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-
+    //preparacion de valores antes de la insertcion
+    if(empty($nocturno)){
+        $nocturno = 0;
+    }if(empty($lenguaje)){
+        $lenguaje = 0;
+    }if(empty($newTab)){
+        $newTab = 0;
+    }
+    
+    $consulta = "UPDATE preferencias SET modo_nocturno = $nocturno, id_categoria_inicial = $categoria, lenguaje_obsceno=$lenguaje, open_post_new_tab = $newTab, orden=$orden WHERE id_usuario = $id;";   
+    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la base de datos");
+    
     mysqli_close($conn);
 }
 
