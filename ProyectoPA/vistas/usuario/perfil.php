@@ -10,11 +10,35 @@
  * $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
  * 
  */
+include_once("../../entidades/categoria.php");
+include_once("../../entidades/usuario.php");
+include_once("../../entidades/preferencias.php");
+
 session_start();
-$vistas = ["Clasica", "Compacta", "Ancha"];
-$ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
-$usuario = $_SESSION['usuario'];
-$preferencias = isset($_SESSION['preferencias']) ? $_SESSION['preferencias'] : [];
+
+if (isset($_SESSION['usuario'])) {
+    $ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
+    $usuario = $_SESSION['usuario'];
+    $preferencias = $_SESSION['preferencias'];
+    $categorias = getCategorias();
+    
+    if(isset($_POST['actualizar'])){
+        $nombre = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
+        $orden = filter_input(INPUT_POST, 'orden', FILTER_SANITIZE_NUMBER_INT);
+        $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
+        $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_NUMBER_INT);
+        $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_NUMBER_INT);
+        $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_NUMBER_INT);
+        
+        editarUsuario($_SESSION['usuario']['id'],$nombre,$email,$pass);
+        editarPreferencias($_SESSION['usuario']['id'],$nocturno,$categoria,$lenguaje, $newTab,$orden);
+    }
+    
+} else {
+    header('location: ../../vistas/base/principal.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,48 +85,34 @@ $preferencias = isset($_SESSION['preferencias']) ? $_SESSION['preferencias'] : [
                             </div>
                             <h4 class="ui dividing header">Preferencias</h4>
                             <div class="field">
-                                <label>Vista predeterminada</label>
-                                <div class="ui selection dropdown">
-                                    <input type="hidden" name="vista" value="<?php echo $preferencias["vista"]; ?>">
-                                    <i class="dropdown icon"></i>
-                                    <div class="text"><?php echo $vistas[$usuario["vista"]]; ?></div>
-                                    <div class="menu">
-                                        <div class="item <?php echo ($preferencias["vista"] == 1 ? "active" : ""); ?>" data-value="1">Clasica </div>
-                                        <div class="item <?php echo ($preferencias["vista"] == 2 ? "active" : ""); ?>" data-value="2">Compacta</div>
-                                        <div class="item <?php echo ($preferencias["vista"] == 3 ? "active" : ""); ?>" data-value="3">Ancha</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="field">
                                 <label>Ordenación predeterminada</label>
                                 <?php
                                 //AQUI VER QUE VISTA TIENE ESE USUARIO
                                 ?>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="orden" value="<?php echo $usuario["orden"]; ?>">
+                                    <input type="hidden" name="orden" value="<?php echo $preferencias["orden"]; ?>">
                                     <i class="dropdown icon"></i>
-                                    <div class="text"><?php echo $ordenes[$usuario["orden"]]; ?></div>
+                                    <div class="text"><?php echo $ordenes[$preferencias["orden"]-1]; ?></div>
                                     <div class="menu">
-                                        <div class="item <?php echo ($usuario["orden"] == 1 ? "active" : ""); ?>" data-value="1">Por novedad</div>
-                                        <div class="item <?php echo ($usuario["orden"] == 2 ? "active" : ""); ?>" data-value="2">Por reacciones</div>
-                                        <div class="item <?php echo ($usuario["orden"] == 3 ? "active" : ""); ?>" data-value="3">Alfabético</div>
+                                        <div class="item <?php echo ($preferencias["orden"] == 1 ? "active" : ""); ?>" data-value="1">Por novedad</div>
+                                        <div class="item <?php echo ($preferencias["orden"] == 2 ? "active" : ""); ?>" data-value="2">Por reacciones</div>
+                                        <div class="item <?php echo ($preferencias["orden"] == 3 ? "active" : ""); ?>" data-value="3">Alfabético</div>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="field">
-                                <?php
-                                //AQUI VER QUE VISTA TIENE ESE USUARIO
-                                ?>
                                 <label>Categoria Inicial</label>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="categoria">
+                                    <input type="hidden" name="categoria" value='<?php echo $preferencias['id_categoria_inicial'];?>'>
                                     <i class="dropdown icon"></i>
-                                    <div class="default text">Seleccone categoría</div>
+                                    <div class="text"><?php $preferencias['nombre_categoria_inicial'];?> </div>
                                     <div class="menu">
-                                        <div class="item" data-value="1">Categoria 1</div>
-                                        <div class="item" data-value="2">Categoria 2</div>
                                         <?php
                                         //AQUI HAY QUE IR PINTANDO SEGUN LAS CATEGORIAS QUE EXISTAN
+                                        foreach ($categorias as $categoria) {
+                                            echo ($categoria['id'] == $preferencias['id_categoria_inicial']) ? "<div class='item active' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>" : "<div class='item' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>" ;
+                                        }
 
                                         /*
                                          * for (categoria in categorias){
@@ -116,25 +126,25 @@ $preferencias = isset($_SESSION['preferencias']) ? $_SESSION['preferencias'] : [
                             <div class="three inline fields">
                                 <div class="field">
                                     <div class="ui toggle checkbox <?php echo $usuario["nocturno"] ? "checked" : ""; ?>">
-                                        <input type="checkbox" tabindex="0" class="hidden" <?php echo $usuario["nocturno"] ? "checked" : ""; ?>>
+                                        <input name='nocturno' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["modo_nocturno"] ? "checked" : ""; ?>>
                                         <label>Modo nocturno</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui toggle checkbox <?php echo $usuario["lenguaje"] ? "checked" : ""; ?>">
-                                        <input type="checkbox" tabindex="0" class="hidden" <?php echo $usuario["lenguaje"] ? "checked" : ""; ?>>
+                                        <input name='lenguaje' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["lenguaje_obsceno"] ? "checked" : ""; ?>>
                                         <label>Ocultar lenguaje malsonante</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui toggle checkbox <?php echo $usuario["newtab"] ? "checked" : ""; ?>">
-                                        <input type="checkbox" tabindex="0" class="hidden" <?php echo $usuario["newtab"] ? "checked" : ""; ?>>
+                                        <input tname='newTab' ype="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>>
                                         <label>Abrir posts en nueva pestaña</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="ui hidden divider"></div>
-                            <button class="ui right floated button positive" type="submit"><i class="save icon"></i>Actualizar Perfil</button>
+                            <button name='actualizar' class="ui right floated button positive" type="submit"><i class="save icon"></i>Actualizar Perfil</button>
                         </form>
                     </div>
                 </div>

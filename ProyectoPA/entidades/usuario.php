@@ -12,9 +12,13 @@ function crearUsuario($usuario, $contrasena, $email, $nombre) {
     mysqli_close($con);
 }
 
-function editarUsuario($usuario) {
-    $respuesta = [];
-    return $respuesta;
+function editarUsuario($id,$nombre,$email,$pass) {
+    $conn = conectarBaseDatos();
+    
+    $consulta = "UPDATE usuario SET nombre = '$nombre', email='$email', contrasenya='$pass' WHERE id = $id;";   
+    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+
+    mysqli_close($conn);
 }
 
 function mostrarUsuario($usuario) {
@@ -58,14 +62,15 @@ function existEmail($email) {
 
 function getUsuario($usuario) {
     $con = conectarBaseDatos();
-    $result = mysqli_query($con, "SELECT id, usuario, contrasenya, email FROM usuario WHERE id = '$usuario';");
+    $result = mysqli_query($con, "SELECT id, usuario, nombre, contrasenya, email FROM usuario WHERE usuario = '$usuario';");
     
-    $r = mysqli_fetch_all($result,1)[0];
+    $r = mysqli_fetch_array($result);
     
     $user['id'] = $r["id"];
     $user['usuario'] = $r["usuario"];
     $user['contrasena'] = $r["contrasenya"];
     $user['email'] = $r["email"];
+    $user['nombre'] = $r["nombre"];
     
     mysqli_close($con);
     return $user;

@@ -41,30 +41,32 @@
                                 $posts = listarPostsPorCategoria(1);
                             }
 
-                            foreach ($posts as $post) {
-                                ?>
+                            if (isset($post)) {
+                                foreach ($posts as $post) {
+                                    ?>
 
-                                <div class = "ui segment">
-                                    <h2 class = "ui block header">
-                                        <i class = "pen alternate icon"></i>
-                                        <div class = "content"><a href="../../vistas/post/post.php?id=<?php echo $post["id"];?>">
-                                                <?php echo $post["titulo"];
-                                                ?>
-                                            </a>
-                                            <div class="sub header">
-                                                <?php
-                                                $usuario = getUsuario($post["idUsuario"]);
-                                                echo "{$usuario["usuario"]}";
-                                                ?>
+                                    <div class = "ui segment">
+                                        <h2 class = "ui block header">
+                                            <i class = "pen alternate icon"></i>
+                                            <div class = "content"><a href="../../vistas/post/post.php?id=<?php echo $post["id"]; ?>">
+                                                    <?php echo $post["titulo"];
+                                                    ?>
+                                                </a>
+                                                <div class="sub header">
+                                                    <?php
+                                                    $usuario = getUsuario($post["idUsuario"]);
+                                                    echo "{$usuario["usuario"]}";
+                                                    ?>
+                                                </div>
                                             </div>
+                                        </h2>
+                                        <div class="ui hidden divider"></div>
+                                        <div class="text">
+                                            <?php echo $post["texto"]; ?>
                                         </div>
-                                    </h2>
-                                    <div class="ui hidden divider"></div>
-                                    <div class="text">
-                                        <?php echo $post["texto"]; ?>
                                     </div>
-                                </div>
-                                <?php
+                                    <?php
+                                }
                             }
                             ?>
                         </div>

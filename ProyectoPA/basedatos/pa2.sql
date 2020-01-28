@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2020 a las 18:08:03
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.10
+-- Tiempo de generación: 28-01-2020 a las 02:14:36
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `pa`
+-- Base de datos: `pa2`
 --
 
 -- --------------------------------------------------------
@@ -57,20 +57,6 @@ CREATE TABLE `comentario` (
   `fecha_creacion` datetime NOT NULL,
   `fecha_actualizacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
---
--- Volcado de datos para la tabla `comentario`
---
-
-INSERT INTO `comentario` (`id`, `id_usuario`, `id_post`, `texto`, `fecha_creacion`, `fecha_actualizacion`) VALUES
-(5, 2, 1, 'hola que pasa', '2020-01-27 00:00:00', '2020-01-27 00:00:00'),
-(6, 2, 1, 'sdsdsdvsdsd', '2020-01-27 00:00:00', '2020-01-27 00:00:00'),
-(7, 2, 1, 'sdfdsg', '2020-01-27 00:00:00', '2020-01-27 00:00:00'),
-(8, 3, 1, 'Buenaaaaas', '2020-01-27 18:02:26', '2020-01-27 18:02:26'),
-(9, 3, 1, 'Holaaa', '2020-01-27 18:02:37', '2020-01-27 18:02:37'),
-(10, 3, 1, 'Holaaaaa', '2020-01-27 18:03:25', '2020-01-27 18:03:25'),
-(11, 3, 1, '1234567', '2020-01-27 18:03:32', '2020-01-27 18:03:32'),
-(12, 3, 1, 'que pasaa', '2020-01-27 18:04:32', '2020-01-27 18:04:32');
 
 -- --------------------------------------------------------
 
@@ -116,17 +102,6 @@ CREATE TABLE `post` (
   `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
---
--- Volcado de datos para la tabla `post`
---
-
-INSERT INTO `post` (`id`, `id_usuario`, `id_categoria`, `titulo`, `texto`, `fecha_creacion`) VALUES
-(1, 2, 1, 'asdfsdf', 'dsfsdfd', '2020-01-27'),
-(2, 3, 1, 'dfgdfg', 'dfgdfd', '2020-01-27'),
-(3, 2, 2, 'dfg', 'dfgdg', '2020-01-27'),
-(4, 2, 1, 'Deportes', 'uyyuytyut', '2020-01-27'),
-(5, 2, 1, 'Titulo', 'Texto de prueba', '2020-01-27');
-
 -- --------------------------------------------------------
 
 --
@@ -136,12 +111,11 @@ INSERT INTO `post` (`id`, `id_usuario`, `id_categoria`, `titulo`, `texto`, `fech
 CREATE TABLE `preferencias` (
   `id` int(32) NOT NULL,
   `id_usuario` int(32) NOT NULL,
-  `vista` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `modo_nocturno` tinyint(1) NOT NULL,
-  `categoria_inicial` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `id_categoria_inicial` int(32) NOT NULL,
   `lenguaje_obsceno` tinyint(1) NOT NULL,
-  `opoen_post_new_tab` tinyint(1) NOT NULL,
-  `orden` varchar(32) COLLATE latin1_spanish_ci NOT NULL
+  `open_post_new_tab` tinyint(1) NOT NULL,
+  `orden` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
@@ -171,14 +145,6 @@ CREATE TABLE `usuario` (
   `contrasenya` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
   `email` varchar(32) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`id`, `usuario`, `nombre`, `contrasenya`, `email`) VALUES
-(2, 'carlos', 'Carlos', '$2y$10$CtCuzsCQ9Rz9xbcpfSfO6uKs.yEs1jMd96aQ3yMR1xHd/AQsOFgra', 'carlos@gmail.com'),
-(3, 'juanka', 'Juanca', '$2y$10$zTWhYDIcx6jL3e56hUKKteTDTCLkrEafQxZLTQPiqUVvDwE4/IpPO', 'juanca@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -227,7 +193,8 @@ ALTER TABLE `post`
 --
 ALTER TABLE `preferencias`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_categoria_inicial` (`id_categoria_inicial`);
 
 --
 -- Indices de la tabla `reaccion`
@@ -257,7 +224,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
@@ -275,13 +242,13 @@ ALTER TABLE `mensaje`
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `preferencias`
 --
 ALTER TABLE `preferencias`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `reaccion`
@@ -293,7 +260,7 @@ ALTER TABLE `reaccion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -331,7 +298,8 @@ ALTER TABLE `post`
 -- Filtros para la tabla `preferencias`
 --
 ALTER TABLE `preferencias`
-  ADD CONSTRAINT `preferencias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `preferencias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `preferencias_ibfk_2` FOREIGN KEY (`id_categoria_inicial`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reaccion`
