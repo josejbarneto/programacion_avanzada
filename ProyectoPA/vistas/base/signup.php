@@ -5,6 +5,7 @@
     $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
     $correo = filter_input(INPUT_POST, 'correo', FILTER_SANITIZE_EMAIL);
     $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+    $pass = filter_input(INPUT_POST, 'contrasena', FILTER_SANITIZE_STRING);
        
     if(existUsuario($usuario)){
         $errores[] = 'El usuario ya existe';
@@ -14,8 +15,16 @@
         $errores[] = 'El correo ya existe';
     }
     
+    if(!preg_match("/^[a-zA-Z0-9_-]{5,16}$/", $usuario)){
+        $errores[] = 'Usuario incorrecto';
+    }
+    
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         $errores[] = "Error en el correo";
+    }
+    
+    if(!preg_match("/^[a-zA-Z0-9_-]{7,20}$/", $pass)){
+        $errores[] = "Error en la contraseña";
     }
     
     
