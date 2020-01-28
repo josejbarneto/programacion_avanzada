@@ -38,3 +38,7 @@ footer.footer.segment{
     right: 30px;
     z-index: 99;
 }
+
+.darkmode-layer, .darkmode-toggle {
+  z-index: 500;
+}

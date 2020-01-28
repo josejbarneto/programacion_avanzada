@@ -83,7 +83,11 @@ function listarPostsPorUsuario($usuario) {
     }
 
     mysqli_close($conn);
-    return $posts;
+    if (isset($posts)) {
+        return $posts;
+    } else {
+        return false;
+    }
 }
 
 function getPost($idPost) {

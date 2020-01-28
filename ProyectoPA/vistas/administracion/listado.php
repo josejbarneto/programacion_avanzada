@@ -34,8 +34,8 @@ if (isset($categoriaId)) {
     </head>
     <body>
         <?php
-//AÑADIMOS EL HEADER DE LA PAGINA. 
-//Antes de incluirlo si añadimos variables al header las tocamos aqui
+        //AÑADIMOS EL HEADER DE LA PAGINA. 
+        //Antes de incluirlo si añadimos variables al header las tocamos aqui
         include_once '../../vistas/base/cabecera.php';
         include_once '../../entidades/usuario.php';
         ?>

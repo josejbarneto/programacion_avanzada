@@ -76,4 +76,22 @@ function getUsuario($usuario) {
     return $user;
 }
 
+function getUsuarioById($usuario) {
+    $con = conectarBaseDatos();
+    $result = mysqli_query($con, "SELECT id, usuario, nombre, contrasenya, email FROM usuario WHERE id = $usuario;");
+    
+    $r = mysqli_fetch_array($result);
+    
+    $user['id'] = $r["id"];
+    $user['usuario'] = $r["usuario"];
+    $user['contrasena'] = $r["contrasenya"];
+    $user['email'] = $r["email"];
+    $user['nombre'] = $r["nombre"];
+    
+    mysqli_close($con);
+    return $user;
+}
+
+
+
 ?>

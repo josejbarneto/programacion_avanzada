@@ -21,8 +21,8 @@ if (isset($_SESSION['usuario'])) {
     $usuario = $_SESSION['usuario'];
     $preferencias = $_SESSION['preferencias'];
     $categorias = getCategorias();
-    
-    if(isset($_POST['actualizar'])){
+
+    if (isset($_POST['actualizar'])) {
         $nombre = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
@@ -31,52 +31,51 @@ if (isset($_SESSION['usuario'])) {
         $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_);
         $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_NUMBER_INT);
         $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_NUMBER_INT);
-        
-        if(!preg_match("/^[a-zA-Z0-9_-]{5,16}$/",$nombre)){
+
+        if (!preg_match("/^[a-zA-Z0-9_-]{5,16}$/", $nombre)) {
             $errores[] = "Error en el nombre";
         }
-        
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errores[] = "Error en el correo";
         }
-        
-        if(empty($pass)){
+
+        if (empty($pass)) {
             $pass = $_SESSION['usuario']['contrasena'];
-        }else if(!preg_match("/^[a-zA-Z0-9_-]{7,20}$/", $pass)){
+        } else if (!preg_match("/^[a-zA-Z0-9_-]{7,20}$/", $pass)) {
             $errores[] = "Error en la contraseña";
-        }else{
+        } else {
             $pass = password_hash($pass, PASSWORD_DEFAULT);
         }
-        
-        if(!filter_var($orden, FILTER_VALIDATE_INT) || $orden<1 ||$orden>3 ){
+
+        if (!filter_var($orden, FILTER_VALIDATE_INT) || $orden < 1 || $orden > 3) {
             $errores[] = "Error en tipo de ordenación";
         }
-        
-        if(!filter_var($categoria, FILTER_VALIDATE_INT)){
+
+        if (!filter_var($categoria, FILTER_VALIDATE_INT)) {
             $errores[] = "Error en categoría";
         }
-        
-        if(!filter_var($_POST['nocturno'], FILTER_VALIDATE_BOOLEAN)){
+
+        if (!filter_var($_POST['nocturno'], FILTER_VALIDATE_BOOLEAN)) {
             $errores[] = "Error en nocturno";
         }
-        
-        if(!filter_var($lenguaje, FILTER_VALIDATE_INT)){
+
+        if (!filter_var($lenguaje, FILTER_VALIDATE_INT)) {
             $errores[] = "Error en lenguaje";
         }
-        
-        if(!filter_var($newTab, FILTER_VALIDATE_INT)){
+
+        if (!filter_var($newTab, FILTER_VALIDATE_INT)) {
             $errores[] = "Error en newTab";
         }
-        
-        editarUsuario($_SESSION['usuario']['id'],$nombre,$email,$pass);
-        editarPreferencia($_SESSION['usuario']['id'],$nocturno,$categoria,$lenguaje, $newTab,$orden);
-        
-        $_SESSION['usuario']= getUsuario($usuario['usuario']);
+
+        editarUsuario($_SESSION['usuario']['id'], $nombre, $email, $pass);
+        editarPreferencia($_SESSION['usuario']['id'], $nocturno, $categoria, $lenguaje, $newTab, $orden);
+
+        $_SESSION['usuario'] = getUsuario($usuario['usuario']);
         $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);
-        
+
         header('location: ../../vistas/base/principal.php');
     }
-    
 } else {
     header('location: ../../vistas/base/principal.php');
 }
@@ -133,7 +132,7 @@ if (isset($_SESSION['usuario'])) {
                                 <div class="ui selection dropdown">
                                     <input type="hidden" name="orden" value="<?php echo $preferencias["orden"]; ?>">
                                     <i class="dropdown icon"></i>
-                                    <div class="text"><?php echo $ordenes[$preferencias["orden"]-1]; ?></div>
+                                    <div class="text"><?php echo $ordenes[$preferencias["orden"] - 1]; ?></div>
                                     <div class="menu">
                                         <div class="item <?php echo ($preferencias["orden"] == 1 ? "active" : ""); ?>" data-value="1">Por novedad</div>
                                         <div class="item <?php echo ($preferencias["orden"] == 2 ? "active" : ""); ?>" data-value="2">Por reacciones</div>
@@ -141,18 +140,18 @@ if (isset($_SESSION['usuario'])) {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="field">
                                 <label>Categoria Inicial</label>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="categoria" value='<?php echo $preferencias['id_categoria_inicial'];?>'>
+                                    <input type="hidden" name="categoria" value='<?php echo $preferencias['id_categoria_inicial']; ?>'>
                                     <i class="dropdown icon"></i>
-                                    <div class="text"><?php $preferencias['nombre_categoria_inicial'];?> </div>
+                                    <div class="text"><?php $preferencias['nombre_categoria_inicial']; ?> </div>
                                     <div class="menu">
                                         <?php
                                         //AQUI HAY QUE IR PINTANDO SEGUN LAS CATEGORIAS QUE EXISTAN
                                         foreach ($categorias as $categoria) {
-                                            echo ($categoria['id'] == $preferencias['id_categoria_inicial']) ? "<div class='item active' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>" : "<div class='item' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>" ;
+                                            echo ($categoria['id'] == $preferencias['id_categoria_inicial']) ? "<div class='item active' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>" : "<div class='item' data-value='{$categoria['id']}'>{$categoria['nombre']}</div>";
                                         }
 
                                         /*
@@ -167,7 +166,7 @@ if (isset($_SESSION['usuario'])) {
                             <div class="three inline fields">
                                 <div class="field">
                                     <div class="ui toggle checkbox <?php echo $usuario["nocturno"] ? "checked" : ""; ?>">
-                                        <input name='nocturno' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["modo_nocturno"] ? "checked" : ""; ?>>
+                                        <input id='nocturno' name='nocturno' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["modo_nocturno"] ? "checked" : ""; ?>>
                                         <label>Modo nocturno</label>
                                     </div>
                                 </div>

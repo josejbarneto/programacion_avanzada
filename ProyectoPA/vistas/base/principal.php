@@ -16,6 +16,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
         <script src="../../recursos/js/base.js"></script>
+
     </head>
     <body>
         <?php
@@ -35,7 +36,7 @@
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
                             if (isset($_SESSION['preferencias'])) {
-                                $posts = listarPostsPorCategoria(1);
+                                $posts = listarPostsPorCategoria($_SESSION['preferencias']['id_categoria_inicial']);
                             } else {
                                 $posts = listarPostsPorCategoria(1);
                             }
@@ -53,8 +54,8 @@
                                                 </a>
                                                 <div class="sub header">
                                                     <?php
-                                                    $usuario = getUsuario($post["idUsuario"]);
-                                                    echo "{$usuario["usuario"]}";
+                                                    $usuario = getUsuarioById($post["idUsuario"]);
+                                                    echo "<a href='../../vistas/post/listado.php?id_usuario={$usuario['id']}' >{$usuario["usuario"]}</a>";
                                                     ?>
                                                 </div>
                                             </div>

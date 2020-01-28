@@ -6,10 +6,13 @@
  */
 include_once '../../entidades/post.php';
 $categoriaId = filter_input(INPUT_GET, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
-if(isset($categoriaId)){
-    $posts = listarPostsPorCategoria($categoriaId);
-}
+$usuarioId = filter_input(INPUT_GET, 'id_usuario', FILTER_SANITIZE_NUMBER_INT);
 
+if (isset($categoriaId)) {
+    $posts = listarPostsPorCategoria($categoriaId);
+} else if (isset($usuarioId)) {
+    $posts = listarPostsPorUsuario($usuarioId);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,32 +39,32 @@ if(isset($categoriaId)){
                     <div class="ui segment">
                         <div class="ui middle aligned divided relaxed list">
                             <?php
-                            if($posts!=false){
-                            foreach ($posts as $post) {
-                                ?>
-
-                                <div class = "ui segment">
-                                    <h2 class = "ui block header">
-                                        <i class = "pen alternate icon"></i>
-                                        <div class = "content"><a href="../../vistas/post/post.php?id=<?php echo $post["id"];?>">
-                                                <?php echo $post["titulo"];
-                                                ?>
-                                            </a>
-                                            <div class="sub header">
-                                                <?php
-                                                $usuario = getUsuario($post["idUsuario"]);
-                                                echo "{$usuario["usuario"]}";
-                                                ?>
+                            if ($posts != false) {
+                                foreach ($posts as $post) {
+                                    ?>
+                                    <div class = "ui segment">
+                                        <h2 class = "ui block header">
+                                            <i class = "pen alternate icon"></i>
+                                            <div class = "content"><a href="../../vistas/post/post.php?id=<?php echo $post["id"]; ?>">
+                                                    <?php echo $post["titulo"];
+                                                    ?>
+                                                </a>
+                                                <div class="sub header">
+                                                    <?php
+                                                    $usuario = getUsuarioById($post["idUsuario"]);
+                                                    echo "<a href='../../vistas/post/listado.php?id_usuario={$usuario['id']}' >{$usuario["usuario"]}</a>";
+                                                    ?>
+                                                </div>
                                             </div>
+                                        </h2>
+                                        <div class="ui hidden divider"></div>
+                                        <div class="text">
+                                            <?php echo $post["texto"]; ?>
                                         </div>
-                                    </h2>
-                                    <div class="ui hidden divider"></div>
-                                    <div class="text">
-                                        <?php echo $post["texto"]; ?>
                                     </div>
-                                </div>
-                                <?php
-                            }}
+                                    <?php
+                                }
+                            }
                             ?>
                         </div>
                     </div>

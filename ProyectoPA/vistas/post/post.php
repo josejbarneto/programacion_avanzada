@@ -144,7 +144,8 @@ $comentarios = listarComentariosPorPost($idPost);
         <?php
         //AÑADIMOS EL FOOTER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al footer las tocamos aqui
-        include_once("../../vistas/base/footer.php")
+        include_once("../../vistas/base/footer.php");
         ?>
     </body>
+
 </html>
