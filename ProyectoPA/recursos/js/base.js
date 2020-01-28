@@ -8,6 +8,7 @@
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
     $('.ui.checkbox').checkbox();
+    $('.menu-tab .item').tab();
 
     var $irArriba = $("#ir-arriba");
     $(window).on("scroll", function () {
