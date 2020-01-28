@@ -14,6 +14,12 @@
         $errores[] = 'El correo ya existe';
     }
     
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        $errores[] = "Error en el correo";
+    }
+    
+    
+    
     if(!empty($nombre) && empty($errores)){
         $contrasena=password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
         crearUsuario($usuario, $contrasena, $correo, $nombre);
