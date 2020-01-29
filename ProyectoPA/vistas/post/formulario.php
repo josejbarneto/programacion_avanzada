@@ -8,6 +8,7 @@
  */
 include_once("../../entidades/post.php");
 include_once("../../entidades/categoria.php");
+include_once("../../entidades/galeria.php");
 
 session_start();
 if (empty($_SESSION['usuario'])) {
@@ -29,12 +30,43 @@ if (isset($_POST['submit'])) {
     $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
     $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
     $texto = filter_input(INPUT_POST, 'texto', FILTER_SANITIZE_STRING);
+    $url=filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
 
     if (empty($titulo) || empty($categoria) || empty($texto)) {
         $errores[] = "Rellene los campos necesarios";
     } else {
-        crearPost($_SESSION['usuario']['id'], $categoria,$titulo, $texto);
-        header('Location: ../../vistas/base/principal.php');
+        
+        
+        /*Añadimos a la galería la imagen en el caso de que exista*/
+        if($_FILES['archivo']['error']==0 && (!empty($url))){
+            $errores[]="Por favor introduzca un archivo o una url, no ambos";
+        }
+        else{
+            $id_post = crearPost($_SESSION['usuario']['id'], $categoria,$titulo, $texto);
+            if($_FILES['archivo']['error']==0){
+                $dir="../../uploads/".time().$_FILES['archivo']['name'];
+                $tipo = pathinfo($dir, PATHINFO_EXTENSION);
+                /*Guadamos la imagen*/
+                
+                move_uploaded_file($_FILES['archivo']['tmp_name'],$dir);
+                
+                /*Guardamos en la base de datos*/
+                crearGaleria($_SESSION['usuario']['id'], $id_post, $dir, $tipo, 0);  //0 porque es fichero y no url
+            }
+            if(!empty($url)){
+                /*Guardamos la url*/
+                $tipo = pathinfo($url, PATHINFO_EXTENSION);
+                
+                crearGaleria($_SESSION['usuario']['id'], $id_post, $url, $tipo, 1);  //1 porque es url
+            }
+            header('Location: ../../vistas/base/principal.php');
+        }
+        
+        
+        
+        
+        
+        
     }
 }
 
@@ -88,7 +120,7 @@ if (isset($_POST['eliminar'])) {
                                 <?php echo (!isset($post) ? "Nuevo Post" : "Editar Post");?>
                             </div>
                         </h2>
-                        <form class="ui form" action="" method="post">
+                        <form class="ui form" action="" method="post" enctype="multipart/form-data">
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
                             if (!empty($errores)) {
@@ -131,7 +163,7 @@ if (isset($_POST['eliminar'])) {
                                         <i class="file icon"></i>
                                         Selecciona aquí para añadir archivo...
                                     </label>
-                                    <input type="file" accept="image/*" id="textupload" class="ui file input">
+                                    <input type="file" accept="image/*" id="textupload" class="ui file input" name="archivo">
                                 </div>
                                 <div class="field">
                                     <label>Introduzca URL del vídeo o imagen</label>
