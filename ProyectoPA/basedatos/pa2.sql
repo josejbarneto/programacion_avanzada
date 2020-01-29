@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2020 a las 15:45:05
+-- Tiempo de generación: 29-01-2020 a las 14:10:23
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -39,8 +39,7 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'Informatica', 'Todo sobre la informatica'),
-(2, 'Deportes', 'Todo sobre deportes');
+(1, 'Informatica', 'Todo sobre la informatica');
 
 -- --------------------------------------------------------
 
@@ -87,13 +86,6 @@ CREATE TABLE `post` (
   `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
---
--- Volcado de datos para la tabla `post`
---
-
-INSERT INTO `post` (`id`, `id_usuario`, `id_categoria`, `titulo`, `texto`, `fecha_creacion`) VALUES
-(26, 28, 1, 'Carlos Pumaa', 'asfdasf', '2020-01-29');
-
 -- --------------------------------------------------------
 
 --
@@ -109,14 +101,6 @@ CREATE TABLE `preferencias` (
   `open_post_new_tab` tinyint(1) NOT NULL,
   `orden` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
---
--- Volcado de datos para la tabla `preferencias`
---
-
-INSERT INTO `preferencias` (`id`, `id_usuario`, `modo_nocturno`, `id_categoria_inicial`, `lenguaje_obsceno`, `open_post_new_tab`, `orden`) VALUES
-(25, 28, 0, 1, 0, 0, 1),
-(26, 29, 0, 1, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -151,8 +135,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `admin`, `usuario`, `nombre`, `contrasenya`, `email`) VALUES
-(28, 1, 'carlos', 'Carlos Pumar', '$2y$10$vXYxsBpD1/596VmSd.6hEOIYusCuho60DdirBNRpHDTvzVqsXG1Iq', 'carlos@gmail.com'),
-(29, 0, 'juanka', 'tyyt', '$2y$10$XlecQNd1JI3a3Rz0Q/dSgOUd0cBu1WhVyLIH538fsVZj8wUbb4ynC', 'juanca@gmail.com');
+(27, 1, 'carlos', 'Carlos Pumar', '$2y$10$1MU1h8poB.MhKqiGWoetD.0hFc5PezjfscHEU.o74iXnuwmkqzbNG', 'carlos@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -230,13 +213,13 @@ ALTER TABLE `galeria`
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `preferencias`
 --
 ALTER TABLE `preferencias`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `reaccion`
@@ -248,7 +231,7 @@ ALTER TABLE `reaccion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restricciones para tablas volcadas
@@ -280,7 +263,7 @@ ALTER TABLE `post`
 --
 ALTER TABLE `preferencias`
   ADD CONSTRAINT `preferencias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `preferencias_ibfk_2` FOREIGN KEY (`id_categoria_inicial`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `preferencias_ibfk_2` FOREIGN KEY (`id_categoria_inicial`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reaccion`
