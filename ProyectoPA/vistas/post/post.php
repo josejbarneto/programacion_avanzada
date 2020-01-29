@@ -124,7 +124,7 @@ $numReacciones = getReacciones($idPost);
                                 if (isset($reaccion) && $reaccion['tipo'] == 1) {
                                     echo "style='color:green;'";
                                 }
-                                ?>
+                                ?>>
                                         <i class="thumbs up outline icon"></i>
                                     <span id="likes"><?php echo $numReacciones['likes'] ?></span>
                                 </button>
