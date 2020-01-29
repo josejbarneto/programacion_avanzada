@@ -75,13 +75,38 @@ if (isset($_POST['edit'])) {
     $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
     $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
     $texto = filter_input(INPUT_POST, 'texto', FILTER_SANITIZE_STRING);
-
+    $url=filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
+    
     if (empty($titulo) || empty($categoria) || empty($texto)) {
         $errores[] = "Rellene los campos necesarios";
-    } else {
-        editarPost($idPost, $categoria, $titulo, $texto);
-        header('Location: ../../vistas/base/principal.php');
     }
+    /*Añadimos a la galería la imagen en el caso de que exista*/
+        if($_FILES['archivo']['error']==0 && (!empty($url))){
+            $errores[]="Por favor introduzca un archivo o una url, no ambos";
+        }
+        else{
+            editarPost($idPost, $categoria, $titulo, $texto);
+            if($_FILES['archivo']['error']==0){
+                $dir="../../uploads/".time().$_FILES['archivo']['name'];
+                $tipo = pathinfo($dir, PATHINFO_EXTENSION);
+                /*Guadamos la imagen*/
+                
+                move_uploaded_file($_FILES['archivo']['tmp_name'],$dir);
+                
+                /*Guardamos en la base de datos*/
+                editarGaleria($idPost, $dir, $tipo, 0);  //0 porque es fichero y no url
+            }
+            if(!empty($url)){
+                /*Guardamos la url*/
+                $tipo = pathinfo($url, PATHINFO_EXTENSION);
+                
+                editarGaleria($idPost, $url, $tipo, 1);  //1 porque es url
+            }
+            header('Location: ../../vistas/base/principal.php');
+        }
+    
+    
+    
 }
 
 //borrar post
