@@ -39,11 +39,6 @@ function borrarComentario($id_comentario) {
     mysqli_close($conn);
 }
 
-function listarComentarios() {
-    $respuesta = [];
-    return $respuesta;
-}
-
 function listarComentariosPorPost($idPost) {
     $conn = conectarBaseDatos();
 

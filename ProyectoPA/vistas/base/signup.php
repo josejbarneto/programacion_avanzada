@@ -27,8 +27,6 @@
         $errores[] = "Error en la contraseña";
     }
     
-    
-    
     if(!empty($nombre) && empty($errores)){
         $contrasena=password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
         crearUsuario($usuario, $contrasena, $correo, $nombre);

@@ -1,9 +1,7 @@
 <?php
-/* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
-/*
-  $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
-  $posts = getTodosLosPost();
- */
+/* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */       
+include_once '../../entidades/categoria.php';
+$categorias = getCategorias();
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +39,7 @@
                                 $posts = listarPostsPorCategoria(1);
                             }
 
-                            if (isset($posts)) {
+                            if (!empty($posts)) {
                                 foreach ($posts as $post) {
                                     ?>
 
