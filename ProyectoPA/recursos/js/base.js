@@ -23,7 +23,7 @@ $(document).ready(function () {
         $("html, body").animate({scrollTop: 0}, 875);
     });
 
-    var openNewTab = false; //ESTA VARIABLE HABRA QUE COGERLA DEL SESSION EN EL PHP
+    var openNewTab = false; //ESTA VARIABLE HABRA QUE COGERLA EN EL PHP
     if (openNewTab) { //PREFERENCIA DE ABRIR EN NUEVA PESTAÑA LOS ENLACES POR DEFECTO O NO.
         $('body').on('click', 'a', function () {
             window.open($(this).attr('href'));
