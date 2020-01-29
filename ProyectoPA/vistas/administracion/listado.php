@@ -74,6 +74,7 @@ if (isset($_POST['eliminarCategoria'])) {
                         <div class="active item" data-tab="posts">Posts</div>
                         <div class="item" data-tab="usuarios">Usuarios</div>
                         <div class="item" data-tab="categorias">Categorias</div>
+                        <div class="item" data-tab="comentarios">Comentarios</div>
                     </div>
                     <div class="ui tab active segment" data-tab="posts">
                         <table class="ui celled striped table">
@@ -167,6 +168,7 @@ if (isset($_POST['eliminarCategoria'])) {
                         </table>
                     </div>
                     <div class="ui bottom attached tab segment" data-tab="categorias">
+                        <a class="ui green right labeled icon button" href="../../vistas/categoria/formulario.php"><i class="plus icon"></i>Nueva Kategoría</a>
                         <table class="ui celled striped table">
                             <thead>
                                 <tr>
@@ -192,6 +194,46 @@ if (isset($_POST['eliminarCategoria'])) {
                                                     <a class="ui blue basic circular icon button" href="../../vistas/categoria/formulario.php?categoria=<?php echo $categoria["id"]; ?>"><i class="edit icon"></i></a>
                                                     <button class='ui basic circular red icon button' type="submit" name='eliminarCategoria'><i class="delete icon"></i></button>
                                                     <input type='hidden' name='id_categoria' value='<?php echo $categoria["id"]; ?>'/>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="comentarios">
+                        <table class="ui celled striped fixed table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Autor</th>
+                                    <th>Texto</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                <?php
+                                if ($comentarios != false) {
+                                    foreach ($comentarios as $comentario) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <a href="../../vistas/post/post.php?id=<?php echo $comentario["idPost"]; ?>"><?php echo $comentario["idPost"]; ?></a>
+                                            </td>
+                                            <td>
+                                                <?php echo $comentario["nombreUsuario"]; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $comentario["texto"]; ?>
+                                            </td>
+                                            <td>
+                                                <form method="post">
+                                                    <?php /* No editamos comentarios  <a class="ui blue basic circular icon button" href="../../vistas/usuario/perfil.php?id_usuario=<?php echo $usuario["id"]; ?>"><i class="edit icon"></i></a> */ ?>
+                                                    <button class='ui red basic circular icon button' type="submit" name='eliminarComentario'><i class="delete icon"></i></button>
+                                                    <input type='hidden' name='id_comentario' value='<?php echo $comentario['id']; ?>'/>
                                                 </form>
                                             </td>
                                         </tr>
