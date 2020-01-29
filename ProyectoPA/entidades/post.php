@@ -25,13 +25,6 @@ function editarPost($idPost, $categoria, $titulo, $texto) {
     mysqli_close($conn);
 }
 
-function mostrarPost($post) {
-    echo '<div>';
-    echo "<div>{$post['idUsuario']}</div><br/>";
-    echo "<div>{$post['texto']}</div>";
-    echo '<div>';
-}
-
 function borrarPost($idPost) {
     $conn = conectarBaseDatos();
 
@@ -112,4 +105,28 @@ function getPost($idPost) {
     return $post;
 }
 
+function getAllPost() {
+    $conn = conectarBaseDatos();
+
+    $consulta = "select post.id, post.id_usuario, post.id_categoria, post.titulo, post.texto, post.fecha_creacion, usuario.usuario, usuario.nombre, categoria.nombre as nombre_cat from post inner join usuario on post.id_usuario = usuario.id inner join categoria on post.id_categoria = categoria.id;";
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+
+    $i = 0;
+    while ($columna = mysqli_fetch_array($resultado)) {
+        $posts[$i]['id'] = $columna['id'];
+        $posts[$i]['idUsuario'] = $columna['id_usuario'];
+        $posts[$i]['idCategoria'] = $columna['id_categoria'];
+        $posts[$i]['titulo'] = $columna['titulo'];
+        $posts[$i]['texto'] = $columna['texto'];
+        $posts[$i]['fechaCreacion'] = $columna['fecha_creacion'];
+        $i++;
+    }
+
+    mysqli_close($conn);
+    if (isset($posts)) {
+        return $posts;
+    } else {
+        return false;
+    }
+}
 ?>

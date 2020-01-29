@@ -18,9 +18,22 @@ session_start();
 
 if (isset($_SESSION['usuario'])) {
     $ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
-    $usuario = $_SESSION['usuario'];
-    $preferencias = $_SESSION['preferencias'];
+
+    $entrandoComoAdmin = false;
+
+    $usuario = filter_input(INPUT_GET, 'id_usuario', FILTER_SANITIZE_STRING);
+
+    if (isset($usuario) && $_SESSION['usuario']['admin'] == 1) {
+        $usuario = getUsuarioById($usuario);
+        $entrandoComoAdmin = true;
+    } else {
+        $usuario = $_SESSION['usuario'];
+    }
+
+
+    $preferencias = getPreferenciasDeUsuario($usuario['id']);
     $categorias = getCategorias();
+
 
     if (isset($_POST['actualizar'])) {
         $nombre = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
@@ -28,7 +41,7 @@ if (isset($_SESSION['usuario'])) {
         $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
         $orden = filter_input(INPUT_POST, 'orden', FILTER_SANITIZE_NUMBER_INT);
         $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
-        $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_);
+        $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_STRING);
         $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_NUMBER_INT);
         $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_NUMBER_INT);
 
@@ -56,7 +69,7 @@ if (isset($_SESSION['usuario'])) {
             $errores[] = "Error en categoría";
         }
 
-        if (!filter_var($_POST['nocturno'], FILTER_VALIDATE_BOOLEAN)) {
+        if (!filter_var($nocturno, FILTER_VALIDATE_INT)) {
             $errores[] = "Error en nocturno";
         }
 
@@ -68,13 +81,19 @@ if (isset($_SESSION['usuario'])) {
             $errores[] = "Error en newTab";
         }
 
-        editarUsuario($_SESSION['usuario']['id'], $nombre, $email, $pass);
-        editarPreferencia($_SESSION['usuario']['id'], $nocturno, $categoria, $lenguaje, $newTab, $orden);
+        if (!isset($errores)) {
 
-        $_SESSION['usuario'] = getUsuario($usuario['usuario']);
-        $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);
+            editarUsuario($usuario['id'], $nombre, $email, $pass);
+            editarPreferencia($usuario['id'], $nocturno, $categoria, $lenguaje, $newTab, $orden);
 
-        header('location: ../../vistas/base/principal.php');
+            //si es admin no se cambian las preferencias en la varible de sesion
+            if ($entrandoComoAdmin != true) {
+                $_SESSION['usuario'] = getUsuario($usuario['usuario']);
+                $_SESSION['preferencias'] = getPreferenciasDeUsuario($_SESSION['usuario']['id']);
+            }
+
+            header('location: ../../vistas/base/principal.php');
+        }
     }
 } else {
     header('location: ../../vistas/base/principal.php');
@@ -102,6 +121,13 @@ if (isset($_SESSION['usuario'])) {
             <section class="ui grid">
                 <div class="ui twelve wide column">
                     <div class="ui clearing segment">
+                        <?php
+                        if (isset($errores)) {
+                            foreach ($errores as $e) {
+                                echo "<span style='color:red;'>$e</span><br/>";
+                            }
+                        }
+                        ?>
                         <h2 class="ui block header">
                             <i class="user alternate icon"></i>
                             <div class="content">

@@ -18,7 +18,7 @@ if (empty($_SESSION['usuario'])) {
 $idPost = filter_input(INPUT_GET, 'id_post', FILTER_SANITIZE_NUMBER_INT);
 if(isset($idPost)){
     $post = getPost($idPost);
-    if($post['idUsuario'] != $_SESSION['usuario']['id']){  //Comprobar que corresponde el post al usuario
+    if($post['idUsuario'] != $_SESSION['usuario']['id'] && $_SESSION['usuario']['admin']!=1){  //Comprobar que corresponde el post al usuario
         header('location: ../../vistas/base/principal.php');
     }
 }
@@ -66,7 +66,7 @@ if (isset($_POST['eliminar'])) {
         <title>Kaheddit</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="../../recursos/css/base.css">
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/header2.css">
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
         <script src="../../recursos/js/base.js"></script>
@@ -75,7 +75,7 @@ if (isset($_POST['eliminar'])) {
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once '../../vistas/base/cabecera.php';
+        include_once '../../vistas/base/header.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>

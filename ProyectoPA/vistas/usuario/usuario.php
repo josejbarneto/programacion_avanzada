@@ -1,13 +1,14 @@
 <?php
 include_once("../../entidades/usuario.php");
+include_once("../../entidades/comentario.php");
+include_once("../../entidades/post.php");
 
 session_start();
 $vistas = ["Clasica", "Compacta", "Ancha"];
 $ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
-$usuario = getUsuario(htmlspecialchars($_GET['id']));
-$preferencias = isset($_SESSION['preferencias']) ? $_SESSION['preferencias'] : [];
-$comentarios = [];
-$posts = [];
+$usuario = getUsuarioById(htmlspecialchars($_GET['id']));
+$comentarios = listarComentariosPorUsuario($usuario['id']);
+$posts = listarPostsPorUsuario($usuario['id']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,25 +39,29 @@ $posts = [];
                         <h3 class="ui dividing header">Últimos post</h3>
                         <div class="ui middle aligned very relaxed list">
                             <?php
-                            foreach ($posts as $post) {
-                                echo '<a class="item" href="">';
-                                echo '<div class="content">';
-                                echo '<a class="header">' . $post["titulo"] . '</a>';
-                                echo '</div>';
-                                echo '</a';
+                            if ($posts != false) {
+                                foreach ($posts as $post) {
+                                    echo '<a class="item" href="">';
+                                    echo '<div class="content">';
+                                    echo '<a class="header">' . $post["titulo"] . '</a>';
+                                    echo '</div>';
+                                    echo '</a';
+                                }
                             }
                             ?>
                         </div>
                         <h3 class="ui dividing header">Últimos comentarios</h3>
                         <div class="ui middle aligned very relaxed list">
                             <?php
-                            foreach ($comentarios as $comentario) {
-                                echo '<a class="item" href="">';
-                                echo '<div class="content">';
-                                echo '<a class="header">' . $comentario["post"] . '</a>';
-                                echo $comentario["texto"];
-                                echo '</div>';
-                                echo '</a';
+                            if ($comentarios != false) {
+                                foreach ($comentarios as $comentario) {
+                                    echo '<a class="item" href="">';
+                                    echo '<div class="content">';
+                                    echo '<a class="header">' . $comentario["idPost"] . '</a>';
+                                    echo $comentario["texto"];
+                                    echo '</div>';
+                                    echo '</a';
+                                }
                             }
                             ?>
                         </div>

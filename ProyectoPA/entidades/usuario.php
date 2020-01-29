@@ -5,7 +5,7 @@ include_once '../../entidades/preferencias.php';
 
 function crearUsuario($usuario, $contrasena, $email, $nombre) {
     $con = conectarBaseDatos();
-    mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email, nombre) VALUES ('$usuario', '$contrasena', '$email', '$nombre');");
+    mysqli_query($con, "INSERT INTO usuario (usuario, contrasenya, email, nombre, admin) VALUES ('$usuario', '$contrasena', '$email', '$nombre', 0);");
     
     crearPreferencia($usuario);
     
@@ -21,14 +21,13 @@ function editarUsuario($id,$nombre,$email,$pass) {
     mysqli_close($conn);
 }
 
-function mostrarUsuario($usuario) {
-    $respuesta = [];
-    return $respuesta;
-}
-
 function borrarUsuario($usuario) {
-    $respuesta = [];
-    return $respuesta;
+    $conn = conectarBaseDatos();
+    
+    $consulta = "DELETE FROM usuario WHERE id = $usuario;";   
+    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+
+    mysqli_close($conn);
 }
 
 function listarUsuarios($usuario) {
@@ -62,10 +61,11 @@ function existEmail($email) {
 
 function getUsuario($usuario) {
     $con = conectarBaseDatos();
-    $result = mysqli_query($con, "SELECT id, usuario, nombre, contrasenya, email FROM usuario WHERE usuario = '$usuario';");
+    $result = mysqli_query($con, "SELECT admin, id, usuario, nombre, contrasenya, email FROM usuario WHERE usuario = '$usuario';");
     
     $r = mysqli_fetch_array($result);
     
+    $user['admin'] = $r["admin"];
     $user['id'] = $r["id"];
     $user['usuario'] = $r["usuario"];
     $user['contrasena'] = $r["contrasenya"];
@@ -78,10 +78,11 @@ function getUsuario($usuario) {
 
 function getUsuarioById($usuario) {
     $con = conectarBaseDatos();
-    $result = mysqli_query($con, "SELECT id, usuario, nombre, contrasenya, email FROM usuario WHERE id = $usuario;");
+    $result = mysqli_query($con, "SELECT admin, id, usuario, nombre, contrasenya, email FROM usuario WHERE id = $usuario;");
     
     $r = mysqli_fetch_array($result);
     
+    $user['admin'] = $r["admin"];
     $user['id'] = $r["id"];
     $user['usuario'] = $r["usuario"];
     $user['contrasena'] = $r["contrasenya"];
@@ -92,6 +93,29 @@ function getUsuarioById($usuario) {
     return $user;
 }
 
+function getAllUsuarios(){
+    $conn = conectarBaseDatos();
 
+    $consulta = "SELECT admin, id, usuario, nombre, contrasenya, email FROM usuario;";
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos 1");
+
+    $i = 0;
+    while ($columna = mysqli_fetch_array($resultado)) {
+        $usuarios[$i]['admin'] = $columna['admin'];
+        $usuarios[$i]['id'] = $columna['id'];
+        $usuarios[$i]['usuario'] = $columna['usuario'];
+        $usuarios[$i]['email'] = $columna['email'];
+        $usuarios[$i]['nombre'] = $columna['nombre'];
+        $i++;
+    }
+
+    mysqli_close($conn);
+    
+    if(isset($usuarios)){
+        return $usuarios;
+    }else{
+        return false;
+    }
+}
 
 ?>

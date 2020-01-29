@@ -6,21 +6,58 @@
  * $comentarios = coger listado de Comentarios de ESE POST();
  * 
  */
-//Este post es de ejemplo
 include_once '../../entidades/post.php';
 include_once '../../entidades/comentario.php';
+include_once '../../entidades/reaccion.php';
 
+session_start();
+
+//si viene de clicar un post
 $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
-$post = getPost($idPost);
 
+
+//al comentar
 if (isset($_POST['comentar'])) {
-    $postId = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
+    $idPost = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
     $comentario = filter_input(INPUT_POST, 'comentario', FILTER_SANITIZE_STRING);
-    session_start();
-    crearComentario($comentario, $_SESSION['usuario']['id'], $postId);
+    crearComentario($comentario, $_SESSION['usuario']['id'], $idPost);
 }
 
+//likes y dislike
+if (isset($_POST['like']) || isset($_POST['dislike'])) {
+
+    //reac contiene si es like o dislike
+    $reac = isset($_POST['like']) ? 1 : 0;
+
+    //get idpost e id usuario
+    $idPost = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
+    $idUsuario = filter_input(INPUT_POST, 'usuario_id', FILTER_SANITIZE_NUMBER_INT);
+
+    //si existe reaccion y clicamos en el mismo boton, eliminamos la reaccion, si no, la editamos
+    if (existReaccion($idUsuario, $idPost)) {
+        $reaccion = getReaccion($idUsuario, $idPost);
+
+        if ($reac == $reaccion['tipo']) {
+            borrarReaccion($idUsuario, $idPost);
+        } else {
+            editarReaccion($idUsuario, $idPost, $reac);
+        }
+    } else {
+        crearReaccion($idUsuario, $idPost, $reac); //si no esta creada la creamos
+    }
+
+    $reaccion = getReaccion($idUsuario, $idPost);
+}
+
+//Si el usuario esta logueado
+if (isset($_SESSION['usuario'])) {
+    $reaccion = getReaccion($_SESSION['usuario']['id'], $idPost);
+}
+
+
+$post = getPost($idPost);
 $comentarios = listarComentariosPorPost($idPost);
+$numReacciones = getReacciones($idPost);
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,16 +66,16 @@ $comentarios = listarComentariosPorPost($idPost);
         <title>Kaheddit</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="../../recursos/css/base.css">
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/header2.css">
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
         <script src="../../recursos/js/base.js"></script>
     </head>
     <body>
         <?php
-        //AÑADIMOS EL HEADER DE LA PAGINA. 
-        //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once '../../vistas/base/cabecera.php';
+//AÑADIMOS EL HEADER DE LA PAGINA. 
+//Antes de incluirlo si añadimos variables al header las tocamos aqui
+        include_once '../../vistas/base/header.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
@@ -54,7 +91,7 @@ $comentarios = listarComentariosPorPost($idPost);
                                         <?php echo $post["usuario"]; ?>
                                     </div>
                                 </div>
-                                <?php if ($_SESSION['usuario']['id'] == $post['idUsuario']) { ?>
+                                <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['id'] == $post['idUsuario']) { ?>
                                     <a href="../../vistas/post/formulario.php?id_post=<?php echo $post["id"]; ?>">Editar</a>
                                 <?php } ?>
                             </h2>
@@ -64,26 +101,42 @@ $comentarios = listarComentariosPorPost($idPost);
                                 <?php echo $post["texto"]; ?>
                             </div>
                         </div>
+
+
                         <div class="ui right aligned clearing segment">
-                            <!-- SEGUN EL NAME DEL SUBMIT LO GUARDAS COMO LIKE O COMO DISLIKE -->
-                            <form>
-                                <?php /* si el usuario ya le ha dado like, podriamos ponerle color al boton, con añadirle la clase GREEN vale */ ?>
-                                <button class="ui labeled icon basic right floated button" type="submit" name="like">
+                            <!--Solo se muestra span si no esta logueado un usuario-->
+                            <?php if (isset($_SESSION['usuario'])) { ?>
+                                <!-- SEGUN EL NAME DEL SUBMIT LO GUARDAS COMO LIKE O COMO DISLIKE -->
+                                <form method="post">
+                                <?php } ?>
+                                <button class="ui labeled icon basic right floated button" type="submit" name="like" <?php
+                                if (isset($reaccion) && $reaccion['tipo'] == 1) {
+                                    echo "style='color:green;'";
+                                }
+                                ?>>
                                     <i class="thumbs up outline icon"></i>
-                                    <span id="likes">20</span><?php /* poner aqui numero de likes */ ?>
+                                    <span id="likes"><?php echo $numReacciones['likes'] ?></span>
                                 </button>
-                                <input type="hidden" value="<?php echo $post["id"]; ?>" name="post_id">
-                                <input type="hidden" value="<?php /* poner aqui id usuario */ ?>" name="usuario_id">
-                            </form>
-                            <form>
-                                <?php /* en el form habra que controlar que si ya tiene like y le da dislike hay que cambiarlo */ ?>
-                                <button class="ui labeled icon basic right floated button" type="submit" name="dislike">
+                                <input type="hidden" value="<?php echo $post["id"] ?>" name="post_id">
+                                <input type="hidden" value="<?php echo $_SESSION['usuario']['id'] ?>" name="usuario_id">
+                                <?php if (isset($_SESSION['usuario'])) { ?>
+                                </form>
+
+                                <form method="post">
+                                <?php } ?>
+                                <button class="ui labeled icon basic right floated button" type="submit" name="dislike" <?php
+                                if (isset($reaccion) && $reaccion['tipo'] == 0) {
+                                    echo "style='color:red;'";
+                                }
+                                ?>>
                                     <i class="thumbs down outline icon"></i>
-                                    <span id="likes">12</span>
+                                    <span id="dislikes"><?php echo $numReacciones['dislikes'] ?></span>
                                 </button>
-                                <input type="hidden" value="<?php echo $post["id"]; ?>" name="post_id">
-                                <input type="hidden" value="<?php /* poner aqui id usuario */ ?>" name="usuario_id">
-                            </form>
+                                <input type="hidden" value="<?php echo $post["id"] ?>" name="post_id">
+                                <input type="hidden" value="<?php echo $_SESSION['usuario']['id'] ?>" name="usuario_id">
+                                <?php if (isset($_SESSION['usuario'])) { ?>
+                                </form>
+                            <?php } ?>
                         </div>
                     </div>
 

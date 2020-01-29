@@ -48,7 +48,7 @@ function listarComentariosPorPost($idPost) {
     $conn = conectarBaseDatos();
 
     $consulta = "select comentario.id, comentario.id_usuario, comentario.id_post, comentario.texto, comentario.fecha_creacion, usuario.usuario, usuario.nombre from comentario inner join usuario on comentario.id_usuario = usuario.id where comentario.id_post = $idPost;";
-    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos 1");
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     $i = 0;
     while ($columna = mysqli_fetch_array($resultado)) {
@@ -72,8 +72,56 @@ function listarComentariosPorPost($idPost) {
 }
 
 function listarComentariosPorUsuario($usuario) {
-    $respuesta = [];
-    return $respuesta;
+    $conn = conectarBaseDatos();
+
+    $consulta = "select comentario.id, comentario.id_usuario, comentario.id_post, comentario.texto, comentario.fecha_creacion, usuario.usuario, usuario.nombre from comentario inner join usuario on comentario.id_usuario = usuario.id where usuario.id = $usuario;";
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos 1");
+
+    $i = 0;
+    while ($columna = mysqli_fetch_array($resultado)) {
+        $comentarios[$i]['id'] = $columna['id'];
+        $comentarios[$i]['idUsuario'] = $columna['id_usuario'];
+        $comentarios[$i]['idPost'] = $columna['id_post'];
+        $comentarios[$i]['texto'] = $columna['texto'];
+        $comentarios[$i]['fechaCreacion'] = $columna['fecha_creacion'];
+        $comentarios[$i]['nombreUsuario'] = $columna['nombre'];
+        $comentarios[$i]['usuario'] = $columna['usuario'];
+        $i++;
+    }
+
+    mysqli_close($conn);
+    
+    if(isset($comentarios)){
+        return $comentarios;
+    }else{
+        return false;
+    }
 }
 
+function getAllComenarios(){
+    $conn = conectarBaseDatos();
+
+    $consulta = "select comentario.id, comentario.id_usuario, comentario.id_post, comentario.texto, comentario.fecha_creacion, usuario.usuario, usuario.nombre from comentario inner join usuario on comentario.id_usuario = usuario.id;";
+    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos 1");
+
+    $i = 0;
+    while ($columna = mysqli_fetch_array($resultado)) {
+        $comentarios[$i]['id'] = $columna['id'];
+        $comentarios[$i]['idUsuario'] = $columna['id_usuario'];
+        $comentarios[$i]['idPost'] = $columna['id_post'];
+        $comentarios[$i]['texto'] = $columna['texto'];
+        $comentarios[$i]['fechaCreacion'] = $columna['fecha_creacion'];
+        $comentarios[$i]['nombreUsuario'] = $columna['nombre'];
+        $comentarios[$i]['usuario'] = $columna['usuario'];
+        $i++;
+    }
+
+    mysqli_close($conn);
+    
+    if(isset($comentarios)){
+        return $comentarios;
+    }else{
+        return false;
+    }
+}
 ?>

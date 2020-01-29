@@ -27,25 +27,10 @@ function editarPreferencia($id,$nocturno,$categoria,$lenguaje, $newTab,$orden) {
     mysqli_close($conn);
 }
 
-function mostrarPreferencia($preferencia) {
-    $respuesta = [];
-    return $respuesta;
-}
-
-function borrarPreferencia($preferencia) {
-    $respuesta = [];
-    return $respuesta;
-}
-
-function listarPreferencias($preferencia) {
-    $respuesta = [];
-    return $respuesta;
-}
-
 function getPreferenciasDeUsuario($usuario) {
     
     $con = conectarBaseDatos();
-    $result = mysqli_query($con,"SELECT preferencias.id,preferencias.id_usuario, preferencias.modo_nocturno, preferencias.id_categoria_inicial, preferencias.lenguaje_obsceno, preferencias.open_post_new_tab, preferencias.orden, categoria.nombre FROM preferencias inner join categoria on preferencias.id_categoria_inicial = categoria.id WHERE id_usuario = $usuario;");
+    $result = mysqli_query($con,"SELECT preferencias.id,preferencias.id_usuario, preferencias.modo_nocturno, preferencias.id_categoria_inicial, preferencias.lenguaje_obsceno, preferencias.open_post_new_tab, preferencias.orden, categoria.nombre FROM preferencias inner join categoria on preferencias.id_categoria_inicial = categoria.id WHERE id_usuario = $usuario;") or die("$usuario");
     $a = mysqli_fetch_array($result);
     $preferencias['id']=$a['id'];
     $preferencias['id_usuario']=$a['id_usuario'];

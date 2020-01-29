@@ -4,6 +4,21 @@
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
   $posts = getTodosLosPost();
  */
+
+include_once '../../entidades/categoria.php';
+
+if (isset($_POST['crear'])) {
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+    $desc = filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_STRING);
+
+    if (count($nombre) < 3) {
+        $errores[] = 'Minimo 3 caracteres para el titulo';
+    }if (count($desc) < 3) {
+        $errores[] = 'Minimo 3 caracteres para la descripcion';
+    }
+
+    crearCategoria($nombre, $desc);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +27,7 @@
         <title>Kaheddit</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="../recursos/css/base.css">
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/header2.css">
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
     </head>
@@ -20,7 +35,7 @@
         <?php
         //AÑADIMOS EL HEADER DE LA PAGINA. 
         //Antes de incluirlo si añadimos variables al header las tocamos aqui
-        include_once '../../vistas/base/cabecera.php';
+        include_once '../../vistas/base/header.php';
         ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
@@ -29,36 +44,20 @@
                     <div class="ui segment">
                         <div class="ui middle aligned divided relaxed list">
                             <?php
-                            //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-
-                            /*
-                             * for (post in post){
-                             * echo <div classitem> post[titulo]</div>
-                             * }
-                             * 
-                             * ETC.
-                             */
+                            foreach ($_SESSION['errores'] as $e) {
+                            echo "<span style='color:red;'>$e</span><br/>";
+                            }
+                            echo '<br/>';
                             ?>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 1</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 2</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Post 3</a>
-                                </div>
-                            </div>
+                            <form method="post">
+                                Nombre: <input name='nombre'/><br/>
+                                Desc: <input name='desc'/>
+                                <button type="submit" name='crear'>Crear</button>
+                            </form>
+
                         </div>
                     </div>
+                </div>
                 </div>
                 <aside class="ui four wide column">
                     <?php
