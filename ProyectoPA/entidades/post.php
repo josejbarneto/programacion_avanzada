@@ -12,8 +12,13 @@ function crearPost($idUsuario, $idCategoria, $titulo, $texto) {
 
     $consulta = "insert into post (id_usuario, id_categoria, titulo, texto, fecha_creacion) VALUES ($idUsuario, $idCategoria, '$titulo', '$texto', '$fecha');";
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-
+    
+    
+    $res=mysqli_insert_id($conn);
+    
     mysqli_close($conn);
+    
+    return $res;
 }
 
 function editarPost($idPost, $categoria, $titulo, $texto) {
