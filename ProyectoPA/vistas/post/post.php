@@ -96,7 +96,7 @@ $numReacciones = getReacciones($idPost);
                                 <?php } ?>
                             </h2>
                             <?php if ($post["imagen"] != "") { ?>
-                                <img class="ui centered medium rounded image" src="../../uploads/<?php echo $post["imagen"]; ?>">
+                                <img class="ui centered medium rounded image" src="<?php echo $post["imagen"]; ?>">
                             <?php } elseif ($post["url"] != "") { ?>   
                                 <?php if (is_array(getimagesize($post["url"]))) { ?>
                                     <img class="ui centered medium rounded image" src="<?php echo $post["url"]; ?>">
