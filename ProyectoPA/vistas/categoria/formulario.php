@@ -6,7 +6,7 @@
  */
 
 include_once '../../entidades/categoria.php';
-
+$errores = [];
 if (isset($_POST['crear'])) {
     $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
     $desc = filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_STRING);
@@ -26,10 +26,11 @@ if (isset($_POST['crear'])) {
         <meta charset="UTF-8">
         <title>Kaheddit</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="../recursos/css/base.css">
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/base.css">
         <link rel="stylesheet" type="text/css" href="../../recursos/css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+        <script src="../../recursos/js/base.js"></script>
     </head>
     <body>
         <?php
@@ -41,22 +42,40 @@ if (isset($_POST['crear'])) {
             <div class="ui hidden divider"></div>
             <section class="ui grid">
                 <div class="ui twelve wide column">
-                    <div class="ui segment">
-                        <div class="ui middle aligned divided relaxed list">
+                    <div class="ui clearing segment">
+                        <h2 class="ui block header">
+                            <i class="tag icon"></i>
+                            <div class="content">
+                                <?php echo (!isset($post) ? "Nueva Kategoria" : "Editar Kategoria"); ?>
+                            </div>
+                        </h2>
+                        <form class="ui form">
+                            <div class="field">
+                                <label>Titulo</label>
+                                <input type="text" name="nombre" placeholder="Nombre de la categoría" autocomplete="off" value="<?php echo (isset($categoria) ? $categoria['nombre'] : ""); ?>">
+                            </div>
+                            <div class="field">
+                                <label>Descripción</label>
+                                <input type="text" name="desc" placeholder="Nombre de la categoría" autocomplete="off" value="<?php echo (isset($categoria) ? $categoria['desc'] : ""); ?>">
+                            </div>
                             <?php
-                            foreach ($_SESSION['errores'] as $e) {
-                            echo "<span style='color:red;'>$e</span><br/>";
-                            }
-                            echo '<br/>';
-                            ?>
-                            <form method="post">
-                                Nombre: <input name='nombre'/><br/>
-                                Desc: <input name='desc'/>
-                                <button type="submit" name='crear'>Crear</button>
-                            </form>
+                            if (count($errores) > 0) {
+                                echo '<div class="ui negative message">';
+                                echo '<div class="header">Errores en el formulario</div><ul class="list">';
 
-                        </div>
+                                foreach ($errores as $e) {
+                                    echo "<li'>$e</li>";
+                                }
+                                echo '</ul></div>';
+                            }
+                            ?>
+                            <?php if (isset($categoria)) { ?>
+                                <button name='eliminar' class="ui button negative" type="submit" >Eliminar</button>
+                            <?php } ?>
+                            <button name="<?php echo isset($post) ? 'edit' : 'crear' ?>" class="ui right floated positive button" type="submit">Guardar</button>
+                        </form>
                     </div>
+                </div>
                 </div>
                 </div>
                 <aside class="ui four wide column">

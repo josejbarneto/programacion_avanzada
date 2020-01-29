@@ -9,17 +9,6 @@ include_once '../../entidades/comentario.php';
 include_once '../../entidades/categoria.php';
 include_once '../../entidades/usuario.php';
 
-/*
- * HAY QUE COGER TODOS LOS USUARIOS, TODAS LAS CATEGORIAS, TODOS LOS POST, TODOS LOS COMENTARIOS y TODAS LAS IMAGENES
- * 
- * $post = todos()
- * $categorias = todos()
- * $usuarios = todos()
- * $comentarios = todos()
- * $galerias = todos()
- * 
- */
-
 session_start();
 $usuarios = getAllUsuarios();
 $posts = getAllPost();
@@ -119,9 +108,9 @@ if ($posts != false) {
                                                 <?php echo substr($post["texto"], 0, 10); ?>    
                                             </td>
                                             <td>
-                                                <a href="../../vistas/post/formulario.php?id_post=<?php echo $post['id']; ?>"><i class="edit icon"></i></a>
+                                                <a class="ui basic blue circular icon button" href="../../vistas/post/formulario.php?id_post=<?php echo $post['id']; ?>"><i class="edit icon"></i></a>
                                                 <form method="post">
-                                                    <button class='ui icon button' type="submit" name='eliminarPost'><i class="delete icon"></i></button>
+                                                    <button class='ui basic red circular icon button' type="submit" name='eliminarPost'><i class="delete icon"></i></button>
                                                     <input type='hidden' name='id_post' value='<?php echo $post['id']; ?>'/>
                                                 </form>
                                             </td>
