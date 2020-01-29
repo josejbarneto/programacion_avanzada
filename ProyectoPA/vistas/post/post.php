@@ -95,7 +95,18 @@ $numReacciones = getReacciones($idPost);
                                     <a href="../../vistas/post/formulario.php?id_post=<?php echo $post["id"]; ?>">Editar</a>
                                 <?php } ?>
                             </h2>
-                            <img class="ui centered medium rounded image" src="<?php echo $post["imagen"]; ?>">
+                            <?php if ($post["imagen"] != "") { ?>
+                                <img class="ui centered medium rounded image" src="../../uploads/<?php echo $post["imagen"]; ?>">
+                            <?php } elseif ($post["url"] != "") { ?>   
+                                <?php if (is_array(getimagesize($post["url"]))) { ?>
+                                    <img class="ui centered medium rounded image" src="<?php echo $post["url"]; ?>">
+                                <?php } else { ?>   
+                                    <iframe width="420" height="315"
+                                            src="<?php echo $post["url"]; ?>">
+                                    </iframe>
+                                <?php } ?>
+                            <?php } ?>
+
                             <div class="ui hidden divider"></div>
                             <div class="text">
                                 <?php echo $post["texto"]; ?>
@@ -113,8 +124,8 @@ $numReacciones = getReacciones($idPost);
                                 if (isset($reaccion) && $reaccion['tipo'] == 1) {
                                     echo "style='color:green;'";
                                 }
-                                ?>>
-                                    <i class="thumbs up outline icon"></i>
+                                ?>
+                                        <i class="thumbs up outline icon"></i>
                                     <span id="likes"><?php echo $numReacciones['likes'] ?></span>
                                 </button>
                                 <input type="hidden" value="<?php echo $post["id"] ?>" name="post_id">

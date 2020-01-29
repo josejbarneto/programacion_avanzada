@@ -86,7 +86,7 @@ function listarPostsPorUsuario($usuario) {
 function getPost($idPost) {
     $conn = conectarBaseDatos();
 
-    $consulta = "select post.id, post.id_usuario, post.id_categoria, post.titulo, post.texto, post.fecha_creacion, usuario.usuario, usuario.nombre, categoria.nombre as nombre_cat from post inner join usuario on post.id_usuario = usuario.id inner join categoria on post.id_categoria = categoria.id where post.id = $idPost;";
+    $consulta = "select post.id, post.id_usuario, post.id_categoria, post.titulo, post.texto, post.fecha_creacion, usuario.usuario, usuario.nombre, galeria.nombre_fichero, galeria.url, categoria.nombre as nombre_cat from post inner join usuario on post.id_usuario = usuario.id inner join categoria on post.id_categoria = categoria.id inner join galeria on galeria.id_post = post.id where post.id = $idPost;";
     $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     $columna = mysqli_fetch_array($resultado);
@@ -100,6 +100,8 @@ function getPost($idPost) {
     $post['nombreUsuario'] = $columna['nombre'];
     $post['usuario'] = $columna['usuario'];
     $post['categoria'] = $columna['nombre_cat'];
+    $post['url'] = $columna['url'];
+    $post['imagen'] = $columna['nombre_fichero'];
 
     mysqli_close($conn);
     return $post;
