@@ -42,10 +42,10 @@ if (isset($_SESSION['usuario'])) {
         $orden = filter_input(INPUT_POST, 'orden', FILTER_SANITIZE_NUMBER_INT);
         $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
         $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_STRING);
-        $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_NUMBER_INT);
-        $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_NUMBER_INT);
+        $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_STRING);
+        $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_STRING);
 
-        if (!preg_match("/^[a-zA-Z0-9_-]{5,16}$/", $nombre)) {
+        if (strlen($nombre) < 3) {
             $errores[] = "Error en el nombre";
         }
 
@@ -69,18 +69,12 @@ if (isset($_SESSION['usuario'])) {
             $errores[] = "Error en categoría";
         }
 
-        if (!filter_var($nocturno, FILTER_VALIDATE_INT)) {
-            $errores[] = "Error en nocturno";
-        }
+        $nocturno = ($nocturno == 'on')? 1 : 0;
+        
+        $lenguaje = ($lenguaje == 'on')? 1 : 0;
 
-        if (!filter_var($lenguaje, FILTER_VALIDATE_INT)) {
-            $errores[] = "Error en lenguaje";
-        }
-
-        if (!filter_var($newTab, FILTER_VALIDATE_INT)) {
-            $errores[] = "Error en newTab";
-        }
-
+        $newTab = ($newTab == 'on')? 1 : 0;
+        
         if (!isset($errores)) {
 
             editarUsuario($usuario['id'], $nombre, $email, $pass);
