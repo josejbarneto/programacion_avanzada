@@ -1,12 +1,10 @@
 <?php
 
 include_once '../../basedatos/baseDatos.php';
-include_once '../../entidades/categoria.php';
 
 function crearPreferencia($usuario) {
-    $categorias = getCategorias();
     $con = conectarBaseDatos();
-    $result = mysqli_query($con,"INSERT INTO preferencias (id_usuario, modo_nocturno, id_categoria_inicial, lenguaje_obsceno, open_post_new_tab, orden) VALUES ((select id from usuario where usuario='$usuario'), FALSE, {$categorias[0]['id']}, FALSE, FALSE, 1);");
+    $result = mysqli_query($con,"INSERT INTO preferencias (id_usuario, modo_nocturno, id_categoria_inicial, lenguaje_obsceno, open_post_new_tab, orden) VALUES ((select id from usuario where usuario='$usuario'), FALSE, 1, FALSE, FALSE, 1);");
     mysqli_fetch_array($result);
     mysqli_close($con);
 }
@@ -32,7 +30,7 @@ function editarPreferencia($id,$nocturno,$categoria,$lenguaje, $newTab,$orden) {
 function getPreferenciasDeUsuario($usuario) {
     
     $con = conectarBaseDatos();
-    $result = mysqli_query($con,"SELECT preferencias.id,preferencias.id_usuario, preferencias.modo_nocturno, preferencias.id_categoria_inicial, preferencias.lenguaje_obsceno, preferencias.open_post_new_tab, preferencias.orden, categoria.nombre FROM preferencias inner join categoria on preferencias.id_categoria_inicial = categoria.id WHERE id_usuario = $usuario;") or die("Error en la base de datos");
+    $result = mysqli_query($con,"SELECT preferencias.id,preferencias.id_usuario, preferencias.modo_nocturno, preferencias.id_categoria_inicial, preferencias.lenguaje_obsceno, preferencias.open_post_new_tab, preferencias.orden, categoria.nombre FROM preferencias inner join categoria on preferencias.id_categoria_inicial = categoria.id WHERE id_usuario = $usuario;") or die("$usuario");
     $a = mysqli_fetch_array($result);
     $preferencias['id']=$a['id'];
     $preferencias['id_usuario']=$a['id_usuario'];

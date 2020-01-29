@@ -1,18 +1,9 @@
 <?php
 include_once '../../basedatos/baseDatos.php';
 
-function crearCategoria($nombre, $descripcion) {
-    $conn = conectarBaseDatos();
-
-    $consulta = "insert into categoria (id, nombre, descripcion) VALUES (
-    (
-        (select id from (select id from categoria) subquery order by id desc limit 1)
-    )+1
-   ,'$nombre','$descripcion');"; //coge el id de la anterior y le suma 1
-    
-    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-    
-    mysqli_close($conn);
+function crearCategoria($categoria) {
+    $respuesta = [];
+    return $respuesta;
 }
 
 function editarCategoria($categoria) {
@@ -20,24 +11,24 @@ function editarCategoria($categoria) {
     return $respuesta;
 }
 
-function borrarCategoria($categoria) {
-    $conn = conectarBaseDatos();
+function mostrarCategoria($categoria) {
+    $respuesta = [];
+    return $respuesta;
+}
 
-    //borras la categoria
-    $consulta = "DELETE FROM categoria WHERE id = $categoria;";
-    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-    
-    //seleccionas todos las las categorias cuyo id es mayor que la categoria borrada
-    $consulta = "select * from categoria WHERE id > $categoria;";
-    $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-    
-    //le restas 1 a todos los ids previamente seleccionados
-    while ($categoria = mysqli_fetch_array($resultado)) {        
-        $consulta = "update categoria set id = ({$categoria['id']}-1) where id = {$categoria['id']};";
-        mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-        }
-    
-    mysqli_close($conn);
+function borrarCategoria($categoria) {
+    $respuesta = [];
+    return $respuesta;
+}
+
+function listarCategorias($categoria) {
+    $respuesta = [];
+    return $respuesta;
+}
+
+function listarCategoriasPorUsuario($usuario) {
+    $respuesta = [];
+    return $respuesta;
 }
 
 function getCategorias(){

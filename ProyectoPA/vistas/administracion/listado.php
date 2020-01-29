@@ -20,36 +20,10 @@ include_once '../../entidades/usuario.php';
  * 
  */
 
-session_start();
 $usuarios = getAllUsuarios();
 $posts = getAllPost();
 $categorias = getCategorias();
 $comentarios = getAllComenarios();
-
-//eliminar post
-if (isset($_POST['eliminarPost'])) {
-    $idPost = filter_input(INPUT_POST, 'id_post', FILTER_SANITIZE_NUMBER_INT);
-    borrarPost($idPost);
-    header('location: ../../vistas/administracion/listado.php');
-}
-
-//eliminar usuario
-if (isset($_POST['usuario'])) {
-    $idUsuario = filter_input(INPUT_POST, 'id_usuario', FILTER_SANITIZE_NUMBER_INT);
-    if ($idUsuario == $_SESSION['usuario'['id']]) {
-        $errores[] = 'No puedes borrarte a ti mismo';
-    } else {
-        borrarUsuario($idUsuario);
-        header('location: ../../vistas/administracion/listado.php');
-    }
-}
-
-//eliminar categoria
-if (isset($_POST['eliminarCategoria'])) {
-    $idCategoria = filter_input(INPUT_POST, 'id_categoria', FILTER_SANITIZE_NUMBER_INT);
-    borrarCategoria($idCategoria);
-    header('location: ../../vistas/administracion/listado.php');
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,21 +38,14 @@ if (isset($_POST['eliminarCategoria'])) {
         <script src="../../recursos/js/base.js"></script>
     </head>
     <body>
-<?php
-//AÑADIMOS EL HEADER DE LA PAGINA. 
-//Antes de incluirlo si añadimos variables al header las tocamos aqui
-include_once '../../vistas/base/header.php';
-include_once '../../entidades/usuario.php';
-?>
+        <?php
+        //AÑADIMOS EL HEADER DE LA PAGINA. 
+        //Antes de incluirlo si añadimos variables al header las tocamos aqui
+        include_once '../../vistas/base/header.php';
+        include_once '../../entidades/usuario.php';
+        ?>
         <article class="ui very wide container" id="main">
             <div class="ui hidden divider"></div>
-<?php
-if (!empty($errores)) {
-    foreach ($errores as $e) {
-        echo "<span style='color:red;'>$e</span>";
-    }
-}
-?>
             <section class="ui grid">
                 <div class="ui twelve wide column">
                     <div class="ui pointing secondary menu menu-tab">
@@ -98,38 +65,36 @@ if (!empty($errores)) {
                                 </tr>
                             </thead>
                             <tbody> 
-<?php
-if ($posts != false) {
-    foreach ($posts as $post) {
-        ?>
+                                <?php
+                               
+                                if ($posts != false) {
+                                    foreach ($posts as $post) {
+                                        ?>
                                         <tr>
                                             <td>
                                                 <a href="../../vistas/post/post.php?id=<?php echo $post['id']; ?>"><?php echo $post['id']; ?></a>
                                             </td>
                                             <td>
-        <?php echo $post["titulo"]; ?>
+                                                <?php echo $post["titulo"]; ?>
                                             </td>
                                             <td>
-        <?php
-        $usuario = getUsuarioById($post["idUsuario"]);
-        echo "{$usuario["usuario"]}";
-        ?>
+                                                <?php
+                                                $usuario = getUsuarioById($post["idUsuario"]);
+                                                echo "{$usuario["usuario"]}";
+                                                ?>
                                             </td>
                                             <td>
                                                 <?php echo substr($post["texto"], 0, 10); ?>    
                                             </td>
                                             <td>
                                                 <a href="../../vistas/post/formulario.php?id_post=<?php echo $post['id']; ?>"><i class="edit icon"></i></a>
-                                                <form method="post">
-                                                    <button class='ui icon button' type="submit" name='eliminarPost'><i class="delete icon"></i></button>
-                                                    <input type='hidden' name='id_post' value='<?php echo $post['id']; ?>'/>
-                                                </form>
+                                                <a><i class="delete icon"></i></a>
                                             </td>
                                         </tr>
-        <?php
-    }
-}
-?>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -145,35 +110,32 @@ if ($posts != false) {
                                 </tr>
                             </thead>
                             <tbody> 
-<?php
-if ($usuarios != false) {
-    foreach ($usuarios as $usuario) {
-        ?>
+                                <?php
+                                if ($usuarios != false) {
+                                    foreach ($usuarios as $usuario) {
+                                        ?>
                                         <tr>
                                             <td>
                                                 <a href="../../vistas/usuario/usuario.php?id=<?php echo $usuario["id"]; ?>"><?php echo $usuario["id"]; ?></a>
                                             </td>
                                             <td>
-        <?php echo $usuario["usuario"]; ?>
+                                                <?php echo $usuario["usuario"]; ?>
                                             </td>
                                             <td>
-        <?php echo $usuario["nombre"]; ?>
+                                                <?php echo $usuario["nombre"]; ?>
                                             </td>
                                             <td>
-        <?php echo $usuario["email"]; ?>
+                                                <?php echo $usuario["email"]; ?>
                                             </td>
                                             <td>
                                                 <a href="../../vistas/usuario/perfil.php?id_usuario=<?php echo $usuario["id"]; ?>"><i class="edit icon"></i></a>
-                                                <form method="post">
-                                                    <button class='ui icon button' type="submit" name='eliminarUsuario'><i class="delete icon"></i></button>
-                                                    <input type='hidden' name='id_usuario' value='<?php echo $usuario['id']; ?>'/>
-                                                </form>
+                                                <a><i class="delete icon"></i></a>
                                             </td>
                                         </tr>
-        <?php
-    }
-}
-?>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -187,46 +149,43 @@ if ($usuarios != false) {
                                 </tr>
                             </thead>
                             <tbody> 
-<?php
-if ($categorias != false) {
-    foreach ($categorias as $categoria) {
-        ?>
+                                <?php
+                                if ($categorias != false) {
+                                    foreach ($categorias as $categoria) {
+                                        ?>
                                         <tr>
                                             <td>
                                                 <a href="../../vistas/post/listado.php?categoria=<?php echo $categoria["id"]; ?>"><?php echo $categoria["id"]; ?></a>
                                             </td>
                                             <td>
-        <?php echo $categoria["nombre"]; ?>
+                                                <?php echo $categoria["nombre"]; ?>
                                             </td>
                                             <td>
                                                 <a><i class="edit icon"></i></a>
-                                                <form method="post">
-                                                    <button class='ui icon button' type="submit" name='eliminarCategoria'><i class="delete icon"></i></button>
-                                                    <input type='hidden' name='id_categoria' value='<?php echo $categoria["id"]; ?>'/>
-                                                </form>
+                                                <a><i class="delete icon"></i></a>
                                             </td>
                                         </tr>
-        <?php
-    }
-}
-?>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <aside class="ui four wide column">
-<?php
-//AÑADIMOS EL ASIDE DE LA DERECHA. 
-include_once("../../vistas/base/aside.php")
-?>
+                    <?php
+                    //AÑADIMOS EL ASIDE DE LA DERECHA. 
+                    include_once("../../vistas/base/aside.php")
+                    ?>
                 </aside>
             </section>
         </article>
 
-                    <?php
-                    //AÑADIMOS EL FOOTER DE LA PAGINA. 
-                    //Antes de incluirlo si añadimos variables al footer las tocamos aqui
-                    include_once("../../vistas/base/footer.php")
-                    ?>
+        <?php
+        //AÑADIMOS EL FOOTER DE LA PAGINA. 
+        //Antes de incluirlo si añadimos variables al footer las tocamos aqui
+        include_once("../../vistas/base/footer.php")
+        ?>
     </body>
 </html>
