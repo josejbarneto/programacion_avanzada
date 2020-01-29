@@ -5,21 +5,21 @@
     <div class="ui center aligned container">
         <div class="ui stackable inverted divided grid">
             <div class="eight wide column">
-                <h4 class="ui inverted header">Group 1</h4>
+                <h4 class="ui inverted header">Herramientas utilizadas</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Link One</a>
-                    <a href="#" class="item">Link Two</a>
-                    <a href="#" class="item">Link Three</a>
-                    <a href="#" class="item">Link Four</a>
+                    <a href="https://fomantic-ui.com/" class="item">Fomantic UI</a>
+                    <a href="https://jquery.com/" class="item">jQuery</a>
+                    <a href="https://www.php.net/manual/en/index.php" class="item">PHP</a>
+                    <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" class="item">JavaScript</a>
                 </div>
             </div>
             <div class="eight wide column">
-                <h4 class="ui inverted header">Group 2</h4>
+                <h4 class="ui inverted header">Agradecimientos</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Link One</a>
-                    <a href="#" class="item">Link Two</a>
-                    <a href="#" class="item">Link Three</a>
-                    <a href="#" class="item">Link Four</a>
+                    <a href="https://www.w3schools.com/" class="item">w3schools</a>
+                    <a href="https://www.upo.es/escuela-politecnica-superior/" class="item">Escuela Politécnica Superior</a>
+                    <a href="https://netbeans.org/" class="item">NetBeans</a>
+                    <a href="https://www.apachefriends.org/es/index.html" class="item">XAMPP</a>
                 </div>
             </div>
         </div>

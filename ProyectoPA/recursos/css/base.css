@@ -40,5 +40,9 @@ footer.footer.segment{
 }
 
 .darkmode-layer, .darkmode-toggle {
-  z-index: 500;
+    z-index: 500;
+}
+
+.siema img{
+    max-width: 60vh;
 }

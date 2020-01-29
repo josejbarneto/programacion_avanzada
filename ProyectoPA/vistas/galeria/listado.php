@@ -1,9 +1,8 @@
 <?php
-/* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
-/*
-  $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
-  $posts = getTodosLosPost();
- */
+$imagesDir = '../../uploads/';
+//Cojo todas las ficheros con esa extension de la carpeta uploads
+//glob — Buscar coincidencias de nombres de ruta con un patron
+$images = glob($imagesDir . '*.{jpg,jpeg,png,gif,PNG,JPG,JPEG,GIF}', GLOB_BRACE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,6 +14,9 @@
         <link rel="stylesheet" type="text/css" href="../../recursos/css/header.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+        <script src="../../recursos/js/base.js"></script>
+        <script src="../../util/siema/siema.min.js"></script>
+        <script src="../../recursos/js/galeria.js"></script>
     </head>
     <body>
         <?php
@@ -33,36 +35,22 @@
                                 Galeria de Kaheddit
                             </div>
                         </h2>
-                        <div class="ui middle aligned divided relaxed list">
+                        <div class="ui center aligned top attached segment">
+                            <button class="ui left labeled basic icon small button" id='prev'>
+                                <i class="left arrow icon"></i>
+                                Anterior
+                            </button>
+                            <button class="ui right labeled basic icon small button" id='next'>
+                                <i class="right arrow icon"></i>
+                                Siguiente
+                            </button>
+                        </div>
+                        <div class="ui center aligned bottom attached secondary segment siema">
                             <?php
-                            //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
-
-                            /*
-                             * for (post in post){
-                             * echo <div classitem> post[titulo]</div>
-                             * }
-                             * 
-                             * ETC.
-                             */
+                            foreach ($images as $image) {
+                                echo '<div><img src="' . $image . '"/></div>';
+                            }
                             ?>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Imagen 1</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Video 2</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
-                                <div class="content">
-                                    <a class="header">Ejemplo de Gif 3</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
