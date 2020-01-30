@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2020 a las 21:30:44
+-- Tiempo de generación: 30-01-2020 a las 05:13:38
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -39,9 +39,11 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'Deportes', 'Todo sobre deportes'),
-(2, 'Informatica', 'Todo sobre Informatica'),
-(3, 'Videojuegos', 'Todo sobre videojuegos');
+(1, 'Informatica', 'Todo sobre Informatica'),
+(2, 'Videojuegos', 'Todo sobre videojuegos'),
+(3, 'Deportes', 'Todo lo relacionado con el deporte'),
+(4, 'Actualidad', 'Lo Ãºltimo en este mundo'),
+(5, 'Estudios', 'Todo acerca de los estudios');
 
 -- --------------------------------------------------------
 
@@ -63,9 +65,14 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`id`, `id_usuario`, `id_post`, `texto`, `fecha_creacion`, `fecha_actualizacion`) VALUES
-(17, 23, 21, 'Hola tq bro pro dislike', '2020-01-29 03:51:12', '2020-01-29 03:51:12'),
-(22, 25, 55, 'asdfghjklÃ±', '2020-01-29 20:48:15', '2020-01-29 20:48:15'),
-(23, 25, 55, 'Bonita foto', '2020-01-29 20:48:25', '2020-01-29 20:48:25');
+(38, 34, 77, 'Me encanta este videojuego', '2020-01-30 04:44:58', '2020-01-30 04:44:58'),
+(39, 33, 80, 'FAKE NEW!!!', '2020-01-30 04:56:45', '2020-01-30 04:56:45'),
+(40, 34, 80, 'Es verdd, lo leÃ­ en forocoches', '2020-01-30 04:57:24', '2020-01-30 04:57:24'),
+(41, 35, 81, 'Un virus muy peligroso', '2020-01-30 05:04:58', '2020-01-30 05:04:58'),
+(42, 33, 86, 'Enhorabuena!!!', '2020-01-30 05:08:15', '2020-01-30 05:08:15'),
+(43, 33, 78, 'Gracias!!!', '2020-01-30 05:10:30', '2020-01-30 05:10:30'),
+(44, 34, 78, ':)', '2020-01-30 05:10:48', '2020-01-30 05:10:48'),
+(45, 35, 78, 'Genial', '2020-01-30 05:11:47', '2020-01-30 05:11:47');
 
 -- --------------------------------------------------------
 
@@ -77,7 +84,7 @@ CREATE TABLE `galeria` (
   `id` int(32) NOT NULL,
   `id_usuario` int(32) NOT NULL,
   `id_post` int(32) NOT NULL,
-  `nombre_fichero` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `nombre_fichero` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
   `url` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
   `tipo` varchar(32) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -87,22 +94,10 @@ CREATE TABLE `galeria` (
 --
 
 INSERT INTO `galeria` (`id`, `id_usuario`, `id_post`, `nombre_fichero`, `url`, `tipo`) VALUES
-(1, 25, 37, '', '', 'PNG'),
-(2, 25, 38, '../../uploads/1580301624Captura.', '', 'PNG'),
-(3, 25, 39, '', 'https://d500.epimg.net/cincodias', 'jpg'),
-(4, 25, 40, '', 'https://d500.epimg.net/cincodias', 'jpg'),
-(5, 25, 49, '../../uploads/1580319255001.jpg', '', 'jpg'),
-(6, 25, 50, '../../uploads/1580321289008.jpg', '', 'jpg'),
-(7, 25, 51, '../../uploads/1580323552001.jpg', '', 'jpg'),
-(8, 25, 52, '../../uploads/1580323810001.jpg', '', 'jpg'),
-(9, 25, 53, '', 'https://ichef.bbci.co.uk/news/32', 'jpg'),
-(10, 25, 54, '', 'https://previews.123rf.com/image', 'jpg'),
-(11, 25, 55, '', 'https://i.ytimg.com/vi/MZD7RZmi8O8/maxresdefault.jpg', 'jpg'),
-(12, 25, 56, '../../uploads/1580329446001.jpg', '', 'jpg'),
-(13, 25, 57, '', 'https://i.ytimg.com/vi/MZD7RZmi8O8/maxresdefault.jpg', 'jpg'),
-(14, 25, 58, '../../uploads/1580329669001.jpg', '', 'jpg'),
-(15, 25, 59, '../../uploads/1580329669001.jpg', '', 'jpg'),
-(16, 25, 60, '../../uploads/1580329670001.jpg', '', 'jpg');
+(29, 33, 77, '../../uploads/1580354890fifa.jpg', '', 'jpg'),
+(30, 34, 79, '../../uploads/1580355974kobejpg.jpg', '', 'jpg'),
+(31, 34, 84, '', 'https://www.youtube.com/embed/ZdP0KM49IVk', ''),
+(32, 33, 87, '../../uploads/1580357378shaq.gif', '', 'gif');
 
 -- --------------------------------------------------------
 
@@ -116,7 +111,7 @@ CREATE TABLE `post` (
   `id_categoria` int(32) NOT NULL,
   `titulo` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
   `texto` text COLLATE latin1_spanish_ci NOT NULL,
-  `fecha_creacion` date NOT NULL
+  `fecha_creacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -124,47 +119,17 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `id_usuario`, `id_categoria`, `titulo`, `texto`, `fecha_creacion`) VALUES
-(20, 24, 3, 'sdfhgf', 'fghfghf', '2020-01-28'),
-(21, 24, 2, 'sfghf', 'ghsfgg', '2020-01-28'),
-(22, 24, 1, 'sfhfgh', 'sfhsfg', '2020-01-28'),
-(23, 24, 3, 'fghg', 'fghfghs', '2020-01-28'),
-(24, 23, 1, 'fdghf', 'iytu', '2020-01-29'),
-(25, 25, 1, 'hola', 'asdasdadsad', '2020-01-29'),
-(26, 25, 2, 'heyy', 'asdasdas', '2020-01-29'),
-(27, 25, 1, 'sadasdasd', 'dfsfsdfdsfsd', '2020-01-29'),
-(28, 25, 2, 'dsadsadasd', 'asdasdasds', '2020-01-29'),
-(29, 25, 1, 'asdasdsadasd', 'dsfsdfasdafas', '2020-01-29'),
-(30, 25, 3, 'dsfsdfsdfd', 'sadsadsadasdasd', '2020-01-29'),
-(31, 25, 3, 'sdcsdcsdccs', 'asdasdasdasdasd', '2020-01-29'),
-(32, 25, 3, 'sdfsdfsdfsdf', 'dfsdvdssdvd', '2020-01-29'),
-(33, 25, 1, 'sdfghjkl', 'sdfghjklÃ±', '2020-01-29'),
-(34, 25, 1, 'sdfghjkl', 'sdfghjklÃ±', '2020-01-29'),
-(35, 25, 1, 'dfghjklÃ±', 'xcvbjklÃ±', '2020-01-29'),
-(36, 25, 1, 'dfghjklÃ±', 'xcvbjklÃ±', '2020-01-29'),
-(37, 25, 1, 'dfghjklÃ±', 'xcvbjklÃ±', '2020-01-29'),
-(38, 25, 1, 'dfghjklÃ±', 'xcvbjklÃ±', '2020-01-29'),
-(39, 25, 1, 'sdfghjklÃ±', 'sdfghjklÃ±', '2020-01-29'),
-(40, 25, 1, 'adasdasdasd', 'adasdadasd', '2020-01-29'),
-(41, 25, 2, 'El post flama', 'Tareitas de calculo que no voy a ver mas', '2020-01-29'),
-(42, 25, 2, 'El post flama', 'Tareitas de calculo que no voy a ver mas', '2020-01-29'),
-(43, 25, 2, 'El post flama', 'Tareitas de calculo que no voy a ver mas', '2020-01-29'),
-(44, 25, 2, 'calc', 'aacasacacasc', '2020-01-29'),
-(45, 25, 2, 'calc', 'aacasacacasc', '2020-01-29'),
-(46, 25, 2, 'calc', 'aacasacacasc', '2020-01-29'),
-(47, 25, 2, 'calc', 'aacasacacasc', '2020-01-29'),
-(48, 25, 2, 'calculo', 'no quiero volver a verte', '2020-01-29'),
-(49, 25, 2, 'calculo', 'no quiero volver a verte', '2020-01-29'),
-(50, 25, 3, 'El post calculado', 'Calculoooooo', '2020-01-29'),
-(51, 25, 1, 'definitivo', 'ghjklÃ±Â´Ã§+`poiuyt', '2020-01-29'),
-(52, 25, 3, 'el post url', 'sdfgyuiop', '2020-01-29'),
-(53, 25, 2, 'URL', 'yea', '2020-01-29'),
-(54, 25, 1, 'URL 2.0', 'dfghjklÃ±', '2020-01-29'),
-(55, 25, 1, 'URL 3.0', 'espero que funcione', '2020-01-29'),
-(56, 25, 1, 'pumar', 'asdasdasdasd', '2020-01-29'),
-(57, 25, 2, 'pumar 2.0', 'ASDFGHJKLÃ‘', '2020-01-29'),
-(58, 25, 3, 'pumar 3.0', 'sdfghjklÃ±', '2020-01-29'),
-(59, 25, 3, 'pumar 3.0', 'sdfghjklÃ±', '2020-01-29'),
-(60, 25, 3, 'pumar 3.0', 'sdfghjklÃ±', '2020-01-29');
+(77, 33, 2, 'Nuevo fifa 2020', 'Este aÃ±o sacaran de nuevo este videojuego que lleva triunfando aÃ±os', '2020-01-30 04:28:10'),
+(78, 36, 1, 'Gran Proyecto', 'Muy buen proyecto', '2020-01-30 04:35:57'),
+(79, 34, 3, 'RIP Kobe', 'Fuiste un grande, nunca te olvidaremos!!!', '2020-01-30 04:46:14'),
+(80, 34, 1, 'Nueva tarjeta grÃ¡fica envidia', 'Va a salir dentro de poco', '2020-01-30 04:47:48'),
+(81, 34, 4, 'Coronavirus Â¿QuÃ© es?', 'He escuchado algo en las noticias pero no se lo que es.', '2020-01-30 04:48:58'),
+(82, 36, 5, 'Notas de php saldrÃ¡n en el 2021', 'Ya las tengo casi corregidas', '2020-01-30 04:53:28'),
+(83, 33, 1, 'Tarjeta grÃ¡fica nvidia', 'Es una fake new. No estÃ¡ disponible', '2020-01-30 04:56:33'),
+(84, 34, 1, 'Aprender php', 'Un video muy bueno!!', '2020-01-30 05:01:24'),
+(85, 35, 3, 'Prox partido del betis', 'A ver si ganan, alguien sabe cuando es?', '2020-01-30 05:06:10'),
+(86, 34, 5, 'He aprobado cÃ¡lculo', 'DespuÃ©s de tres aÃ±os aquÃ­ ya la he aprobado', '2020-01-30 05:07:48'),
+(87, 33, 3, 'MaÃ±ana es dia de NBA', 'MaÃ±ana es dia de NBA y el cuerpo lo sabe.', '2020-01-30 05:09:38');
 
 -- --------------------------------------------------------
 
@@ -177,7 +142,6 @@ CREATE TABLE `preferencias` (
   `id_usuario` int(32) NOT NULL,
   `modo_nocturno` tinyint(1) NOT NULL,
   `id_categoria_inicial` int(32) NOT NULL,
-  `lenguaje_obsceno` tinyint(1) NOT NULL,
   `open_post_new_tab` tinyint(1) NOT NULL,
   `orden` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -186,10 +150,11 @@ CREATE TABLE `preferencias` (
 -- Volcado de datos para la tabla `preferencias`
 --
 
-INSERT INTO `preferencias` (`id`, `id_usuario`, `modo_nocturno`, `id_categoria_inicial`, `lenguaje_obsceno`, `open_post_new_tab`, `orden`) VALUES
-(21, 23, 0, 1, 0, 0, 1),
-(22, 24, 0, 1, 0, 0, 1),
-(23, 25, 0, 1, 0, 0, 1);
+INSERT INTO `preferencias` (`id`, `id_usuario`, `modo_nocturno`, `id_categoria_inicial`, `open_post_new_tab`, `orden`) VALUES
+(30, 33, 0, 3, 0, 1),
+(31, 34, 0, 1, 0, 1),
+(32, 35, 0, 1, 1, 2),
+(33, 36, 0, 2, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -209,11 +174,19 @@ CREATE TABLE `reaccion` (
 --
 
 INSERT INTO `reaccion` (`id`, `id_usuario`, `id_post`, `tipo`) VALUES
-(12, 24, 22, 0),
-(15, 23, 23, 1),
-(16, 23, 21, 0),
-(17, 23, 22, 0),
-(18, 24, 21, 0);
+(42, 34, 77, 1),
+(43, 36, 82, 1),
+(44, 36, 77, 1),
+(45, 36, 80, 1),
+(46, 36, 81, 1),
+(47, 33, 80, 0),
+(48, 34, 80, 1),
+(49, 34, 84, 1),
+(53, 35, 81, 1),
+(54, 33, 86, 1),
+(55, 33, 78, 1),
+(56, 34, 78, 1),
+(57, 35, 78, 1);
 
 -- --------------------------------------------------------
 
@@ -235,9 +208,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `admin`, `usuario`, `nombre`, `contrasenya`, `email`) VALUES
-(23, 0, 'carlos', 'Carlos Pumar', '$2y$10$F1ek6gXYmunpJxyNGR87Hee6RZzgk6fi7jE0kmKtYyc5bq2roAYAu', 'carlos@gmail.com'),
-(24, 1, 'juanka', 'juanka', 'f', 'juanca@gmail.com'),
-(25, 0, 'holaqase1', 'hola', '$2y$10$clORqgUCIanBG7mUXXeGZOLDMRaoFRYqKiFA5POy4VX061ckfdenK', 'hola@gmail.com');
+(33, 0, 'carlos', 'Carlos Pumar', '$2y$10$k.MssM9kefJhaDTb/x7kU.vy98scGjOm.Dwgip3bMMgm6w1Pg7SG.', 'carlos@gmail.com'),
+(34, 0, 'eugenio', 'Eugenio Menacho', '$2y$10$Ggg8ZnXdmd.s6hAKEi5riu3EohfTpuFwtJqT942UR/NzNUuWvmBCq', 'eugenio@gmail.com'),
+(35, 0, 'barneto', 'Jose JoaquÃ­n Barneto', '$2y$10$IjEduLOOkMBGQG1Ci5nssOPGI6pbE0UQnzETxEk20vosPC0JYkZ0W', 'jose@gmail.com'),
+(36, 1, 'barranco', 'Carlos Barranco', '$2y$10$k.MssM9kefJhaDTb/x7kU.vy98scGjOm.Dwgip3bMMgm6w1Pg7SG.', 'barranco@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -303,43 +277,43 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
 --
 ALTER TABLE `galeria`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT de la tabla `preferencias`
 --
 ALTER TABLE `preferencias`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `reaccion`
 --
 ALTER TABLE `reaccion`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Restricciones para tablas volcadas

@@ -6,7 +6,7 @@ include_once '../../entidades/categoria.php';
 function crearPreferencia($usuario) {
     $categorias = getCategorias();
     $con = conectarBaseDatos();
-    $result = mysqli_query($con, "INSERT INTO preferencias (id_usuario, modo_nocturno, id_categoria_inicial, open_post_new_tab, orden) VALUES ((select id from usuario where usuario='$usuario'), FALSE, {$categorias[0]['id']}, FALSE, FALSE, 1);");
+    $result = mysqli_query($con, "INSERT INTO preferencias (id_usuario, modo_nocturno, id_categoria_inicial, open_post_new_tab, orden) VALUES ((select id from usuario where usuario='$usuario'), 0, {$categorias[0]['id']}, 0, 1);");
     mysqli_fetch_array($result);
     mysqli_close($con);
 }

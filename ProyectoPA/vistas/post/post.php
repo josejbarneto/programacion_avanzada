@@ -133,6 +133,8 @@ $numReacciones = getReacciones($idPost);
                                 <button class="ui labeled icon basic right floated button" type="submit" name="like" <?php
                                 if (isset($reaccion) && $reaccion['tipo'] == 1) {
                                     echo "style='color:green;'";
+                                }else{
+                                    echo "style='color:none;'";
                                 }
                                 ?>>
                                     <i class="thumbs up outline icon"></i>
@@ -148,6 +150,8 @@ $numReacciones = getReacciones($idPost);
                                 <button class="ui labeled icon basic right floated button" type="submit" name="dislike" <?php
                                 if (isset($reaccion) && $reaccion['tipo'] == 0) {
                                     echo "style='color:red;'";
+                                }else{
+                                    echo "style='color:none;'";
                                 }
                                 ?>>
                                     <i class="thumbs down outline icon"></i>

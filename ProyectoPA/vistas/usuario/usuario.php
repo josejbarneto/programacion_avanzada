@@ -7,8 +7,8 @@ session_start();
 $vistas = ["Clasica", "Compacta", "Ancha"];
 $ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
 $usuario = getUsuarioById(htmlspecialchars($_GET['id']));
-$comentarios = listarComentariosPorUsuario($usuario['id']);
-$posts = listarPostsPorUsuario($usuario['id']);
+$comentarios = listarComentariosPorUsuario($usuario['id'], 1);
+$posts = listarPostsPorUsuario($usuario['id'], 1);
 ?>
 <!DOCTYPE html>
 <html>

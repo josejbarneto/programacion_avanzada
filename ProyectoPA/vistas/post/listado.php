@@ -10,9 +10,9 @@ $usuarioId = filter_input(INPUT_GET, 'id_usuario', FILTER_SANITIZE_NUMBER_INT);
 
 session_start();
 if (isset($categoriaId)) {
-    $posts = listarPostsPorCategoria($categoriaId, $_SESSION['preferencias']['orden']);
+    $posts = listarPostsPorCategoria($categoriaId, isset($_SESSION['preferencias'])?$_SESSION['preferencias']['orden']:1);
 } else if (isset($usuarioId)) {
-    $posts = listarPostsPorUsuario($usuarioId,$_SESSION['preferencias']['orden']);
+    $posts = listarPostsPorUsuario($usuarioId,isset($_SESSION['preferencias'])?$_SESSION['preferencias']['orden']:1);
 }
 ?>
 <!DOCTYPE html>

@@ -39,6 +39,13 @@ if (isset($_POST['eliminarCategoria'])) {
     borrarCategoria($idCategoria);
     header('location: ../../vistas/administracion/listado.php');
 }
+
+//eliminar comentario
+if(isset($_POST['eliminarComentario'])){
+    $idComentario = filter_input(INPUT_POST, 'id_comentario', FILTER_SANITIZE_NUMBER_INT);
+    borrarComentario($idComentario);
+    header('location: ../../vistas/administracion/listado.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
