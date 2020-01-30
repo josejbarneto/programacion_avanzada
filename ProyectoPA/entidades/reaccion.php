@@ -29,7 +29,7 @@ function borrarReaccion($id_usuario, $id_post) {
 
 function existReaccion($id_usuario, $id_post) {
     $con = conectarBaseDatos();
-    $result = mysqli_query($con, "SELECT count(*) FROM reaccion WHERE id_usuario = $id_usuario and id_post = $id_post;") or die("Algo ha ido mal en la consulta a la base de datos exist");
+    $result = mysqli_query($con, "SELECT count(*) FROM reaccion WHERE id_usuario = $id_usuario and id_post = $id_post;") or die("$id_usuario, $id_post");
     $a = mysqli_fetch_array($result);
     mysqli_close($con);
     if ($a["count(*)"] != 0) {
@@ -44,7 +44,11 @@ function getReaccion($id_usuario, $id_post) {
     $result = mysqli_query($con, "SELECT * FROM reaccion WHERE id_usuario = $id_usuario and id_post = $id_post;") or die("Algo ha ido mal en la consulta a la base de datos get");
     $a = mysqli_fetch_array($result);
     mysqli_close($con);
-    return $a;
+    if (empty($a))
+        return false;
+    else {
+        return $a;
+    }
 }
 
 function getReacciones($id_post) {
@@ -56,7 +60,11 @@ function getReacciones($id_post) {
 
     mysqli_close($con);
 
-    return $reacciones;
+    if (empty($reacciones)) {
+        return false;
+    } else {
+        return $reacciones;
+    }
 }
 
 ?>

@@ -17,7 +17,7 @@ include_once("../../entidades/preferencias.php");
 session_start();
 
 if (isset($_SESSION['usuario'])) {
-    $ordenes = ["Por novedad", "Por reacciones", "Alfabético"];
+    $ordenes = ["Por novedad", "Por antigüedad"];
 
     $entrandoComoAdmin = false;
 
@@ -42,7 +42,6 @@ if (isset($_SESSION['usuario'])) {
         $orden = filter_input(INPUT_POST, 'orden', FILTER_SANITIZE_NUMBER_INT);
         $categoria = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_NUMBER_INT);
         $nocturno = filter_input(INPUT_POST, 'nocturno', FILTER_SANITIZE_STRING);
-        $lenguaje = filter_input(INPUT_POST, 'lenguaje', FILTER_SANITIZE_STRING);
         $newTab = filter_input(INPUT_POST, 'newTab', FILTER_SANITIZE_STRING);
 
         if (strlen($nombre) < 3) {
@@ -71,8 +70,6 @@ if (isset($_SESSION['usuario'])) {
 
         $nocturno = ($nocturno == 'on')? 1 : 0;
         
-        $lenguaje = ($lenguaje == 'on')? 1 : 0;
-
         $newTab = ($newTab == 'on')? 1 : 0;
         
         if (!isset($errores)) {
@@ -159,8 +156,7 @@ if (isset($_SESSION['usuario'])) {
                                     <div class="text"><?php echo $ordenes[$preferencias["orden"] - 1]; ?></div>
                                     <div class="menu">
                                         <div class="item <?php echo ($preferencias["orden"] == 1 ? "active" : ""); ?>" data-value="1">Por novedad</div>
-                                        <div class="item <?php echo ($preferencias["orden"] == 2 ? "active" : ""); ?>" data-value="2">Por reacciones</div>
-                                        <div class="item <?php echo ($preferencias["orden"] == 3 ? "active" : ""); ?>" data-value="3">Alfabético</div>
+                                        <div class="item <?php echo ($preferencias["orden"] == 2 ? "active" : ""); ?>" data-value="2">Por antigüedad</div>
                                     </div>
                                 </div>
                             </div>
@@ -193,13 +189,6 @@ if (isset($_SESSION['usuario'])) {
                                         <input id='nocturno' name='nocturno' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["modo_nocturno"] ? "checked" : ""; ?>>
                                         <label>Modo nocturno</label>
                                     </div>
-                                </div>
-                                <div class="eight wide field">
-                                    <div class="ui toggle disabled checkbox <?php echo $preferencias["lenguaje_obsceno"] ? "checked" : ""; ?>">
-                                        <input name='lenguaje' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["lenguaje_obsceno"] ? "checked" : ""; ?>>
-                                        <label>Ocultar lenguaje malsonante</label>
-                                    </div>
-                                    <label data-tooltip="No disponible actualmente" class="ui basic red label">Beta</label>
                                 </div>
                                 <div class="seven wide field">
                                     <div class="ui toggle checkbox <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>">

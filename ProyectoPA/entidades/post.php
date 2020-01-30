@@ -12,12 +12,12 @@ function crearPost($idUsuario, $idCategoria, $titulo, $texto) {
 
     $consulta = "insert into post (id_usuario, id_categoria, titulo, texto, fecha_creacion) VALUES ($idUsuario, $idCategoria, '$titulo', '$texto', '$fecha');";
     mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
-    
-    
-    $res=mysqli_insert_id($conn);
-    
+
+
+    $res = mysqli_insert_id($conn);
+
     mysqli_close($conn);
-    
+
     return $res;
 }
 
@@ -42,9 +42,12 @@ function borrarPost($idPost) {
 function listarPostsPorCategoria($categoria, $orden) {
     $conn = conectarBaseDatos();
 
-    if($orden==1)
-    
-    $consulta = "select * from post where id_categoria = $categoria order by fecha_creacion DESC;";
+    if ($orden == 1) {
+        $consulta = "select * from post where id_categoria = $categoria order by fecha_creacion DESC;";
+    }if ($orden == 2) {
+        $consulta = "select * from post where id_categoria = $categoria order by fecha_creacion ASC;";
+    }
+
     $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     $i = 0;
@@ -68,7 +71,12 @@ function listarPostsPorCategoria($categoria, $orden) {
 function listarPostsPorUsuario($usuario, $orden) {
     $conn = conectarBaseDatos();
 
-    $consulta = "select * from post where id_usuario = $usuario order by fecha_creacion DESC;";
+    if ($orden == 1) {
+        $consulta = "select * from post where id_usuario = $usuario order by fecha_creacion DESC;";
+    }if ($orden == 2) {
+        $consulta = "select * from post where id_usuario = $usuario order by fecha_creacion ASC;";
+    }
+
     $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
     $i = 0;
@@ -98,6 +106,18 @@ function getPost($idPost) {
 
     $columna = mysqli_fetch_array($resultado);
 
+    if (empty($columna)) {
+        $consulta = "select post.id, post.id_usuario, post.id_categoria, post.titulo, post.texto, post.fecha_creacion, usuario.usuario, usuario.nombre, categoria.nombre as nombre_cat from post inner join usuario on post.id_usuario = usuario.id inner join categoria on post.id_categoria = categoria.id where post.id = $idPost;";
+        $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+
+        $columna = mysqli_fetch_array($resultado);
+        $post['url'] = "";
+        $post['imagen'] = "";
+    } else {
+        $post['url'] = $columna['url'];
+        $post['imagen'] = $columna['nombre_fichero'];
+    }
+
     $post['id'] = $columna['id'];
     $post['idUsuario'] = $columna['id_usuario'];
     $post['idCategoria'] = $columna['id_categoria'];
@@ -107,8 +127,7 @@ function getPost($idPost) {
     $post['nombreUsuario'] = $columna['nombre'];
     $post['usuario'] = $columna['usuario'];
     $post['categoria'] = $columna['nombre_cat'];
-    $post['url'] = $columna['url'];
-    $post['imagen'] = $columna['nombre_fichero'];
+
 
     mysqli_close($conn);
     return $post;
@@ -141,9 +160,9 @@ function getAllPost() {
 
 //listar por ordenaciones
 function listarPostsOrden($orden) {
-    if($orden == 1){
+    if ($orden == 1) {
         return 'fecha_creacion';
-    }else if($orden == 2){
+    } else if ($orden == 2) {
         return 'count(reaccion)';
     }
 }

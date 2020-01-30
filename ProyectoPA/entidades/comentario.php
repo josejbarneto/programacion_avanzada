@@ -34,7 +34,7 @@ function borrarComentario($id_comentario) {
     $conn = conectarBaseDatos();
     
     $consulta = "DELETE FROM comentario WHERE id = $id_comentario;";   
-    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
+    mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos1$id_comentario");
 
     mysqli_close($conn);
 }

@@ -33,9 +33,9 @@ $categorias = getCategorias();
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
                             if (isset($_SESSION['preferencias'])) {
-                                $posts = listarPostsPorCategoria($_SESSION['preferencias']['id_categoria_inicial']);
+                                $posts = listarPostsPorCategoria($_SESSION['preferencias']['id_categoria_inicial'], $_SESSION['preferencias']['orden']);
                             } else {
-                                $posts = listarPostsPorCategoria(1);
+                                $posts = listarPostsPorCategoria(1,1);
                             }
 
                             if (!empty($posts)) {

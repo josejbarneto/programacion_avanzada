@@ -78,7 +78,7 @@ function getUsuario($usuario) {
 
 function getUsuarioById($usuario) {
     $con = conectarBaseDatos();
-    $result = mysqli_query($con, "SELECT admin, id, usuario, nombre, contrasenya, email FROM usuario WHERE id = $usuario;");
+    $result = mysqli_query($con, "SELECT admin, id, usuario, nombre, contrasenya, email FROM usuario WHERE id = $usuario;") or die("$usuario");
     
     $r = mysqli_fetch_array($result);
     

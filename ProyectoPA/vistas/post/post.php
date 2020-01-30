@@ -15,7 +15,6 @@ session_start();
 //si viene de clicar un post
 $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
 
-
 //al comentar
 if (isset($_POST['comentar'])) {
     $idPost = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
@@ -25,6 +24,12 @@ if (isset($_POST['comentar'])) {
     } else {
         crearComentario($comentario, $_SESSION['usuario']['id'], $idPost);
     }
+}
+
+//eliminar comentario
+if(isset($_POST['eliminarComentario'])){
+    $idComentario = filter_input(INPUT_POST, 'comentario_id', FILTER_SANITIZE_NUMBER_INT);
+    borrarComentario($idComentario);
 }
 
 //likes y dislike
@@ -57,7 +62,6 @@ if (isset($_POST['like']) || isset($_POST['dislike'])) {
 if (isset($_SESSION['usuario'])) {
     $reaccion = getReaccion($_SESSION['usuario']['id'], $idPost);
 }
-
 
 $post = getPost($idPost);
 $comentarios = listarComentariosPorPost($idPost);
@@ -198,10 +202,11 @@ $numReacciones = getReacciones($idPost);
                                             <div class="text">
                                                 <?php echo $c['texto'] ?>
                                             </div>
-                                            <?php if ($c['idUsuario'] == $_SESSION['usuario']['id']) { ?>
+                                            <?php if (isset($_SESSION['usuario']) && $c['idUsuario']==$_SESSION['usuario']['id']) { ?>
                                                 <div class="actions">
                                                     <form method="post">
-                                                        <input class="delete" type="submit" value="Eliminar">
+                                                        <input class="delete" type="submit" value="Eliminar" name='eliminarComentario'>
+                                                        <input type="hidden" value="<?php echo $c['id'] ?>" name='comentario_id'>
                                                     </form>
                                                 </div>
                                             <?php } ?>

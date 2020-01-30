@@ -8,10 +8,11 @@ include_once '../../entidades/post.php';
 $categoriaId = filter_input(INPUT_GET, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
 $usuarioId = filter_input(INPUT_GET, 'id_usuario', FILTER_SANITIZE_NUMBER_INT);
 
+session_start();
 if (isset($categoriaId)) {
-    $posts = listarPostsPorCategoria($categoriaId);
+    $posts = listarPostsPorCategoria($categoriaId, $_SESSION['preferencias']['orden']);
 } else if (isset($usuarioId)) {
-    $posts = listarPostsPorUsuario($usuarioId);
+    $posts = listarPostsPorUsuario($usuarioId,$_SESSION['preferencias']['orden']);
 }
 ?>
 <!DOCTYPE html>

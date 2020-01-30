@@ -43,7 +43,7 @@ if (!isset($_SESSION)) {
                     echo '<div class="ui negative message">';
                     echo '<div class="header">Errores en el formulario</div><ul class="list">';
 
-                    foreach ($_SESSION['$errores'] as $e) {
+                    foreach ($_SESSION['errores'] as $e) {
                         echo "<li'>$e</li>";
                     }
                     echo '</ul></div>';
@@ -78,7 +78,7 @@ if (!isset($_SESSION)) {
                 echo '<div class="ui negative message">';
                 echo '<div class="header">Errores en el formulario</div><ul class="list">';
 
-                foreach ($_SESSION['$errores'] as $e) {
+                foreach ($_SESSION['errores'] as $e) {
                     echo "<li'>$e</li>";
                 }
                 echo '</ul></div>';
