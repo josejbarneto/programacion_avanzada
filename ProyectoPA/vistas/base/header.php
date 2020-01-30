@@ -13,7 +13,7 @@ if (!isset($_SESSION)) {
     <a href="../../vistas/galeria/listado.php" class="item"><i class="photo video icon"></i>Galeria</a>
     <div class="right menu">
         <!-- SI ESTA LOGADO Y ES ADMIN -->
-<?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['admin'] == 1) { ?>
+        <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['admin'] == 1) { ?>
             <a href='../../vistas/administracion/listado.php' class="item"><i class="tools icon"></i>Administrar</a>
         <?php } ?>
         <!-- SI ESTA LOGADO Y ES USUARIO -->
@@ -21,30 +21,34 @@ if (!isset($_SESSION)) {
             <a class="item" href="../../vistas/post/formulario.php"><i class="plus circle icon"></i>Nuevo Post</a>
             <a class="item" href="../../vistas/usuario/perfil.php"><i class="user circle icon"></i>Ver perfil</a>
             <a class="ui item" href="../../vistas/base/logout.php"><i class="sign in alternate icon"></i>Logout</a>
-<?php } else { ?>
+        <?php } else { ?>
 
             <!--Formulario log in-->
 
             <button class="item" onclick='document.getElementById("login").style.display = "block";'><i class="sign in alternate icon"></i>Log-in</button>
-    <?php
-    if (isset($_SESSION['intentoLogin'])) {
-        echo "<div class='log' id='login' style='display:block;'>";
-    } else {
-        echo "<div class='log' id='login'>";
-    }
-    ?>
+            <?php
+            if (isset($_SESSION['intentoLogin'])) {
+                echo "<div class='log' id='login' style='display:block;'>";
+            } else {
+                echo "<div class='log' id='login'>";
+            }
+            ?>
             <span onclick="document.getElementById('login').style.display = 'none'" class="close" title="Close">&times;</span>
             <form action="../../vistas/base/login.php" method="post" class="formulario" onsubmit="return valida2()">
 
                 <!--Errores-->
-    <?php
-    if (isset($_SESSION['intentoLogin'])) {
-        foreach ($_SESSION['errores'] as $e) {
-            echo "<span style='color:red;'>$e</span><br/>";
-        }
-        echo '<br/>';
-    }
-    ?>
+                <?php
+                if (isset($_SESSION['intentoLogin'])) {
+
+                    echo '<div class="ui negative message">';
+                    echo '<div class="header">Errores en el formulario</div><ul class="list">';
+
+                    foreach ($_SESSION['$errores'] as $e) {
+                        echo "<li'>$e</li>";
+                    }
+                    echo '</ul></div>';
+                }
+                ?>
 
                 Username:<br/>
                 <input type="text" name='lusuario' class="textbox" placeholder="example: tuusuario1">
@@ -58,25 +62,28 @@ if (!isset($_SESSION)) {
 
         <!--Formulario sign up-->
         <button class="item" onclick='document.getElementById("signup").style.display = "block";'><i class="sign in alternate icon"></i>Sign-up</button>
-    <?php
-    if (isset($_SESSION['intentoSignup'])) {
-        echo "<div class='log' id='signup' style='display:block;'>";
-    } else {
-        echo "<div class='log' id='signup'>";
-    }
-    ?>
+        <?php
+        if (isset($_SESSION['intentoSignup'])) {
+            echo "<div class='log' id='signup' style='display:block;'>";
+        } else {
+            echo "<div class='log' id='signup'>";
+        }
+        ?>
         <span onclick="document.getElementById('signup').style.display = 'none'" class="close" title="Close">&times;</span>
         <form action="../../vistas/base/signup.php" method="post" class="formulario" onsubmit="return valida()">
 
             <!--Errores-->
-    <?php
-    if (isset($_SESSION['intentoSignup'])) {
-        foreach ($_SESSION['errores'] as $e) {
-            echo "<span style='color:red;'>$e</span><br/>";
-        }
-        echo '<br/>';
-    }
-    ?>
+            <?php
+            if (isset($_SESSION['intentoSignup'])) {
+                echo '<div class="ui negative message">';
+                echo '<div class="header">Errores en el formulario</div><ul class="list">';
+
+                foreach ($_SESSION['$errores'] as $e) {
+                    echo "<li'>$e</li>";
+                }
+                echo '</ul></div>';
+            }
+            ?>
             Email: <br/>
             <input type="email" name="correo" class="textbox" placeholder="example: tucorreo@gmail.com" required>
             <br/>
@@ -96,7 +103,7 @@ if (!isset($_SESSION)) {
 
 
         <script src="../../recursos/js/header.js"></script>
-<?php } ?>
+    <?php } ?>
 </div>
 </nav>
 

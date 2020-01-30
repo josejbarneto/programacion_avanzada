@@ -116,11 +116,15 @@ if (isset($_SESSION['usuario'])) {
                 <div class="ui twelve wide column">
                     <div class="ui clearing segment">
                         <?php
-                        if (isset($errores)) {
-                            foreach ($errores as $e) {
-                                echo "<span style='color:red;'>$e</span><br/>";
+                        if (!empty($errores)) {
+                                echo '<div class="ui negative message">';
+                                echo '<div class="header">Errores en el formulario</div><ul class="list">';
+
+                                foreach ($errores as $e) {
+                                    echo "<li'>$e</li>";
+                                }
+                                echo '</ul></div>';
                             }
-                        }
                         ?>
                         <h2 class="ui block header">
                             <i class="user alternate icon"></i>

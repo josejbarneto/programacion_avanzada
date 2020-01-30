@@ -10,12 +10,7 @@ $randomImage = $images[array_rand($images)];
         <?php if (isset($_SESSION['usuario'])) { ?>
             <div class="item">
                 <div class="content">
-                    <a class="header">MIS POST</a>
-                </div>
-            </div>
-            <div class="item">
-                <div class="content">
-                    <a class="header">MIS CATEGORIAS</a>
+                    <a href="../../vistas/post/listado.php?id_usuario=<?php echo $_SESSION['usuario']['id'] ?>" class="header">MIS POST</a>
                 </div>
             </div>
             <a class="centered item" href="../../vistas/galeria/listado.php">

@@ -7,17 +7,34 @@
 
 include_once '../../entidades/categoria.php';
 $errores = [];
+
+//si se esta editando, se inicializa la variable categoria que contiene la informacion a ser mostrada
+$idCategoria = filter_input(INPUT_GET, 'categoria', FILTER_SANITIZE_NUMBER_INT);
+if(!empty($idCategoria)){
+    $categoria = getCategoria($idCategoria);
+}
+
+//al crear
 if (isset($_POST['crear'])) {
     $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
     $desc = filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_STRING);
 
-    if (count($nombre) < 3) {
+    if (strlen($nombre) < 3) {
         $errores[] = 'Minimo 3 caracteres para el titulo';
-    }if (count($desc) < 3) {
+    }if (strlen($desc) < 3) {
         $errores[] = 'Minimo 3 caracteres para la descripcion';
     }
 
-    crearCategoria($nombre, $desc);
+    if (empty($errores)) {
+        crearCategoria($nombre, $desc);
+    }
+}
+
+//eliminar
+if (isset($_POST['eliminar'])){
+    $idCategoria = filter_input(INPUT_POST, 'categoria_id', FILTER_SANITIZE_NUMBER_INT);
+    borrarCategoria($idCategoria);
+    header('location:../../vistas/administracion/listado.php');
 }
 ?>
 <!DOCTYPE html>
@@ -46,20 +63,20 @@ if (isset($_POST['crear'])) {
                         <h2 class="ui block header">
                             <i class="tag icon"></i>
                             <div class="content">
-                                <?php echo (!isset($post) ? "Nueva Kategoria" : "Editar Kategoria"); ?>
+                                <?php echo (!isset($categoria) ? "Nueva Kategoria" : "Editar Kategoria"); echo $idCategoria ?>
                             </div>
                         </h2>
-                        <form class="ui form">
+                        <form class="ui form" method="post">
                             <div class="field">
                                 <label>Titulo</label>
                                 <input type="text" name="nombre" placeholder="Nombre de la categoría" autocomplete="off" value="<?php echo (isset($categoria) ? $categoria['nombre'] : ""); ?>">
                             </div>
                             <div class="field">
                                 <label>Descripción</label>
-                                <input type="text" name="desc" placeholder="Nombre de la categoría" autocomplete="off" value="<?php echo (isset($categoria) ? $categoria['desc'] : ""); ?>">
+                                <input type="text" name="desc" placeholder="Nombre de la categoría" autocomplete="off" value="<?php echo (isset($categoria) ? $categoria['descripcion'] : ""); ?>">
                             </div>
                             <?php
-                            if (count($errores) > 0) {
+                            if (!empty($errores)) {
                                 echo '<div class="ui negative message">';
                                 echo '<div class="header">Errores en el formulario</div><ul class="list">';
 
@@ -71,8 +88,9 @@ if (isset($_POST['crear'])) {
                             ?>
                             <?php if (isset($categoria)) { ?>
                                 <button name='eliminar' class="ui button negative" type="submit" >Eliminar</button>
+                                <input type="hidden" name="categoria_id" value="<?php echo $categoria['id'] ?>">
                             <?php } ?>
-                            <button name="<?php echo isset($post) ? 'edit' : 'crear' ?>" class="ui right floated positive button" type="submit">Guardar</button>
+                            <button name="<?php echo isset($categoria) ? 'edit' : 'crear' ?>" class="ui right floated positive button" type="submit">Guardar</button>
                         </form>
                     </div>
                 </div>

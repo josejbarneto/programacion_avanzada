@@ -58,4 +58,15 @@ function getCategorias(){
     return $categorias;
 }
 
+function getCategoria($id){
+    $con = conectarBaseDatos();
+    $result = mysqli_query($con, "SELECT * FROM categoria WHERE id = $id;");
+    
+    $categoria = mysqli_fetch_array($result);
+    
+    mysqli_close($con);
+    return $categoria;
+
+}
+
 ?>

@@ -20,7 +20,11 @@ $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
 if (isset($_POST['comentar'])) {
     $idPost = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
     $comentario = filter_input(INPUT_POST, 'comentario', FILTER_SANITIZE_STRING);
-    crearComentario($comentario, $_SESSION['usuario']['id'], $idPost);
+    if (strlen($comentario) < 2) {
+        $errores[] = 'Error al comentar';
+    } else {
+        crearComentario($comentario, $_SESSION['usuario']['id'], $idPost);
+    }
 }
 
 //likes y dislike
@@ -91,6 +95,7 @@ $numReacciones = getReacciones($idPost);
                                         <?php echo $post["usuario"]; ?>
                                     </div>
                                 </div>
+
                                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['id'] == $post['idUsuario']) { ?>
                                     <a href="../../vistas/post/formulario.php?id_post=<?php echo $post["id"]; ?>">Editar</a>
                                 <?php } ?>
@@ -115,6 +120,7 @@ $numReacciones = getReacciones($idPost);
 
 
                         <div class="ui right aligned clearing segment">
+
                             <!--Solo se muestra span si no esta logueado un usuario-->
                             <?php if (isset($_SESSION['usuario'])) { ?>
                                 <!-- SEGUN EL NAME DEL SUBMIT LO GUARDAS COMO LIKE O COMO DISLIKE -->
@@ -125,7 +131,7 @@ $numReacciones = getReacciones($idPost);
                                     echo "style='color:green;'";
                                 }
                                 ?>>
-                                        <i class="thumbs up outline icon"></i>
+                                    <i class="thumbs up outline icon"></i>
                                     <span id="likes"><?php echo $numReacciones['likes'] ?></span>
                                 </button>
                                 <input type="hidden" value="<?php echo $post["id"] ?>" name="post_id">
@@ -151,6 +157,17 @@ $numReacciones = getReacciones($idPost);
                         </div>
                     </div>
 
+                    <?php
+                    if (!empty($errores)) {
+                        echo '<div class="ui negative message">';
+                        echo '<div class="header">Errores en el formulario</div><ul class="list">';
+
+                        foreach ($errores as $e) {
+                            echo "<li'>$e</li>";
+                        }
+                        echo '</ul></div>';
+                    }
+                    ?>
                     <?php if (isset($_SESSION['usuario'])) { ?>
                         <div class="ui hidden divider"></div>
                         <div class="ui clearing top secondary attached segment">
@@ -173,11 +190,8 @@ $numReacciones = getReacciones($idPost);
                                 foreach ($comentarios as $c) {
                                     ?>
                                     <div class="comment">
-                                        <a class="avatar">
-                                            <img src="/images/avatar/small/joe.jpg">
-                                        </a>
                                         <div class="content">
-                                            <a class="author"><?php echo $c['nombreUsuario'] ?></a>
+                                            <a href='../../vistas/post/listado.php?id_usuario=<?php echo $c['idUsuario'] ?>' class="author"><?php echo $c['nombreUsuario'] ?></a>
                                             <div class="metadata">
                                                 <span class="date"><?php echo $c['fechaCreacion'] ?></span>
                                             </div>

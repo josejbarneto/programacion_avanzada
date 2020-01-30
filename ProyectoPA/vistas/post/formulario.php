@@ -60,13 +60,7 @@ if (isset($_POST['submit'])) {
                 crearGaleria($_SESSION['usuario']['id'], $id_post, $url, $tipo, 1);  //1 porque es url
             }
             header('Location: ../../vistas/base/principal.php');
-        }
-        
-        
-        
-        
-        
-        
+        }     
     }
 }
 
@@ -149,11 +143,14 @@ if (isset($_POST['eliminar'])) {
                             <?php
                             //AQUI DENTRO DEL HTML LO QUE HACEMOS SERA RECORRER LAS VARIABLES QUE RECOJAMOS ARRIBA
                             if (!empty($errores)) {
-                                foreach ($errores as $e) {
-                                    echo "<span style='color:red;'>$e</span>";
-                                }
-                            }
+                                echo '<div class="ui negative message">';
+                                echo '<div class="header">Errores en el formulario</div><ul class="list">';
 
+                                foreach ($errores as $e) {
+                                    echo "<li'>$e</li>";
+                                }
+                                echo '</ul></div>';
+                            }
                             ?>
                             <div class="field">
                                 <label>Titulo</label>
