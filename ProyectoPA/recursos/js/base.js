@@ -23,11 +23,15 @@ $(document).ready(function () {
         $("html, body").animate({scrollTop: 0}, 875);
     });
 
-    var openNewTab = false; //ESTA VARIABLE HABRA QUE COGERLA EN EL PHP
     if (openNewTab) { //PREFERENCIA DE ABRIR EN NUEVA PESTAÑA LOS ENLACES POR DEFECTO O NO.
         $('body').on('click', 'a', function () {
             window.open($(this).attr('href'));
             return false;
         });
+    }
+
+    const darkmodeJS = new Darkmode({saveInCookies: false});
+    if (darkmode && !darkmodeJS.isActivated()) {
+        darkmodeJS.toggle();
     }
 });

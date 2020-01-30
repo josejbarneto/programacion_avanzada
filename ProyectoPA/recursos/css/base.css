@@ -46,3 +46,9 @@ footer.footer.segment{
 .siema img{
     max-width: 60vh;
 }
+
+.editarMyPost{
+    float: right;
+    margin-top: -50px;
+    font-size: 16px;
+}

@@ -132,7 +132,7 @@ if (isset($_SESSION['usuario'])) {
                                 Perfil de Usuario
                             </div>
                         </h2>
-                        <form class="ui form" method="post" action="">
+                        <form class="ui form" method="post">
                             <div class="three fields">
                                 <div class="field">
                                     <label>Nombre</label>
@@ -188,21 +188,22 @@ if (isset($_SESSION['usuario'])) {
                                 </div>
                             </div>
                             <div class="three inline fields">
-                                <div class="field">
-                                    <div class="ui toggle checkbox <?php echo $usuario["nocturno"] ? "checked" : ""; ?>">
+                                <div class="four wide field">
+                                    <div class="ui toggle checkbox <?php echo $preferencias["modo_nocturno"] ? "checked" : ""; ?>">
                                         <input id='nocturno' name='nocturno' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["modo_nocturno"] ? "checked" : ""; ?>>
                                         <label>Modo nocturno</label>
                                     </div>
                                 </div>
-                                <div class="field">
-                                    <div class="ui toggle checkbox <?php echo $usuario["lenguaje"] ? "checked" : ""; ?>">
+                                <div class="eight wide field">
+                                    <div class="ui toggle disabled checkbox <?php echo $preferencias["lenguaje_obsceno"] ? "checked" : ""; ?>">
                                         <input name='lenguaje' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["lenguaje_obsceno"] ? "checked" : ""; ?>>
                                         <label>Ocultar lenguaje malsonante</label>
                                     </div>
+                                    <label data-tooltip="No disponible actualmente" class="ui basic red label">Beta</label>
                                 </div>
-                                <div class="field">
-                                    <div class="ui toggle checkbox <?php echo $usuario["newtab"] ? "checked" : ""; ?>">
-                                        <input tname='newTab' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>>
+                                <div class="seven wide field">
+                                    <div class="ui toggle checkbox <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>">
+                                        <input name='newTab' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>>
                                         <label>Abrir posts en nueva pestaña</label>
                                     </div>
                                 </div>

@@ -28,3 +28,8 @@
         <p>Barneto del R&iacute;o, Jose Joaquín | Menacho de Gongora, Eugenio | Pumar Jimenez, Carlos</p>
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.4/lib/darkmode-js.min.js"></script>
+<script>
+    var openNewTab = <?php echo (isset($_SESSION) && isset($_SESSION['preferencias'])) ? $_SESSION['preferencias']['open_post_new_tab'] : 0 ?>;
+    var darkmode = <?php echo (isset($_SESSION) && isset($_SESSION['preferencias'])) ? $_SESSION['preferencias']['modo_nocturno'] : 0 ?>;
+</script>

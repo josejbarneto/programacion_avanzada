@@ -97,7 +97,7 @@ $numReacciones = getReacciones($idPost);
                                 </div>
 
                                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['id'] == $post['idUsuario']) { ?>
-                                    <a href="../../vistas/post/formulario.php?id_post=<?php echo $post["id"]; ?>">Editar</a>
+                                    <a class="editarMyPost" href="../../vistas/post/formulario.php?id_post=<?php echo $post["id"]; ?>"><i class="edit icon"></i>Editar</a>
                                 <?php } ?>
                             </h2>
                             <?php if ($post["imagen"] != "") { ?>
@@ -198,6 +198,13 @@ $numReacciones = getReacciones($idPost);
                                             <div class="text">
                                                 <?php echo $c['texto'] ?>
                                             </div>
+                                            <?php if ($c['idUsuario'] == $_SESSION['usuario']['id']) { ?>
+                                                <div class="actions">
+                                                    <form method="post">
+                                                        <input class="delete" type="submit" value="Eliminar">
+                                                    </form>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <?php
