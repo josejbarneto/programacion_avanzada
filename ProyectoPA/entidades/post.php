@@ -39,9 +39,11 @@ function borrarPost($idPost) {
     mysqli_close($conn);
 }
 
-function listarPostsPorCategoria($categoria) {
+function listarPostsPorCategoria($categoria, $orden) {
     $conn = conectarBaseDatos();
 
+    if($orden==1)
+    
     $consulta = "select * from post where id_categoria = $categoria order by fecha_creacion DESC;";
     $resultado = mysqli_query($conn, $consulta) or die("Algo ha ido mal en la consulta a la base de datos");
 
@@ -63,7 +65,7 @@ function listarPostsPorCategoria($categoria) {
     }
 }
 
-function listarPostsPorUsuario($usuario) {
+function listarPostsPorUsuario($usuario, $orden) {
     $conn = conectarBaseDatos();
 
     $consulta = "select * from post where id_usuario = $usuario order by fecha_creacion DESC;";
@@ -136,4 +138,14 @@ function getAllPost() {
         return false;
     }
 }
+
+//listar por ordenaciones
+function listarPostsOrden($orden) {
+    if($orden == 1){
+        return 'fecha_creacion';
+    }else if($orden == 2){
+        return 'count(reaccion)';
+    }
+}
+
 ?>

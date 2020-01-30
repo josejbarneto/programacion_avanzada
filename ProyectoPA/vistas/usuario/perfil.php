@@ -202,7 +202,7 @@ if (isset($_SESSION['usuario'])) {
                                 </div>
                                 <div class="field">
                                     <div class="ui toggle checkbox <?php echo $usuario["newtab"] ? "checked" : ""; ?>">
-                                        <input tname='newTab' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>>
+                                        <input name='newTab' type="checkbox" tabindex="0" class="hidden" <?php echo $preferencias["open_post_new_tab"] ? "checked" : ""; ?>>
                                         <label>Abrir posts en nueva pestaña</label>
                                     </div>
                                 </div>
