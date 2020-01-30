@@ -4,6 +4,7 @@
   $usuario = getUsuario(); // O esto quiza lo hagamos con cookies
   $posts = getTodosLosPost();
  */
+session_start();
 
 include_once '../../entidades/categoria.php';
 $errores = [];

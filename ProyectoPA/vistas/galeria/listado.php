@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $imagesDir = '../../uploads/';
 //Cojo todas las ficheros con esa extension de la carpeta uploads
 //glob — Buscar coincidencias de nombres de ruta con un patron

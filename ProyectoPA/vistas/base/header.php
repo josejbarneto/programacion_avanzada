@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <?php ?>
 <nav class="ui fixed menu">
     <a href="../../vistas/base/principal.php" class="item">

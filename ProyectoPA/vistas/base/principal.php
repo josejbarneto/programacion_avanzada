@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 /* AQUI LLAMAMOS A LAS FUNCIONES QUE RELLENEN LAS VARIABLES */
 include_once '../../entidades/categoria.php';
 $categorias = getCategorias();
@@ -35,7 +37,7 @@ $categorias = getCategorias();
                             if (isset($_SESSION['preferencias'])) {
                                 $posts = listarPostsPorCategoria($_SESSION['preferencias']['id_categoria_inicial'], $_SESSION['preferencias']['orden']);
                             } else {
-                                $posts = listarPostsPorCategoria(1,1);
+                                $posts = listarPostsPorCategoria(1, 1);
                             }
 
                             if (!empty($posts)) {
