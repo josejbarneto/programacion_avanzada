@@ -51,9 +51,9 @@ if (!isset($_SESSION)) {
                 ?>
 
                 Username:<br/>
-                <input type="text" name='lusuario' class="textbox" placeholder="example: tuusuario1">
+                <input type="text" name='lusuario' id="lusuario" class="textbox" placeholder="example: tuusuario1">
                 <br/>Password:<br/>
-                <input type="password"name='lpass' class="textbox">
+                <input type="password"name='lpass' id="lpass" class="textbox">
                 <br/>
                 <input type="submit" name='login' value="LOG IN">
                 <br/>
